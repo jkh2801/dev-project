@@ -61,10 +61,12 @@ header ul li ul {
 	transition: 0.5s;
 	opacity: 0;
 	visibility: hidden;
+	z-index: 10000;
 }
 
 header ul li #final {
 	left: -114px;
+	z-index: 10000;
 }
 
 header ul li:hover ul {
@@ -97,9 +99,13 @@ header nav ul li ul li a {
 }
 
 .nav-menu {
-	margin: 0 200px 0 100px;
+	margin: 0 350px 0 100px;
 }
 
 .nav-menu .menu-li {
-	margin: 0 50px;
+	margin: 0 100px;
+}
+.main {
+	position: relative;
+	top: 50px;
 }
