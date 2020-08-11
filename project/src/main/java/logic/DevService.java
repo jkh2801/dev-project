@@ -2,6 +2,9 @@ package logic;
 
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.BoardDao;
 import dao.UserDao;
 import dao.fileDao;
 
@@ -21,6 +25,11 @@ public class DevService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired 
+	private BoardDao boardDao;
+	
+	private Map<String,Object> map = new HashMap<>();
 	
 	public void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
 		String orgFile = picture.getOriginalFilename();
@@ -63,5 +72,47 @@ public class DevService {
 
 	public int getmaxuno() {
 		return userDao.getmaxuno();
+	}
+	
+	public int boardCount(String searchtype, String searchcontent) {
+		map.clear();
+		if(searchtype != null) {
+			String[] cols = searchtype.split(",");
+			map.put("col1", cols[0]);
+			if(cols.length > 1) {
+				map.put("col2", cols[1]);
+			}
+			if(cols.length > 2) {
+				map.put("col3", cols[2]);
+			}
+		}
+		map.put("searchcontent", searchcontent);
+		return boardDao.count(searchtype,searchcontent);
+	}
+
+	public List<Board> boardlist(Integer pageNum, int limit, String searchtype, String searchcontent) {
+		return boardDao.list(pageNum,limit,searchtype,searchcontent);
+	}
+	
+	public void boardWrite(Board board, HttpServletRequest request) {
+
+		int max = boardDao.maxnum();
+		board.setBno(++max);
+		boardDao.insert(board); 
+	}
+	
+	public Board selectOne(int no,int bno) {
+		return boardDao.detail(no,bno);
+	}
+	
+	public Board getBoard(Integer no, Integer bno, boolean able) {
+//		if(able) {
+//			boardDao.readcnt(no,bno);
+//		}
+		return boardDao.detail(no,bno);
+	}
+	
+	public void boardDelete(Board board) {
+		boardDao.delete(board);
 	}
 }

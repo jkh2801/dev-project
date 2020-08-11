@@ -106,9 +106,13 @@
 </head>
 <body>
 <header>
-		<div class="logo">Logo</div>
+		<div class="logo"><a href="${path}/main/home.dev">Logo</a></div>
 		<nav>
 			<ul>
+				<c:if test="${loginUser == null}">
+				<li><a href="${path}/user/login.dev"><i class="fa fa-sign-in"></i></a></li>
+			</c:if>
+			<c:if test="${loginUser != null}">
 				<li><a href="#"><i class="fa fa-envelope"></i></a></li>
 				<li><a href="#"><i class="fa fa-bell"></i></a></li>
 				<li class="sub-menu"><a href="#"><i class="fa fa-user-circle"></i></a>
@@ -120,6 +124,7 @@
 						<li><a href="#">로그아웃</a></li>
 					</ul>
 				</li>
+			</c:if>
 			</ul>
 		</nav>
 		<nav>
@@ -127,12 +132,12 @@
 				<li class="menu-li"><a href="#">TIL</a></li>
 				<li class="sub-menu menu-li"><a href="#">Community</a>
 					<ul>
-						<li><a href="#">Q&A게시판</a></li>
+						<li><a href="${path}/board/list.dev">Q&A게시판</a></li>
 						<li><a href="#">자유게시판</a></li>
 					</ul></li>
 				<li class="sub-menu menu-li"><a href="#">Co-Working</a>
 					<ul>
-						<li><a href="#">Study/Project</a></li>
+						<li><a href="${path}/coworking/main.dev">Study/Project</a></li>
 						<li><a href="${path}/group/main.dev">My Group</a></li>
 					</ul>
 				</li>
