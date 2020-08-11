@@ -27,7 +27,7 @@ CREATE TABLE Board
 (
 	no int(11) NOT NULL,
 	bno int(11) NOT NULL,
-	name varchar(20) NOT NULL,
+	name varchar(20),
 	title varchar(100),
 	content varchar(4000),
 	regdate datetime,
@@ -40,7 +40,7 @@ CREATE TABLE calendar
 (
 	gno int(11) NOT NULL,
 	cno int(11) NOT NULL,
-	subject varchar(100),
+	subject varchar(100) NOT NULL,
 	content varchar(4000),
 	start datetime,
 	end datetime,
@@ -52,6 +52,8 @@ CREATE TABLE calendar
 
 CREATE TABLE File
 (
+	-- 
+	-- 
 	no int(11) NOT NULL,
 	wno int(11) NOT NULL,
 	fno int NOT NULL,
@@ -114,7 +116,7 @@ CREATE TABLE Reply
 (
 	no int(11) NOT NULL,
 	rno int(11) NOT NULL,
-	bno int(11) NOT NULL,
+	bno int(11),
 	name varchar(20),
 	content varchar(4000),
 	regdate datetime,
@@ -167,6 +169,7 @@ CREATE TABLE Tag
 CREATE TABLE User
 (
 	name varchar(20) NOT NULL,
+	uno int(11),
 	id varchar(10),
 	pw varchar(15),
 	email varchar(50),
@@ -199,7 +202,7 @@ CREATE TABLE User_group
 CREATE TABLE Working
 (
 	gno int(11) NOT NULL,
-	name varchar(20) NOT NULL,
+	name varchar(20),
 	title varchar(100),
 	category varchar(20),
 	content varchar(4000),
@@ -266,7 +269,7 @@ ALTER TABLE Setting
 
 
 ALTER TABLE Subscribe
-	ADD FOREIGN KEY (scrapper)
+	ADD FOREIGN KEY (scrapped)
 	REFERENCES User (name)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -274,7 +277,7 @@ ALTER TABLE Subscribe
 
 
 ALTER TABLE Subscribe
-	ADD FOREIGN KEY (scrapped)
+	ADD FOREIGN KEY (scrapper)
 	REFERENCES User (name)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
