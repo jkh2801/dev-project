@@ -14,7 +14,7 @@ import dao.fileDao;
 
 
 @Service
-public class SNSService {
+public class DevService {
 
 	@Autowired
 	private fileDao filedao;

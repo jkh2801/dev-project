@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
-import logic.SNSService;
+import logic.DevService;
 import logic.User;
 
 @Controller
 @RequestMapping("user")
 public class UserController {
 	@Autowired
-	private SNSService service;
+	private DevService service;
 	
 	@GetMapping("*")
 	public String form(Model model) {

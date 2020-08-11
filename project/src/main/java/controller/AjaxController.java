@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import logic.SNSFile;
-import logic.SNSService;
+import logic.DevService;
 
 
 
@@ -22,7 +22,7 @@ import logic.SNSService;
 public class AjaxController {
 	
 	@Autowired
-	private SNSService service;
+	private DevService service;
 	
 
 	@RequestMapping(value = "fileupload", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
