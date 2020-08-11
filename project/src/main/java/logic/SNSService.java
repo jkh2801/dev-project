@@ -60,4 +60,8 @@ public class SNSService {
 	public void delete(String id) {
 		userDao.delete(id);
 	}
+
+	public int getmaxuno() {
+		return userDao.getmaxuno();
+	}
 }

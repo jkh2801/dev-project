@@ -7,7 +7,6 @@
 		<pattern>*.dev</pattern>
 	</decorator>
 	<excludes>
-	<pattern>/user/login*</pattern>
 	<pattern>/board/imgupload*</pattern>
 	<pattern>/admin/graph*</pattern>
 	<pattern>/ajax/*</pattern>

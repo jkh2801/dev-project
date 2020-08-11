@@ -34,14 +34,14 @@ public class UserController {
 	public ModelAndView login(@Valid User user, BindingResult bresult,
 			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		if(bresult.hasErrors()) {
-			bresult.reject("error.input.user");
-			return mav;
-		}
+//		if(bresult.hasErrors()) {
+//			bresult.reject("error.input.user");
+//			return mav;
+//		}
 		try {
 			User dbUser = service.getUser(user.getId());
 			// 1. db정보의 id,password 비교
-			if (user.getPassword().equals(dbUser.getPassword())) {
+			if (user.getPw().equals(dbUser.getPw())) {
 				// 2. 일치: session loginUser 정보 저장
 				session.setAttribute("loginUser", dbUser);
 				mav.setViewName("redirect:main.dev");
@@ -62,11 +62,13 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		if (bresult.hasErrors()) {
 			bresult.reject("error.input.user");
-			bresult.reject("error.duplicate.user");
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
 		try {
+			int uno = service.getmaxuno() +1;
+			user.setUno(uno);
+			user.setAuth("일반회원");
 			service.userInsert(user);
 			mav.setViewName("redirect:login.dev");
 		} catch (DataIntegrityViolationException e) {
@@ -106,7 +108,7 @@ public class UserController {
 	public ModelAndView delete(String id, String password, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");
-		if(!password.equals(loginUser.getPassword())) {
+		if(!password.equals(loginUser.getPw())) {
 			throw new LoginException
 			("비밀번호 오류", "delete.dev?id=" + id);
 		}

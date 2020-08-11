@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 	private int uno;
@@ -13,19 +14,15 @@ public class User {
 	@Size(min=4, max=10, message="4자 이상 10자 이하입니다.")
 	private String id;
 	@Size(min=4, message="4자 이상입니다.")
-	private String password;
-	private String introduction;
+	private String pw;
 	@Email(message="Email 형식으로 입력하세요.")
+	@NotEmpty(message="Email은 필수 입력사항입니다.")
 	private String email;
+	@NotEmpty(message="연락처는 필수 입력사항입니다.")
+	private String phone;
 	private Date regdate;
+	private String auth;
 	
-	
-	public String getIntroduction() {
-		return introduction;
-	}
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
 	public int getUno() {
 		return uno;
 	}
@@ -44,17 +41,23 @@ public class User {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public Date getRegdate() {
 		return regdate;
@@ -62,12 +65,15 @@ public class User {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
 	@Override
 	public String toString() {
-		return "User [uno=" + uno + ", name=" + name + ", id=" + id + ", password=" + password + ", introduction="
-				+ introduction + ", email=" + email + ", regdate=" + regdate + "]";
+		return "User [uno=" + uno + ", name=" + name + ", id=" + id + ", pw=" + pw + ", email=" + email + ", phone="
+				+ phone + ", regdate=" + regdate + ", auth=" + auth + "]";
 	}
-	
-
-	
 }

@@ -19,9 +19,7 @@ public interface UserMapper {
 		"</script>"})
 	List<User> select(Map<String, Object> param);
 
-	@Insert("insert into user "
-			+ "(name, id, password, email, regdate) "
-			+ "values(#{name}, #{id}, #{password}, #{email}, now())")
+	@Insert("insert into user (uno, name, id, pw, email, phone, regdate, auth) values(#{uno}, #{name}, #{id}, #{pw}, #{email}, #{phone}, now(), #{auth})")
 	void insert(User user);
 
 	@Update("update user set name=#{name},introduction=#{introduction},"
@@ -30,6 +28,9 @@ public interface UserMapper {
 
 	@Delete("delete from user where id=#{id}")
 	void delete(Map<String, Object> param);
+
+	@Select("select ifnull(max(uno),0) uno from user")
+	int getmaxuno();
 
 	
 }

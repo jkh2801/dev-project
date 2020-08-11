@@ -35,4 +35,8 @@ public class UserDao {
 		param.put("id", id);
 		template.getMapper(UserMapper.class).delete(param);
 	}
+
+	public int getmaxuno() {
+		return template.getMapper(UserMapper.class).getmaxuno();
+	}
 }
