@@ -86,13 +86,14 @@ a {
 </head>
 <body>
 	<form:form modelAttribute="user" method="post" action="login.dev">
-	<div class="box">
-		<h1>로그인</h1>
-		<form>
+		<div class="box">
+			<h1>로그인</h1>
+			
 			<div class="inputBox">
 				<form:input path="id" required="required"/>			
 				<label>아이디를 입력하세요</label>
 			</div>
+			
 			<div class="inputBox">
 				<form:password path="pw" required="required"/>
 				<label>비밀번호를 입력하세요</label>
@@ -110,8 +111,7 @@ a {
 				<a href="${path}/user/findId.dev">아이디 찾기</a>&nbsp;|&nbsp;
 				<a href="${path}/user/findPw.dev">비밀번호 찾기</a>
 			</div>
-		</form>
-	</div>
+		</div>
 	</form:form>
 	<%--
 		<script type="text/javascript">

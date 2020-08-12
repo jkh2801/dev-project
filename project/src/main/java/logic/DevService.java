@@ -131,4 +131,8 @@ public class DevService {
 	public Coworking getdetails(Integer gno) {
 		return coworkingDao.getdetails(gno);
 	}
+	
+	public List<User> getUserList() {
+		return userDao.getUserList();
+	}
 }

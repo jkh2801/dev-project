@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -38,5 +39,9 @@ public class UserDao {
 
 	public int getmaxuno() {
 		return template.getMapper(UserMapper.class).getmaxuno();
+	}
+	
+	public List<User> getUserList() {
+		return template.getMapper(UserMapper.class).select(null);
 	}
 }

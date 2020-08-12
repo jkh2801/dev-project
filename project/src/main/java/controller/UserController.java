@@ -44,7 +44,7 @@ public class UserController {
 			if (user.getPw().equals(dbUser.getPw())) {
 				// 2. 일치: session loginUser 정보 저장
 				session.setAttribute("loginUser", dbUser);
-				mav.setViewName("redirect:/main/home.dev");
+				mav.setViewName("redirect:../main/home.dev");
 			} else {
 				// 3. 불일치: 비밀번호 확인 내용 출력
 				bresult.reject("error.login.password");
@@ -62,6 +62,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		if (bresult.hasErrors()) {
 			bresult.reject("error.input.user");
+			bresult.reject("error.duplicate.user");
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
@@ -76,7 +77,7 @@ public class UserController {
 		}
 		return mav;
 	}
-	@GetMapping(value = { "update", "delete" })
+	@GetMapping(value = { "mypage", "delete" })
 	public ModelAndView checkview(String id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.getUser(id);
@@ -87,14 +88,14 @@ public class UserController {
 	@PostMapping("update")
 	public ModelAndView update(@Valid User user, BindingResult bresult, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		if(bresult.hasErrors()) {
-			bresult.reject("error.input.user");
-			return mav;
-		}		
+//		if(bresult.hasErrors()) {
+//			bresult.reject("error.input.user");
+//			return mav;
+//		}		
 		User loginUser = (User)session.getAttribute("loginUser");
 		try {
 			service.update(user);
-			mav.setViewName("redirect:main.dev");
+			mav.setViewName("redirect:mypage.dev");
 			if(loginUser.getId().equals(user.getId())) {
 				session.setAttribute("loginUser", user);
 			}
@@ -105,10 +106,10 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("delete")
-	public ModelAndView delete(String id, String password, HttpSession session) {
+	public ModelAndView delete(String id, String pw, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");
-		if(!password.equals(loginUser.getPw())) {
+		if(!pw.equals(loginUser.getPw())) {
 			throw new LoginException
 			("비밀번호 오류", "delete.dev?id=" + id);
 		}

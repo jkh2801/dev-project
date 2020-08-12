@@ -9,7 +9,7 @@
 <style type="text/css">
 .container {
 	margin: 0;
-	padding: 30px 350px;
+	padding: 30px 30%;
 }
 .container .content {
 	margin: 0;
@@ -40,6 +40,24 @@
 	font-weight: bold;
 	font-size: 18px;
 }
+.container .content table #startdate,
+.container .content table #enddate {
+	width: 30%;
+}
+.container .content table #content {
+	width: calc(100% - 30px);
+	resize: none;
+}
+.container .content table tr:last-child input {
+	margin: 0 20px;
+	width: 5em;
+	padding: 5px;
+	background: #CCE1FF;
+	border: 1px solid #fff;
+	font-size: 15px;
+	font-weight: bold;
+	border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -68,10 +86,10 @@
 			<font color="red"><form:errors path="loc"/></font></td></tr>
 		<tr><td>모집인원</td><td><form:input path="maxnum"/>
 			<font color="red"><form:errors path="maxnum"/></font></td></tr>
-		<tr><td>모집마감일</td><td><form:input path="deadline"/>
+		<tr><td>모집마감일</td><td><form:input path="deadline" id="datepick"/>
 			<font color="red"><form:errors path="deadline"/></font></td></tr>
-		<tr><td>프로젝트일자</td><td><form:input path="startdate"/>
-			<font color="red"><form:errors path="startdate"/></font>
+		<tr><td>프로젝트일자</td><td><form:input path="startdate" />
+			<font color="red"><form:errors path="startdate" /></font>
 		&nbsp;~&nbsp;<form:input path="enddate"/>
 			<font color="red"><form:errors path="enddate"/></font></td></tr>
 		<tr><td>진행방식</td><td><form:input path="process"/>

@@ -22,8 +22,7 @@ public interface UserMapper {
 	@Insert("insert into user (uno, name, id, pw, email, phone, regdate, auth) values(#{uno}, #{name}, #{id}, #{pw}, #{email}, #{phone}, now(), #{auth})")
 	void insert(User user);
 
-	@Update("update user set name=#{name},introduction=#{introduction},"
-			+ "email=#{email} where id=#{id}")
+	@Update("update user set name=#{name},email=#{email},phone=#{phone} where id=#{id}")
 	void update(User user);
 
 	@Delete("delete from user where id=#{id}")
@@ -31,6 +30,4 @@ public interface UserMapper {
 
 	@Select("select ifnull(max(uno),0) uno from user")
 	int getmaxuno();
-
-	
 }

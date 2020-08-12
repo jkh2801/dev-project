@@ -12,9 +12,9 @@
 	<tr><td>아이디</td><td>${user.id}</td></tr>
 	<tr><td>이름</td><td>${user.name}</td></tr>
 </table>
-<form action="delete.sns" method="post" name="deleteform">
+<form action="delete.dev" method="post" name="deleteform">
 	<input type="hidden" name="id" value="${param.id}">
-	비밀번호<input type="password" name="password">
+	비밀번호<input type="password" name="pw">
 	<input type="submit" value="회원탈퇴">
 </form>
 </body>

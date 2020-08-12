@@ -142,6 +142,17 @@
 	text-decoration: none;
 	color: #000;
 }
+.container .searchArea .plus {
+	float: right;
+	padding: 40px 50px 0;
+}
+.container .searchArea .plus .box {
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+	border: 2px solid lightblue;
+	background: #CCE1FF;
+	border-radius: 5px;
+	padding: 3px 5px;
+}
 </style>
 </head>
 <body>
@@ -155,6 +166,7 @@
 	</div>
 	<div></div>
 	<div></div>
+	<div class="plus"><div class="box"><a href="register.dev">등록</a></div></div>
 	</div>
 	<div class="content">
 	<div class="container-fluid">

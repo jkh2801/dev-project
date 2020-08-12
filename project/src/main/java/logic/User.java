@@ -9,16 +9,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 	private int uno;
-	@Size(min=2, max=10, message="2자 이상 10자 이하입니다.")
+	@Size(min=2, max=10, message="2자 이상 10자 이하 입력하세요")
 	private String name;
-	@Size(min=4, max=10, message="4자 이상 10자 이하입니다.")
+	@Size(min=4, max=10, message="4자 이상 10자 이하 입력하세요")
 	private String id;
-	@Size(min=4, message="4자 이상입니다.")
+	@Size(min=4, message="비밀번호는 4자 이상 입력하세요")
 	private String pw;
-	@Email(message="Email 형식으로 입력하세요.")
-	@NotEmpty(message="Email은 필수 입력사항입니다.")
+	@Email(message="Email 형식으로 입력하세요")
+	@NotEmpty(message="Email은 필수 입력사항입니다")
 	private String email;
-	@NotEmpty(message="연락처는 필수 입력사항입니다.")
+	@NotEmpty(message="연락처는 필수 입력사항입니다")
 	private String phone;
 	private Date regdate;
 	private String auth;
