@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
+import dao.CoworkingDao;
 import dao.UserDao;
 import dao.fileDao;
 
@@ -28,6 +29,9 @@ public class DevService {
 	
 	@Autowired 
 	private BoardDao boardDao;
+	
+	@Autowired
+	private CoworkingDao coworkingDao;
 	
 	private Map<String,Object> map = new HashMap<>();
 	
@@ -114,5 +118,17 @@ public class DevService {
 	
 	public void boardDelete(Board board) {
 		boardDao.delete(board);
+	}
+	
+	public int getmaxcono() {
+		return coworkingDao.getmaxno();
+	}
+
+	public void coworkingInsert(Coworking coworking) {
+		coworkingDao.insert(coworking);
+	}
+
+	public Coworking getdetails(Integer gno) {
+		return coworkingDao.getdetails(gno);
 	}
 }

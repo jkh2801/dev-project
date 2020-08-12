@@ -44,7 +44,7 @@ public class UserController {
 			if (user.getPw().equals(dbUser.getPw())) {
 				// 2. 일치: session loginUser 정보 저장
 				session.setAttribute("loginUser", dbUser);
-				mav.setViewName("redirect:main.dev");
+				mav.setViewName("redirect:/main/home.dev");
 			} else {
 				// 3. 불일치: 비밀번호 확인 내용 출력
 				bresult.reject("error.login.password");

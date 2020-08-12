@@ -5,12 +5,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Member List</title>
+<style type="text/css">
+.boardinfo {
+	border: 1px solid #86A5FF;
+	border-radius: 10px;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	width: 1000px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	margin-bottom: 50px;
+	font-weight: 700;
+}
+.boardinfo .header {
+	background: mediumslateblue;
+	color: #fff;
+	font-size: 1.5em;
+	padding: 1rem;
+	text-transform: uppercase;
+}
+.boardinfo table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.boardinfo table tr:nth-child(2n+1) {
+	background: #fff;
+}
+.boardinfo table tr:nth-child(2n) {
+	background: #fff;
+}
+.boardinfo table th,
+.boardinfo table td {
+	color: #8572EE;
+	padding: 10px;
+}
+.boardinfo table th {
+	background: #CCE1FF;
+	font-weight: 300;
+}
+.boardinfo table td {
+	text-align: center;
+	vertical-align: middle;
+	border-top: 1px solid #86A5FF;
+}
+</style>
 </head>
 <body>
 <h2>강남 스터디</h2>
-<div class="board">
+<div class="boardinfo">
+	<div class="header">신청관리</div>
 	<table>
-		<caption>신청관리</caption>
 		<tr>
 			<th>No</th>
 			<th>Name</th>
@@ -42,9 +86,9 @@
 		</tr>
 	</table>
 </div>
-<div class="board">
+<div class="boardinfo">
+	<div class="header">팀원관리</div>
 	<table>
-		<caption>팀원관리</caption>
 		<tr>
 			<th>No</th>
 			<th>Name</th>
