@@ -78,7 +78,7 @@ public class DevService {
 		return userDao.getmaxuno();
 	}
 	
-	public int boardCount(String searchtype, String searchcontent) {
+	public int boardCount(int no, String searchtype, String searchcontent) {
 		map.clear();
 		if(searchtype != null) {
 			String[] cols = searchtype.split(",");
@@ -91,16 +91,16 @@ public class DevService {
 			}
 		}
 		map.put("searchcontent", searchcontent);
-		return boardDao.count(searchtype,searchcontent);
+		return boardDao.count(no,searchtype,searchcontent);
 	}
 
-	public List<Board> boardlist(Integer pageNum, int limit, String searchtype, String searchcontent) {
-		return boardDao.list(pageNum,limit,searchtype,searchcontent);
+	public List<Board> boardlist(int no,Integer pageNum, int limit, String searchtype, String searchcontent) {
+		return boardDao.list(no,pageNum,limit,searchtype,searchcontent);
 	}
 	
 	public void boardWrite(Board board, HttpServletRequest request) {
 
-		int max = boardDao.maxnum();
+		int max = boardDao.maxnum(board.getNo());
 		board.setBno(++max);
 		boardDao.insert(board); 
 	}

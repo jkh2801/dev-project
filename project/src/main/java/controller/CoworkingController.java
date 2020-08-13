@@ -29,6 +29,12 @@ public class CoworkingController {
 		return mav;
 	}
 	
+	@GetMapping("main")
+	public ModelAndView main() {
+		
+		return null;
+	}
+	
 	@GetMapping("register")
 	public String form(Model model) {
 		model.addAttribute(new Coworking());

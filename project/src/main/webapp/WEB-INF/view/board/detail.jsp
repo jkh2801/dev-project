@@ -8,7 +8,7 @@
 #customers {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 70%;
+  width: 60%;
   margin: auto;
   
 }
@@ -38,25 +38,37 @@
 		height: 250px;	border-width: 0px;
 		text-align: left;	vertical-align: top;	padding: 0px;
 	}
+	input[type=text]:focus {
+  border: 3px solid #555;
+}
 </style>
 </head>
 <body>
 <br><br><br><br><br>
-<table id="customers"><tr><td colspan="2">QnA 게시판</td></tr>
-	<tr><td width="15%">글쓴이</td>
+<table id="customers"><tr><td colspan="2" align="center">QnA 게시판</td></tr>
+	<tr><td width="15%" align="center">글쓴이</td>
 		<td width="85%" class="leftcol">${board.name}</td></tr>
-	<tr><td>제목</td><td class="leftcol">${board.title}</td></tr>
-	<tr><td>내용</td><td class="leftcol">
+	<tr><td align="center">제목</td><td class="leftcol">${board.title}</td></tr>
+	<tr><td align="center">내용</td><td class="leftcol">
 		<table class="lefttoptable">
 		<tr><td class="leftcol lefttoptable">${board.content}</td></tr>
 		</table></td></tr>
 
 	<tr><td colspan="2">
-		<a href="reply.shop?num=${board.no}">[답변]</a>
+		
 		<a href="update.shop?num=${board.no}">[수정]</a>
-		<a href="delete.shop?num=${board.no}">[삭제]</a>
-		<a href="list.shop">[게시물목록]</a>
+		<a href="delete.dev?no=${board.no}&&bno=${board.bno}">[삭제]</a>
+		<a href="list.dev?no=${no }">[게시물목록]</a>
 	</td></tr>
 </table>
+<br><br>
+<form action="reply.dev">
+<table id ="customers">
+
+<tr><td colspan="3" align="center"> 댓글란</td></tr>
+<tr><td width="8%">글쓴이</td><td colspan="2">내용</td></tr>
+<tr><td width="8%"><input type="text" name="name" id="name"></td><td>내용</td><td width="10%"><input type="submit" value="등록"></td></tr>
+</table>
+</form>
 </body>
 </html>

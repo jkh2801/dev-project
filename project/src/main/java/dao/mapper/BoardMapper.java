@@ -13,8 +13,8 @@ import logic.Board;
 public interface BoardMapper {
 
 	
-	@Select("select ifnull(max(bno),0) from board")
-	int maxnum();
+	@Select("select ifnull(max(bno),0) from board where no=#{no}")
+	int maxnum(int no);
 
 	@Insert("insert into board (no,bno,name,title,content,regdate) "
 			+ "values (#{no},#{bno},#{name},#{title},#{content},now() )")
@@ -24,15 +24,17 @@ public interface BoardMapper {
 	@Select({"<script> "
 			+ "select count(*) from board "
 			+ "<if test='searchtype != null and searchcontent != null '> where ${searchtype} like '%${searchcontent}%' </if>"
+			+ "<if test='searchtype == null and searchcontent == null '> where no=${no} </if>"
 			+ "</script>"})
 	int count(Map<String, Object> param);
 
 	@Select({"<script>"
 			+ "select no, bno, name, title,"
 	         + "content, regdate, open "
-	         + " from board order by bno desc "
+	         + " from board "
 	         + "<if test='searchtype != null and searchcontent != null'> where ${searchtype} like #{searchcontent} </if>"
-	         
+	         + "<if test='searchtype == null and searchcontent == null'> where no=#{no} </if>"
+	         +" where no = #{no} order by bno desc limit #{startrow} , #{limit} "
 			+ "</script>"})
 	List<Board> list(Map<String, Object> param);
 

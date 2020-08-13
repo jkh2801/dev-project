@@ -18,7 +18,7 @@
 #customers {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 90%;
+  width: 80%;
   margin: auto;
   
 }
@@ -47,7 +47,7 @@
 <table id="customers" >
 	<tr><td colspan="6" align="center" height="60px">
 		<div style="display:inline;">
-		<form action="list.dev" method="post" name="searchform" >
+		<form action="list.dev?no=${no }" method="post" name="searchform" >
 			<input type="hidden" name="pageNum" value="1">
 			<select name="searchtype" style="width:100px;">
 				<option value="">선택하세요</option>
@@ -65,8 +65,9 @@
 				onclick="location.href='list.shop'">
 			</form></div></td></tr>			
 	<c:if test="${listcount>0}">	<%-- 등록된 게시물이 있음 --%>
+		<c:if test="${no } ==4">
 		<tr><td colspan="6">QnA 게시판</td>
-		
+		</c:if>
 		<tr><th width="5%">번호</th><th width="50%;">제목</th><th width="10%">글쓴이</th>
 		<th width="5%">추천</th><th width="12%">기술</th><th width="8%">날짜</th></tr>
 		<c:forEach var="board" items="${boardlist}">
@@ -76,7 +77,7 @@
 
 
 			
-			<a href="detail.dev?bno=${board.bno}&&no=4">${board.title}</a></td>
+			<a href="detail.dev?bno=${board.bno}&&no=${board.no}">${board.title}</a></td>
 			<td>${board.name}</td>
 			<fmt:formatDate var="regdate" value="${board.regdate}" pattern="yyyyMMdd"/>
 
@@ -110,7 +111,7 @@
 		<c:if test="${listcount == 0}">
 			<tr><td colspan="6">등록된 게시물이 없습니다.</td></tr></c:if>
 		<tr><td colspan="6" align="right">
-		<a href="write.dev">[글쓰기]</a></td></tr>
+		<a href="write.dev?no=${no }">[글쓰기]</a></td></tr>
 </table>
 </body>
 </html>

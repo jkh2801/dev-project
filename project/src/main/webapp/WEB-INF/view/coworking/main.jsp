@@ -117,16 +117,14 @@
 }
 .container .content {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	max-width: 1300px;
 	flex-flow: row wrap;
-	justify-content: center;
-	align-items: center;
 }
 .container .content .container-fluid {
 	padding: 30px 15px;
-	margin: auto;
+	margin: 0 22.5px;
 	width: auto;
 }
 .container .searchArea {
@@ -337,62 +335,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="card">
-						<div class="post-image">
-							<img src="${path}/img/raspberry.jpg" class="img-responsive">
-						</div>
-						<div class="news-content">
-							<span class="category">Contest</span>
-							<div class="post-meta">
-								<span class="author"> <a href="#"> <i
-										class="fa fa-user"></i> Someone Famouse
-								</a></span> <span class="time"> <a href="#"> <i
-										class="fa fa-clock-o"></i> Dec 7, 2017
-								</a>
-								</span>
-								<div class="clearfix"></div>
-							</div>
-							<h2 class="post-header">구디아카데미 웹 공모전 모집</h2>
-							<p>Build encapsulated components that manage their own state,
-								then compose them to make complex UIs</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="card">
-						<div class="post-image">
-							<img src="${path}/img/raspberry.jpg" class="img-responsive">
-						</div>
-						<div class="news-content">
-							<span class="category">Project</span>
-							<div class="post-meta">
-								<span class="author"> <a href="#"> <i
-										class="fa fa-user"></i> Someone Famouse
-								</a></span> <span class="time"> <a href="#"> <i
-										class="fa fa-clock-o"></i> Dec 7, 2017
-								</a>
-								</span>
-								<div class="clearfix"></div>
-							</div>
-							<h2 class="post-header">시작한 김에 완성까지</h2>
-							<p>Build encapsulated components that manage their own state,
-								then compose them to make complex UIs</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	
 	</div>
 </div>

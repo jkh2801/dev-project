@@ -34,7 +34,7 @@
 <title>게시글 작성</title>
 </head>
 <body>
-<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 <form:form modelAttribute="board" action="write.dev"
 	enctype="multipart/form-data" name="f">
 
@@ -46,17 +46,17 @@
 	<tr><td align="center">내용</td><td>
 	<form:textarea path="content" rows="15" cols="80"/>
 	<script>CKEDITOR.replace("content",{
-		filebrowserImageUploadUrl: "imgupload.shop"
+		filebrowserImageUploadUrl: "imgupload.dev"
 	});
 	</script>
 	<font color="red"><form:errors path="content"/></font></td></tr>
 	
 	<tr><td colspan="2">
 		<a href="javascript:document.f.submit()">[게시글등록]</a>
-		<a href="list.dev">[게시글목록]</a>
+		<a href="list.dev?no=${no }">[게시글목록]</a>
 	</td></tr>
 	</table>
-	<input type="hidden" name="no" value="4">
+	<input type="hidden" name="no" value="${no }">
 </form:form>
 </body>
 </html>

@@ -28,15 +28,15 @@ public class BoardDao {
 	         + "content, file1 fileurl, regdate, readcnt, grp,"
 	         + "grplevel, grpstep from board";
 	
-	public int maxnum() {
-		return template.getMapper(BoardMapper.class).maxnum();
+	public int maxnum(int no) {
+		return template.getMapper(BoardMapper.class).maxnum(no);
 	}
 
 	public void insert(Board board) {
 		template.getMapper(BoardMapper.class).insert(board);
 	}
 
-	public int count(String searchtype, String searchcontent) {
+	public int count(int no,String searchtype, String searchcontent) {
 		
 //		String sql = "select count(*) from board";
 //		if(searchtype != null && searchcontent != null) {
@@ -46,19 +46,22 @@ public class BoardDao {
 //		}
 		
 		param.clear();
+		param.put("no",no);
 		param.put("searchtype", searchtype);
 		param.put("searchcontent", searchcontent);
+		System.out.println(param);
 		return template.getMapper(BoardMapper.class).count(param);
 	}
 
-	public List<Board> list(Integer pageNum, int limit, String searchtype, String searchcontent) {
+	public List<Board> list(int no,Integer pageNum, int limit, String searchtype, String searchcontent) {
 		param.clear();
 
 		param.put("searchtype", searchtype);
 		param.put("searchcontent", "%" + searchcontent + "%");
 		param.put("startrow", (pageNum - 1) * limit);
 		param.put("limit", limit);
-		
+		param.put("no",no);
+		System.out.println(no);
 		return template.getMapper(BoardMapper.class).list(param);
 	}
 
