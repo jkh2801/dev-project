@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.CoworkingMapper;
 import logic.Coworking;
+import logic.Hashtag;
 
 @Repository
 public class CoworkingDao {
@@ -28,6 +30,18 @@ public class CoworkingDao {
 		param.clear();
 		param.put("gno",gno);
 		return template.getMapper(CoworkingMapper.class).getdetails(gno);
+	}
+
+	public List<Coworking> getWorkinglist() {
+		return template.getMapper(CoworkingMapper.class).getWorkinglist();
+	}
+
+	public void insertHashtag(Hashtag hash) {
+		template.getMapper(CoworkingMapper.class).insertHashtag(hash);
+	}
+
+	public List<Hashtag> getHashtaglist() {
+		return template.getMapper(CoworkingMapper.class).getHashtaglist();
 	}
 
 }

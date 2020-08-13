@@ -1,6 +1,8 @@
 package controller;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import logic.SNSFile;
 import logic.DevService;
+import logic.Hashtag;
+import logic.SNSFile;
 
 
 
@@ -36,6 +38,21 @@ public class AjaxController {
 			f.setfileurl("file/");
 			f.setFilename(file.getOriginalFilename());
 			service.insert_file(f);
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "hashtag", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String hashtag(HttpServletRequest request) {
+		String [] arr = request.getParameterValues("hash");
+		System.out.println(Arrays.toString(arr));
+		Hashtag hash = new Hashtag();
+		hash.setNo(6);
+		hash.setWno(service.getmaxcono() + 1);
+		for (int i = 0; i < arr.length; i++) {
+			hash.setHno(i+1);
+			hash.setHashname(arr[i]);
+			service.insertHashtag(hash);
 		}
 		return null;
 	}

@@ -77,7 +77,6 @@ public class BoardController {
 		}
 		
 		int limit = 10;// 한페이지에 출력할 게시물 건수
-		System.out.println(no+", "+pageNum+", "+searchtype+", "+searchcontent);
 		int listcount = service.boardCount(no,searchtype,searchcontent);	//등록 게시물 건수
 		List<Board> boardlist = service.boardlist(no,pageNum, limit, searchtype,searchcontent);
 		int maxpage = (int) ((double) listcount / limit + 0.95);
@@ -85,7 +84,6 @@ public class BoardController {
 		int endpage = startpage + 9;// 종료페이지 번호
 		if(endpage > maxpage) endpage = maxpage;
 		int boardno = listcount - (pageNum -1) * limit;
-		System.out.println(no);
 		mav.addObject("no",no);
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("maxpage", maxpage);

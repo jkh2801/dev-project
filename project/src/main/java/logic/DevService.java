@@ -135,4 +135,16 @@ public class DevService {
 	public List<User> getUserList() {
 		return userDao.getUserList();
 	}
+
+	public List<Coworking> getWorkinglist() {
+		return coworkingDao.getWorkinglist();
+	}
+
+	public void insertHashtag(Hashtag hash) {
+		coworkingDao.insertHashtag(hash);
+	}
+
+	public List<Hashtag> getHashtaglist() {
+		return coworkingDao.getHashtaglist();
+	}
 }

@@ -1,9 +1,12 @@
 package dao.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import logic.Coworking;
+import logic.Hashtag;
 
 public interface CoworkingMapper {
 
@@ -16,6 +19,15 @@ public interface CoworkingMapper {
 
 	@Select("select * from working where gno = #{gno}")
 	Coworking getdetails(Integer gno);
+
+	@Select("select * from working")
+	List<Coworking> getWorkinglist();
+
+	@Insert("insert into hash (no, wno, hno, hashname) values(#{no}, #{wno}, #{hno}, #{hashname})")
+	void insertHashtag(Hashtag hash);
+
+	@Select("select * from hash where no = 6")
+	List<Hashtag> getHashtaglist();
 
 
 

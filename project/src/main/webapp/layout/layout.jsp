@@ -65,5 +65,8 @@
 	<div class="main">
 		<decorator:body></decorator:body>
 	</div>
+	<script type="text/javascript">
+		console.log("${sessionScope}");
+	</script>
 </body>
 </html>
