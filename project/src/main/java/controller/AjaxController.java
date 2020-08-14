@@ -1,18 +1,23 @@
 package controller;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import logic.Coworking;
 import logic.DevService;
 import logic.Hashtag;
 import logic.SNSFile;
@@ -55,5 +60,63 @@ public class AjaxController {
 			service.insertHashtag(hash);
 		}
 		return null;
+	}
+	
+	@RequestMapping(value = "searchworking", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String searchworking(HttpServletRequest request) {
+		String searchinput = request.getParameter("searchinput");
+		String searchtype = request.getParameter("searchtype");
+		System.out.println(request.getParameter("searchinput"));
+		System.out.println(request.getParameter("searchtype"));
+		List <Coworking> list = service.getWorkinglist(searchtype, searchinput);
+		List <Hashtag> hash = service.getHashtaglist();
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			map.put(list.get(i).getGno(), i);
+		}
+		for(Hashtag h : hash) {
+			if(map.containsKey(h.getWno())) {
+				list.get(map.get(h.getWno())).addHashlist(h.getHashname());
+			}
+			
+		}
+		StringBuilder sb = new StringBuilder("[");
+		int i = 0;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		for(Coworking co : list) {
+			sb.append("{\"gno\":\""+co.getGno()+"\",");
+			sb.append("\"name\":\""+co.getName()+"\",");
+			sb.append("\"title\":\""+co.getTitle()+"\",");
+			sb.append("\"category\":\""+co.getCategory()+"\",");
+			sb.append("\"content\":\""+co.getContent()+"\",");
+			sb.append("\"maxnum\":\""+co.getMaxnum()+"\",");
+			sb.append("\"startdate\":\""+sf.format(co.getStartdate())+"\",");
+			sb.append("\"enddate\":\""+sf.format(co.getEnddate())+"\",");
+			sb.append("\"deadline\":\""+sf.format(co.getDeadline())+"\",");
+			sb.append("\"hashlist\":[");
+			for (int j = 0; j < co.getHashlist().size(); j++) {
+				sb.append("\""+co.getHashlist().get(j)+"\"");
+				if(j < co.getHashlist().size()-1 ) sb.append(",");
+			}
+			sb.append("]}");
+			i++;
+			if (i < list.size()) sb.append(",");
+		}
+		sb.append("]");
+		System.out.println(sb);
+		return sb.toString();
+	}
+	
+	@PostMapping(value = "findid", produces = "text/plain; charset=UTF-8")
+	public String findid(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		String id = service.findId(name, email);
+		if (id!= null) {
+			return "회원님의 아이디는 " + id + "입니다.";
+		} else {
+			return "해당 아이디가 존재하지 않습니다.";
+		}
 	}
 }

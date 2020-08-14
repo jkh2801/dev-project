@@ -16,7 +16,7 @@ import logic.Hashtag;
 public class CoworkingDao {
 	@Autowired
 	private SqlSessionTemplate template;
-	Map<String,Object> param = new HashMap<>();
+	private Map<String,Object> param = new HashMap<>();
 
 	public int getmaxno() {
 		return template.getMapper(CoworkingMapper.class).getmaxcono();
@@ -32,8 +32,11 @@ public class CoworkingDao {
 		return template.getMapper(CoworkingMapper.class).getdetails(gno);
 	}
 
-	public List<Coworking> getWorkinglist() {
-		return template.getMapper(CoworkingMapper.class).getWorkinglist();
+	public List<Coworking> getWorkinglist(String searchtype, String searchinput) {
+		param.clear();
+		param.put("searchtype", searchtype);
+		param.put("searchinput", searchinput);
+		return template.getMapper(CoworkingMapper.class).getWorkinglist(param);
 	}
 
 	public void insertHashtag(Hashtag hash) {

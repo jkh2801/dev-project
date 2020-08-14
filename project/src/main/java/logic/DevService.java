@@ -136,8 +136,8 @@ public class DevService {
 		return userDao.getUserList();
 	}
 
-	public List<Coworking> getWorkinglist() {
-		return coworkingDao.getWorkinglist();
+	public List<Coworking> getWorkinglist(String searchtype, String searchinput) {
+		return coworkingDao.getWorkinglist(searchtype, searchinput);
 	}
 
 	public void insertHashtag(Hashtag hash) {
@@ -146,5 +146,9 @@ public class DevService {
 
 	public List<Hashtag> getHashtaglist() {
 		return coworkingDao.getHashtaglist();
+	}
+	
+	public String findId(String name, String email) {
+		return userDao.findId(name, email);
 	}
 }

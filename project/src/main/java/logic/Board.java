@@ -55,7 +55,11 @@ public class Board {
 		this.open = open;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Board [no=" + no + ", bno=" + bno + ", name=" + name + ", title=" + title + ", content=" + content
+				+ ", regdate=" + regdate + ", open=" + open + "]";
+	}
 	
 	
 }

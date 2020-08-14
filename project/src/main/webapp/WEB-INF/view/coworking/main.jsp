@@ -110,6 +110,9 @@
 	transition: .5s;
 	opacity: 0;
 	height: 70px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .card:hover .news-content .hashlist {
@@ -148,6 +151,7 @@
 
 .container .searchArea {
 	width: 1300px;
+	display: flex;
 }
 
 .container .searchArea .filter {
@@ -175,6 +179,7 @@
 	padding: 3px 5px;
 }
 .container .searchbox {
+	padding: 40px 50px 0;
 }
 .container .searchbox input {
 	position: relative;
@@ -190,7 +195,7 @@
 	outline: none;
 	padding: 0 0 0 20px;
 	border-radius: 20px 0 0 20px;
-	font-family: Arial;
+	font-family: Poppins;
 }
 .container .searchbox select {
 	position: relative;
@@ -203,7 +208,7 @@
 	padding: 0 10px;
 	height: 31px;
 }
-.container .searchbox input[type="submit"] {
+.container .searchbox button {
 	position: relative;
 	left: -5px;
 	width: 90px;
@@ -213,9 +218,10 @@
 	cursor: pointer;
 	background: #ff4282;
 	color: #fff;
-	top: 2.5px;
+	top: 0;
+	font-size: 20px;
 }
-.container .searchbox input[type="submit"]:hover {
+.container .searchbox button:hover {
 	background: #ef296c;
 }
 </style>
@@ -230,14 +236,10 @@
 			<div></div>
 			
 			<div class="searchbox">
-					<form>
-						<input type="text" placeholder="Type...."> <select>
-							<option>Option One</option>
-							<option>Option Two</option>
-							<option>Option Three</option>
-							<option>Option Four</option>
-						</select> <input type="submit" value="Search">
-					</form>
+						<input type="text" placeholder="Type...." id="searchinput"> <select id="searchtype">
+							<option value="title">제목</option>
+							<option value="hash">해시태그</option>
+						</select> <button type="button" id="search">Search</button>
 			</div>
 			<div class="plus">
 				<div class="box">
@@ -284,5 +286,55 @@
 			</c:forEach>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+		$(function() {
+			var content = $(".content");
+			$("#search").on("click", function() {
+				console.log($("#searchinput").val());
+				console.log($("#searchtype").val());
+				var data = {
+						searchinput : $("#searchinput").val(),
+						searchtype : $("#searchtype").val()
+				}
+				$.ajax({
+					url: '${path}/ajax/searchworking.dev',
+					type: "post",
+					data: data,
+					success: function(response){
+						var res = JSON.parse(response);
+						viewContent(res);
+					}
+				})
+			})
+			
+			function viewContent(data) {
+				content.html("");
+				var data_card = "";
+				$.each(data, function (i, v) {
+					console.log(v);
+					 data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4">'
+					data_card += '<div class="card"><div class="post-image"><img src="${path}/img/raspberry.jpg" class="img-responsive">'
+					data_card += '</div><div class="news-content"><span class="category">'
+					data_card += v.category == "스터디"? "Study": v.category == "프로젝트"? "Project" : "Contest"
+					data_card += '</span><div class="post-meta"><span class="author"> <a href="#"> <iclass="fa fa-user"></i>'
+					data_card += v.name
+					data_card += '</a></span> <span class="time"> <i class="fa fa-clock-o"></i> '
+					data_card += v.deadline
+					data_card += '</span><div class="clearfix"></div></div><h2 class="post-header"><a href="${path}/coworking/details.dev?gno='
+					data_card += v.gno
+					data_card += '">'+v.title
+					data_card += '</a></h2><div class="hashlist">'
+					for (var i = 0; i < v.hashlist.length; i++) {
+						data_card += '<a><span>#'+ v.hashlist[i]+'&nbsp;</span></a>'
+					}
+					data_card += '</div></div></div></div></div></div></div>'
+					console.log(data_card);
+					content.append(data_card); 
+					data_card = ""
+				})
+			}
+		})
+	</script>
 </body>
 </html>
