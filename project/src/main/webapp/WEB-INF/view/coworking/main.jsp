@@ -238,7 +238,7 @@
 			<div class="searchbox">
 						<input type="text" placeholder="Type...." id="searchinput"> <select id="searchtype">
 							<option value="title">제목</option>
-							<option value="hash">해시태그</option>
+							<option value="hashname">해시태그</option>
 						</select> <button type="button" id="search">Search</button>
 			</div>
 			<div class="plus">
@@ -293,9 +293,14 @@
 			$("#search").on("click", function() {
 				console.log($("#searchinput").val());
 				console.log($("#searchtype").val());
+				
+				datasearch($("#searchinput").val(), $("#searchtype").val());
+			})
+			
+			function datasearch(a,b){
 				var data = {
-						searchinput : $("#searchinput").val(),
-						searchtype : $("#searchtype").val()
+						searchinput : a,
+						searchtype : b
 				}
 				$.ajax({
 					url: '${path}/ajax/searchworking.dev',
@@ -306,7 +311,8 @@
 						viewContent(res);
 					}
 				})
-			})
+			}
+			
 			
 			function viewContent(data) {
 				content.html("");
@@ -326,7 +332,7 @@
 					data_card += '">'+v.title
 					data_card += '</a></h2><div class="hashlist">'
 					for (var i = 0; i < v.hashlist.length; i++) {
-						data_card += '<a><span>#'+ v.hashlist[i]+'&nbsp;</span></a>'
+						data_card += '<a><span>#'+ v.hashlist[i]+'</span></a>'
 					}
 					data_card += '</div></div></div></div></div></div></div>'
 					console.log(data_card);
@@ -334,6 +340,11 @@
 					data_card = ""
 				})
 			}
+			
+			$(document).on("click", ".hashlist a", function () {
+				console.log($(this).children().text().substring(1));
+				datasearch($(this).children().text().substring(1), "hashname");
+			})
 		})
 	</script>
 </body>

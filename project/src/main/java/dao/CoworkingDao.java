@@ -36,7 +36,8 @@ public class CoworkingDao {
 		param.clear();
 		param.put("searchtype", searchtype);
 		param.put("searchinput", searchinput);
-		if(searchtype != null && searchtype.equals("hash")) return template.getMapper(CoworkingMapper.class).getHashWorkinglist(param);
+		System.out.println(param);
+		if(searchtype != null && searchtype.equals("hashname")) return template.getMapper(CoworkingMapper.class).getHashWorkinglist(param);
 		return template.getMapper(CoworkingMapper.class).getWorkinglist(param);
 	}
 
