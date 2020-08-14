@@ -49,10 +49,10 @@ public interface BoardMapper {
 	@Update("update board set grpstep = grpstep +1 where grp = :grp and grpstep > #{grpstep} ")
 	void updateGrpStep(Map<String, Object> param);
 
-	@Update("update board set name= #{name}, subject= #{subject}, content= #{content}, file1= #{fileurl} where num= #{num}")
+	@Update("update board set name= #{name}, title= #{title}, content= #{content}   where no= #{no} and bno=${bno}")
 	void update(Board board);
 	
-	@Delete("delete from board where num= #{num}")
+	@Delete("delete from board where bno= #{bno} and no=#{no}")
 	void delete(Board board);
 	
 	@Select("select name , count(*) cnt from board group by name order by cnt desc LIMIT 0,7")

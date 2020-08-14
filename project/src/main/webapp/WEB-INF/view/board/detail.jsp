@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<% request.setCharacterEncoding("utf-8"); %>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +34,7 @@
   background-color: #4CAF50;
   color: white;
 }
+
 </style>
 <meta charset="UTF-8">
 <title>게시물 상세보기</title>
@@ -55,20 +61,41 @@
 		</table></td></tr>
 
 	<tr><td colspan="2">
-		
-		<a href="update.shop?num=${board.no}">[수정]</a>
+		<c:if test ="${board.name == loginUser.name }">
+		<a href="update.dev?no=${board.no}&&bno=${board.bno}">[수정]</a>
 		<a href="delete.dev?no=${board.no}&&bno=${board.bno}">[삭제]</a>
+		</c:if>
 		<a href="list.dev?no=${no }">[게시물목록]</a>
 	</td></tr>
 </table>
 <br><br>
-<form action="reply.dev">
-<table id ="customers">
 
-<tr><td colspan="3" align="center"> 댓글란</td></tr>
-<tr><td width="8%">글쓴이</td><td colspan="2">내용</td></tr>
-<tr><td width="8%"><input type="text" name="name" id="name"></td><td>내용</td><td width="10%"><input type="submit" value="등록"></td></tr>
-</table>
-</form>
+
+
+    <div class="container">
+        <label for="content">comment</label>
+        <form name="commentInsertForm">
+            <div class="input-group">
+               <input type="hidden" name="no" value="${board.no }"/>
+               <input type="hidden" name="name" value="${loginUser.name }"/>
+               <input type="hidden" name="bno" value="${board.bno}"/>
+               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+               <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+               </span>
+              </div>
+        </form>
+    </div>
+    
+    <div class="container">
+        <div class="commentList"></div>
+    </div>
+
+
+<%@ include file="comment.jsp" %>
+
+
 </body>
+
+
 </html>

@@ -31,15 +31,24 @@
 }
 </style>
 <meta charset="UTF-8">
-<title>게시글 작성</title>
+<title>게시물 수정하기</title>
+<style type="text/css">
+	.leftcol {text-align: left; vertical-align: top;}
+	.lefttoptable{
+		height: 250px;	border-width: 0px;
+		text-align: left;	vertical-align: top;	padding: 0px;
+	}
+	input[type=text]:focus {
+  border: 3px solid #555;
+}
+</style>
 </head>
 <body>
+<br><br><br><br><br>
 
-<br><br><br><br><br><br><br><br>
-<form:form modelAttribute="board" action="write.dev"
-	enctype="multipart/form-data" name="f">
 
-	<table id="customers"><tr><td align="center">글쓴이</td><td><form:input path="name"  value="${loginUser.name}" size="40%" readonly="true" />
+<form:form modelAttribute="board" action="update.dev" name="f">
+<table id="customers"><tr><td align="center">글쓴이</td><td><form:input path="name"  value="${loginUser.name}" size="40%" readonly="true" />
 	</td></tr>
 
 	<tr><td align="center">제목</td><td><form:input path="title" size="100%;" />
@@ -51,13 +60,13 @@
 	});
 	</script>
 	<font color="red"><form:errors path="content"/></font></td></tr>
-	
 	<tr><td colspan="2">
-		<a href="javascript:document.f.submit()">[게시글등록]</a>
-		<a href="list.dev?no=${no }">[게시글목록]</a>
+		<a href="javascript:document.f.submit()">[수정하기]</a>
+		
 	</td></tr>
-	</table>
-	<input type="hidden" name="no" value="${no }">
+	<form:input path="no" type="hidden" value="${board.no }" /> 
+<form:input path="bno" type="hidden" value="${board.bno }" /> 
+</table>
 </form:form>
 </body>
 </html>
