@@ -155,15 +155,34 @@
 			<div class="navbar">
 				<div class="nav">
 					<ul>
-						<li>-스터디-
-							<ul></ul>
-						</li>
-						<li>-프로젝트-
-							<ul></ul>
-						</li>
-						<li>-공모전-
-							<ul></ul>
-						</li>
+						<li>-스터디</li>
+							<c:forEach items="${group}" var="gr">
+								<li>
+									<c:if test="${gr.category == '스터디' }">
+										<a href="${path}/group/main.dev?gno=${gr.gno}">${gr.title}</a>
+									</c:if>
+								</li>
+							</c:forEach>
+					</ul>
+					<ul>
+						<li>-공모전</li>
+							<c:forEach items="${group}" var="gr">
+								<li>
+									<c:if test="${gr.category == '공모전' }">
+										<a href="${path}/group/main.dev?gno=${gr.gno}">${gr.title}</a>
+									</c:if>
+								</li>
+							</c:forEach>
+					</ul>
+					<ul>
+						<li>-프로젝트</li>
+							<c:forEach items="${group}" var="gr">
+								<li>
+									<c:if test="${gr.category == '프로젝트' }">
+										<a href="${path}/group/main.dev?gno=${gr.gno}">${gr.title}</a>
+									</c:if>
+								</li>
+							</c:forEach>
 					</ul>
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,7 @@
 
 </head>
 <body>
+	<c:if test="${!empty member }">
 			<h2>강남 스터디</h2>
 			<div class="board">
 			<a href="#">공지사항</a>
@@ -77,11 +79,18 @@
 				</table>
 			</div>
 			<div class="member">
-				<a href="memberlist.dev">인원  (2/5)</a>
+				<input type="hidden" value="${param.gno}" name="gno">
+				<c:if test="${loginUser.name == membermaster}">
+					<a href="memberlist.dev?gno=${param.gno }">인원  (${membercount}/${membermax})</a>
+				</c:if>
+				<c:if test="${loginUser.name != membermaster}">
+					<a>인원  (${membercount}/${membermax})</a>
+				</c:if>
 				<div class="memberlist">
 				<ul>
-					<li>admin123</li>
-					<li>test123</li>
+					<c:forEach items="${member}" var="member">
+						<li>${member.name}</li>
+					</c:forEach>
 				</ul>
 				</div>
 			</div>
@@ -179,7 +188,7 @@
 		</div>
 		<!-- /.modal -->
 			</div>
-	
+	</c:if>
 	<script src="../calendar/vendor/js/jquery.min.js"></script>
 	<script src="../calendar/vendor/js/bootstrap.min.js"></script>
 	<script src="../calendar/vendor/js/moment.min.js"></script>

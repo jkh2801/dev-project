@@ -15,6 +15,7 @@ import dao.BoardDao;
 import dao.CoworkingDao;
 import dao.ReplyDao;
 import dao.UserDao;
+import dao.UserGroupDao;
 import dao.fileDao;
 
 @Service
@@ -34,6 +35,9 @@ public class DevService {
 
 	@Autowired
 	private ReplyDao replyDao;
+	
+	@Autowired
+	private UserGroupDao usergroupDao;
 
 	private Map<String, Object> map = new HashMap<>();
 
@@ -171,5 +175,49 @@ public class DevService {
 
 	public void boardUpdate(Board board) {
 		boardDao.update(board);
+	}
+	
+	public void ugroupJoin(int gno, String name, String lang, String comment) {
+		usergroupDao.join(gno,name,lang,comment);
+	}
+
+	public List<Usergroup> getMemberList(int gno) {
+		return usergroupDao.getMemberList(gno);
+	}
+
+	public void ugroupJoinMaster(int cono, String name) {
+		usergroupDao.ugroupJoinMaster(cono,name);
+	}
+
+	public List<Usergroup> getApplyList(int gno) {
+		return usergroupDao.getApplyList(gno);
+	}
+
+	public void accept(String name) {
+		usergroupDao.accept(name);
+	}
+
+	public void deport(String name, int gno) {
+		usergroupDao.deport(name,gno);
+	}
+
+	public List<Usergroup> getMember(int gno) {
+		return usergroupDao.getMember(gno);
+	}
+
+	public int getMembercount(int gno) {
+		return usergroupDao.getMembercount(gno);
+	}
+
+	public int getMembermax(int gno) {
+		return usergroupDao.getMembermax(gno);
+	}
+
+	public List<Coworking> getUsergroup(String name) {
+		return coworkingDao.getUsergroup(name);
+	}
+
+	public String getMembermaset(int gno) {
+		return usergroupDao.getMembermaset(gno);
 	}
 }

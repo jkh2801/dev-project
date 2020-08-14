@@ -31,7 +31,12 @@ public interface CoworkingMapper {
 
 	@Select("select * from hash where no = 6")
 	List<Hashtag> getHashtaglist();
+	
+	@Select("SELECT gno, NAME, title, category, content, maxnum, startdate, enddate, deadline, PROCESS, grade, loc  from hash LEFT JOIN working ON hash.wno = working.gno where ${searchtype} like '%${searchinput}%' and NO = 6;")
+	List<Coworking> getHashWorkinglist(Map<String, Object> param);
 
-
+	@Select("SELECT user_group.gno, working.category, working.title from working JOIN user_group ON user_group.gno = working.gno " + 
+			"where user_group.name = #{name} and chk = '승인'")
+	List<Coworking> getUsergroup(Map<String, Object> param);
 
 }

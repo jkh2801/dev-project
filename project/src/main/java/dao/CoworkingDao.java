@@ -36,6 +36,7 @@ public class CoworkingDao {
 		param.clear();
 		param.put("searchtype", searchtype);
 		param.put("searchinput", searchinput);
+		if(searchtype != null && searchtype.equals("hash")) return template.getMapper(CoworkingMapper.class).getHashWorkinglist(param);
 		return template.getMapper(CoworkingMapper.class).getWorkinglist(param);
 	}
 
@@ -47,4 +48,9 @@ public class CoworkingDao {
 		return template.getMapper(CoworkingMapper.class).getHashtaglist();
 	}
 
+	public List<Coworking> getUsergroup(String name) {
+		param.clear();
+		param.put("name",name);
+		return template.getMapper(CoworkingMapper.class).getUsergroup(param);
+	}
 }

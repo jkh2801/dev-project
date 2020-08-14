@@ -20,7 +20,7 @@
 	width: 250px;
 	height: 250px;
 	overflow: hidden;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 	font-family: 'Roboto Condensed', sans-serif !important;
 }
 
@@ -172,7 +172,7 @@
 }
 
 .container .searchArea .plus .box {
-	box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
 	border: 2px solid lightblue;
 	background: #CCE1FF;
 	border-radius: 5px;
