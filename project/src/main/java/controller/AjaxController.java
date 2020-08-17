@@ -61,9 +61,15 @@ public class AjaxController {
 	public String searchworking(HttpServletRequest request) {
 		String searchinput = request.getParameter("searchinput");
 		String searchtype = request.getParameter("searchtype");
+		String searchsort = request.getParameter("searchsort");
+		int category = Integer.parseInt(request.getParameter("category"));
 		System.out.println(request.getParameter("searchinput"));
 		System.out.println(request.getParameter("searchtype"));
-		List<Coworking> list = service.getWorkinglist(searchtype, searchinput);
+		if (searchinput.trim().equals("")) {
+			searchinput = null;
+			searchtype = null;
+		}
+		List<Coworking> list = service.getWorkinglist(searchtype, searchinput, searchsort, category);
 		List<Hashtag> hash = service.getHashtaglist();
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < list.size(); i++) {

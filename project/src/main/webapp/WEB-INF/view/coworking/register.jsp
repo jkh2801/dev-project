@@ -5,63 +5,137 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Register</title>
 <style type="text/css">
 .container {
-	margin: 0;
-	padding: 30px 20%;
 }
 .container .content {
-	margin: 0;
-	padding: 50px;
-	border: 1px solid #8572EE;
-	border-radius: 10px;
-	background: #D2D2FF;
 }
-.container .content table {
+.page-wrap {
+	max-width: 100%;
+	min-height: 100vh;
+	position: relative;
+	z-index: 1
+}
+
+.pagewrap-overlay {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
 	width: 100%;
-}
-.container .content table tr td{
-	text-align: left;
-	padding-bottom: 40px;
-}
-.container .content table tr td input[type="text"]{
-	width: calc(100% - 30px);
 	height: 100%;
-	margin: 0;
-	padding: 5px;
-	border: none;
-	border-bottom: 1px solid #000;
-	background: transparent;
-	font-size: 18px;
+	opacity: 0.8;
 }
-.container .content table tr td:first-child {
+
+.contents {
+	width: 40%;
+	margin: 5vh auto;
+	padding: 0;
+	border: 2px solid #222;
+	border-radius: 15px;
+	overflow: hidden;
+}
+.head {
+	background: #fff;
+	width: 100%;
+	height: 150px;
 	text-align: center;
-	font-weight: bold;
-	font-size: 18px;
+	position: relative;
 }
-.container .content table #startdate,
-.container .content table #enddate {
-	width: 30%;
+
+.head:after {
+	content: '';
+	position: absolute;
+	bottom: -17px;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	background: #fff;
+	z-index: 1;
+	transform: skewY(3deg);
 }
-.container .content table #content {
-	width: calc(100% - 30px);
-	resize: none;
+
+.head h1 {
+	text-transform: uppercase;
+	font-size: 30px;
+	letter-spacing: 2px;
 }
-.container .content table tr:last-child div {
-	margin: 0 20px;
-	width: 5em;
-	padding: 5px;
-	background: #CCE1FF;
-	border: 1px solid #fff;
-	font-size: 15px;
-	font-weight: bold;
+
+.head-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.title {
+	font-weight: 600;
+}
+.pagewrap .contents section {
+	position: relative;
+	height: 100%;
+}
+.pagewrap .contents section form {
+	margin: 0 auto;
+	max-width: 100%;
+	background: #222;
+	height: 100%;
+	opacity: 0.8;
+	box-shadow: 0 19px 39px rgba(0, 0, 0, 0.3), 0 15px 12px
+		rgba(0, 0, 0, 0.22);
+	padding-top: 60px;
+	padding-bottom: 7px;
+}
+.pagewrap .contents section form input, 
+.pagewrap .contents section form select {
+	display: block;
+	width: 70%;
+	height: 60px;
+	background: transparent;
+	border: 1px solid #555;
 	border-radius: 5px;
-	display: inline;
+	margin: 0 auto;
+	font-size: 18px;
+	color: #fff;
+	letter-spacing: 2px;
+	padding-left: 20px;
+	margin-top: 20px;
 }
-.container .content table tr:last-child div a {
-	text-decoration: none;
-	color: #000;
+.pagewrap .contents section form input:focus {
+	outline: none;
+}
+::-webkit-input-placeholder {
+	color: #fff;
+}
+
+.pagewrap .contents section form select {
+	-moz-apperance: none;
+	-webkit-apperance: none;
+}
+
+.pagewrap .contents section form select::-ms-expand {
+	display: none;
+}
+
+.pagewrap .contents button {
+	background: linear-gradient(to right, #fa1, #fc1);
+	width: 30%;
+	height: 65px;
+	border: none;
+	border-radius: 5px;
+	margin: 0 auto;
+	font-size: 15px;
+	color: #fff;
+	letter-spacing: 3px;
+	display: block;
+	text-transform: uppercase;
+	font-weight: 900;
+	position: relative;
+	top: -30px;
+	box-shadow: 0 19px 39px rgba(0, 0, 0, 0.3), 0 15px 12px
+		rgba(0, 0, 0, 0.22);
+	cursor: pointer;
 }
 .hashtag-container {
   margin: 0;
@@ -104,59 +178,83 @@
   flex: 1;
   background: transparent;
 }
+.pagewrap .contents section form .category-input {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.pagewrap .contents section form .category-input input[type="radio"] {
+	display: none;
+}
+.pagewrap .contents section form .category-input input[type="radio"]:checked + label{
+	border: 1px solid #fff;
+}
+.pagewrap .contents section form .category-input input[type="radio"]:checked + label:after{
+	content: "✓";
+	line-height: 40px;
+	background: transparent;
+	z-index: 999;
+	position: absolute;
+	top: -35px;
+	font-size: 40px;
+}
+.pagewrap .contents section form .category-input label {
+	position: relative;
+	color: #fff;
+	background-color: transparent;
+	font-size: 18px;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+	border: 1px solid #555;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 0 5%;	
+}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="content">
-	<form:form modelAttribute="coworking" method="post" action="register.dev" name="f">
-		<spring:hasBindErrors name="coworking"> 
-			<font color="red">
-				<c:forEach items="${errors.globalErrors}" var="error">
-					<spring:message code="${error.code}"/>
-				</c:forEach>
-			</font> 
-		</spring:hasBindErrors>
-	<table>
-		<tr><td>카테고리</td>
-		<td>
-		<form:checkbox path="category" value="스터디" label="스터디"/>
-		<form:checkbox path="category" value="공모전" label="공모전"/>
-		<form:checkbox path="category" value="프로젝트" label="프로젝트"/>
-		</td></tr>
-		<tr><td>프로젝트명</td><td><form:input path="title"/>
-			<font color="red"><form:errors path="title"/></font></td></tr>
-		<tr><td>관련 기술</td><td><div class="hashtag-container"><div class="hashtag"><input/>  
-  			</div></div></td></tr>
-		<tr><td>닉네임</td><td><form:input path="name"/>
-			<font color="red"><form:errors path="name"/></font></td></tr>
-		<tr><td>지역</td><td><form:input path="loc"/>
-			<font color="red"><form:errors path="loc"/></font></td></tr>
-		<tr><td>모집인원</td><td><form:input path="maxnum"/>
-			<font color="red"><form:errors path="maxnum"/></font></td></tr>
-		<tr><td>모집마감일</td><td><form:input path="deadline" id="datepick"/>
-			<font color="red"><form:errors path="deadline"/></font></td></tr>
-		<tr><td>프로젝트일자</td><td><form:input path="startdate" />
-			<font color="red"><form:errors path="startdate" /></font>
-		&nbsp;~&nbsp;<form:input path="enddate"/>
-			<font color="red"><form:errors path="enddate"/></font></td></tr>
-		<tr><td>진행방식</td><td><form:input path="process"/>
-			<font color="red"><form:errors path="process"/></font></td></tr>
-		<tr><td>개발수준</td>
-		<td>
-		<form:checkbox path="grade" value="초급" label="초급"/>
-		<form:checkbox path="grade" value="중급" label="중급"/>
-		<form:checkbox path="grade" value="고급" label="고급"/>
-		
-		</td></tr>
-		<tr><td>내용</td><td><form:textarea path="content"/>
-			<font color="red"><form:errors path="content"/></font></td></tr>
-		<tr><td colspan="2" align="center">
-		<div><a href="javascript:document.f.submit()" id="submit">신청</a></div>
-		<div><a href="#">초기화</a></div>
-		</td></tr>	
-	</table>
-	</form:form>
+	<div class="pagewrap">
+		<div class="pagewrap-overlay"></div>
+		<div class="contents">
+			<div class="head">
+				<div class="head-content">
+					<h1>
+						<span class="title">Co-Working</span>
+					</h1>
+					<div class="slanted"></div>
+				</div>
+			</div>
+			<section>
+				<form:form modelAttribute="coworking" method="post" action="register.dev" name="f">
+					<div class="category-input">
+						<form:radiobutton path="category" value="스터디" label="스터디"/>
+						<form:radiobutton path="category" value="공모전" label="공모전"/>
+						<form:radiobutton path="category" value="프로젝트" label="프로젝트"/>
+					</div>
+					<div class="name-input">
+						<input type="text" class="name" placeholder="Name">
+					</div>
+					<div class="username-input">
+						<input type="text" class="username" placeholder="Username">
+					</div>
+					<div class="select-input">
+						<select disabled="disabled">
+							<option>Car Type</option>
+						</select>
+					</div>
+					<div class="id-input">
+						<input type="text" class="id" placeholder="ID">
+					</div>
+				</form:form>
+			</section>
+			<button>Register</button>
+		</div>
+	</div>
+	
 </div>
 </div>
 <script type="text/javascript">

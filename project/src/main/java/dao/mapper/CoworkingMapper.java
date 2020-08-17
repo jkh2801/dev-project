@@ -14,15 +14,21 @@ public interface CoworkingMapper {
 	@Select("select ifnull(max(gno),0) gno from working")
 	int getmaxcono();
 
-	@Insert("insert INTO working (gno, name, title, category, content, maxnum, startdate, enddate, deadline, process, grade, loc) "
-			+ "values(#{gno}, #{name}, #{title}, #{category}, #{content}, #{maxnum}, #{startdate}, #{enddate}, #{deadline}, #{process}, #{grade}, #{loc})")
+	@Insert("insert INTO working (gno, name, title, category, content, maxnum, startdate, enddate, deadline, process, grade, loc, regdate) "
+			+ "values(#{gno}, #{name}, #{title}, #{category}, #{content}, #{maxnum}, #{startdate}, #{enddate}, #{deadline}, #{process}, #{grade}, #{loc}, now())")
 	void insert(Coworking coworking);
 
 	@Select("select * from working where gno = #{gno}")
 	Coworking getdetails(Integer gno);
 
 	@Select({"<script> select * from working "
-			+ "<if test='searchtype != null and searchinput != null '> where ${searchtype} like '%${searchinput}%' </if>"
+			+ "<where>"
+			+ "<if test='searchtype != null and searchinput != null '> ${searchtype} like '%${searchinput}%' </if>"
+			+ "<if test='category != null and searchtype == null'> category = #{category} </if>"
+			+ "<if test='category != null and searchtype != null'> and category = #{category} </if>"
+			+ "</where>"
+			+ "<if test='searchsort != null '> order by regdate desc </if> "
+			+ "<if test='searchsort == null '> order by deadline </if> "
 			+ "</script>"})
 	List<Coworking> getWorkinglist(Map<String, Object> param);
 
@@ -32,7 +38,12 @@ public interface CoworkingMapper {
 	@Select("select * from hash where no = 6")
 	List<Hashtag> getHashtaglist();
 	
-	@Select("SELECT * from hash LEFT JOIN working ON hash.wno = working.gno where ${searchtype} like '%${searchinput}%' and NO = 6 group by wno")
+	@Select({"<script>SELECT * from hash LEFT JOIN working ON hash.wno = working.gno where ${searchtype} like '%${searchinput}%' and NO = 6"
+			+ "<if test='category != null and searchtype != null'> and category = #{category} </if>"
+			+ " group by wno "
+			+ "<if test='searchsort != null '> order by regdate desc </if> "
+			+ "<if test='searchsort == null '> order by deadline </if> "
+			+ "</script>"})
 	List<Coworking> getHashWorkinglist(Map<String, Object> param);
 
 	@Select("SELECT user_group.gno, working.category, working.title from working JOIN user_group ON user_group.gno = working.gno " + 

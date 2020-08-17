@@ -20,7 +20,7 @@
 <body>
 <header>
 		<div class="logo"><a href="${path}/main/home.dev">Logo</a></div>
-		<nav>
+		<nav class="nav1">
 			<ul>
 			<c:if test="${loginUser == null}">
 				<li><a href="${path}/user/login.dev"><i class="fa fa-sign-in"></i></a></li>
@@ -44,7 +44,7 @@
 			</c:if>
 			</ul>
 		</nav>
-		<nav>
+		<nav class="nav2">
 			<ul class="nav-menu">
 				<li class="menu-li"><a href="#">TIL</a></li>
 				<li class="sub-menu menu-li"><a href="#">Community</a>

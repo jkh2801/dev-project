@@ -139,8 +139,8 @@ public class DevService {
 		return userDao.getUserList();
 	}
 
-	public List<Coworking> getWorkinglist(String searchtype, String searchinput) {
-		return coworkingDao.getWorkinglist(searchtype, searchinput);
+	public List<Coworking> getWorkinglist(String searchtype, String searchinput, String searchsort, int category) {
+		return coworkingDao.getWorkinglist(searchtype, searchinput, searchsort, category);
 	}
 
 	public void insertHashtag(Hashtag hash) {
