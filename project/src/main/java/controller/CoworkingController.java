@@ -37,7 +37,7 @@ public class CoworkingController {
 	@GetMapping("main")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
-		List <Coworking> list = service.getWorkinglist(null, null, "regdate", 0);
+		List <Coworking> list = service.getWorkinglist(null, null, "regdate", 0, 0, 12);
 		List <Hashtag> hash = service.getHashtaglist();
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < list.size(); i++) {
@@ -94,6 +94,7 @@ public class CoworkingController {
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
+		System.out.println(coworking);
 		try {
 			int cono = service.getmaxcono() +1;
 			//로그인정보 수정

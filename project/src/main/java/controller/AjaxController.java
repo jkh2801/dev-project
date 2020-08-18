@@ -66,13 +66,15 @@ public class AjaxController {
 		String searchtype = request.getParameter("searchtype");
 		String searchsort = request.getParameter("searchsort");
 		int category = Integer.parseInt(request.getParameter("category"));
+		int num = Integer.parseInt(request.getParameter("num"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
 		System.out.println(request.getParameter("searchinput"));
 		System.out.println(request.getParameter("searchtype"));
 		if (searchinput.trim().equals("")) {
 			searchinput = null;
 			searchtype = null;
 		}
-		List<Coworking> list = service.getWorkinglist(searchtype, searchinput, searchsort, category);
+		List<Coworking> list = service.getWorkinglist(searchtype, searchinput, searchsort, category, num, limit);
 		List<Hashtag> hash = service.getHashtaglist();
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < list.size(); i++) {

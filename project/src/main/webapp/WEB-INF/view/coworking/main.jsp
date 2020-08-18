@@ -388,11 +388,23 @@
 	<script type="text/javascript">
 		$(function() {
 			var category = 0;
+			var num = 12;
+			
+			$(window).scroll(function () {
+				var scrollHeight = $(window).scrollTop() + $(window).height(); 
+				var documentHeight = $(document).height();
+				if(scrollHeight == documentHeight) {
+					console.log("SCROLL");
+					datasearch(input, type, sort, category, num, 8);
+					num += 8;
+				}
+			})
 			
 			$(".container .searchArea .filter span a").on("click", function () {
 				category = $(this).parent().index();
 				console.log($(this).parent().index());
-				datasearch(input, type, sort, category);
+				num = 12;
+				datasearch(input, type, sort, category, 0, 12);
 			})
 			
 			var button = false;
@@ -400,13 +412,14 @@
 			var input = $("#searchinput").val();
 			var type = $("#searchtype").val();
 			$(".checkbox-btn input").on("click", function() {
+				num = 12;
 				button = !button;
 				if(button) {
 					sort = "deadline";
 				}else {
 					sort = "regdate";
 				}
-				datasearch(input, type, sort, category);
+				datasearch(input, type, sort, category, 0, 12);
 			})
 			
 			
@@ -417,15 +430,18 @@
 				console.log($("#searchtype").val());
 				input = $("#searchinput").val();
 				type = $("#searchtype").val();
-				datasearch(input, type, sort, category);
+				num = 12;
+				datasearch(input, type, sort, category, 0, 12);
 			})
 
-			function datasearch(a, b, c, d) {
+			function datasearch(a, b, c, d, e, f) {
 				var data = {
 					searchinput : a,
 					searchtype : b,
 					searchsort : c,
-					category: d
+					category: d,
+					num: e,
+					limit: f
 				}
 				$.ajax({
 					url : '${path}/ajax/searchworking.dev',
@@ -439,12 +455,9 @@
 			}
 
 			function viewContent(data) {
-				content.html("");
+				if(num == 12) content.html("");
 				var data_card = "";
-				$
-						.each(
-								data,
-								function(i, v) {
+				$.each(data,function(i, v) {
 									console.log(v);
 									data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4">'
 									data_card += '<div class="card"><div class="post-image"><img src="${path}/img/raspberry.jpg" class="img-responsive">'
@@ -472,7 +485,8 @@
 
 			$(document).on("click", ".hashlist a", function() {
 				console.log($(this).children().text().substring(1));
-				datasearch($(this).children().text().substring(1), "hashname", sort, category);
+				num = 12;
+				datasearch($(this).children().text().substring(1), "hashname", sort, category, 0, 12);
 				type = "hashname";
 				input = $(this).children().text().substring(1);
 			})

@@ -24,11 +24,11 @@ public interface CoworkingMapper {
 	@Select({"<script> select * from working "
 			+ "<where>"
 			+ "<if test='searchtype != null and searchinput != null '> ${searchtype} like '%${searchinput}%' </if>"
-			+ "<if test='category != null and searchtype == null'> category = #{category} </if>"
-			+ "<if test='category != null and searchtype != null'> and category = #{category} </if>"
+			+ "<if test='category != null'> and category = #{category} </if>"
 			+ "</where>"
 			+ "<if test='searchsort != null '> order by regdate desc </if> "
 			+ "<if test='searchsort == null '> order by deadline </if> "
+			+ " limit #{num} , #{limit}  "
 			+ "</script>"})
 	List<Coworking> getWorkinglist(Map<String, Object> param);
 

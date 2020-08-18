@@ -32,10 +32,12 @@ public class CoworkingDao {
 		return template.getMapper(CoworkingMapper.class).getdetails(gno);
 	}
 
-	public List<Coworking> getWorkinglist(String searchtype, String searchinput, String searchsort, int category) {
+	public List<Coworking> getWorkinglist(String searchtype, String searchinput, String searchsort, int category, int num, int limit) {
 		param.clear();
 		param.put("searchtype", searchtype);
 		param.put("searchinput", searchinput);
+		param.put("num", num);
+		param.put("limit", limit);
 		if(searchsort.equals("regdate")) param.put("searchsort", searchsort);
 		if(category == 1) param.put("category", "스터디");
 		else if(category == 2) param.put("category", "프로젝트");
