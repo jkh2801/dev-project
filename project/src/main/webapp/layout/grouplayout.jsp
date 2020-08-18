@@ -107,14 +107,16 @@
 <body>
 <header>
 		<div class="logo"><a href="${path}/main/home.dev">Logo</a></div>
-		<nav>
+		<nav class="nav1">
 			<ul>
-				<c:if test="${loginUser == null}">
+			<c:if test="${loginUser == null}">
 				<li><a href="${path}/user/login.dev"><i class="fa fa-sign-in"></i></a></li>
 			</c:if>
 			<c:if test="${loginUser != null}">
-				<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-				<li><a href="#"><i class="fa fa-bell"></i></a></li>
+				<c:if test="${!sessionScope.loginUser.id.equals('admin')}">
+					<li><a href="${path}/user/message.dev?id=${sessionScope.loginUser.id}"><i class="fa fa-envelope"></i></a></li>
+					<li><a href="#"><i class="fa fa-bell"></i></a></li>
+				</c:if>
 				<li class="sub-menu"><a href="#"><i class="fa fa-user-circle"></i></a>
 					<ul id="final">
 						<c:if test="${sessionScope.loginUser.id.equals('admin')}">
@@ -131,13 +133,13 @@
 			</c:if>
 			</ul>
 		</nav>
-		<nav>
+		<nav class="nav2">
 			<ul class="nav-menu">
 				<li class="menu-li"><a href="#">TIL</a></li>
 				<li class="sub-menu menu-li"><a href="#">Community</a>
 					<ul>
-						<li><a href="${path}/board/list.dev">Q&A게시판</a></li>
-						<li><a href="#">자유게시판</a></li>
+						<li><a href="${path}/board/list.dev?no=4">Q&A게시판</a></li>
+						<li><a href="${path}/board/list.dev?no=5">자유게시판</a></li>
 					</ul></li>
 				<li class="sub-menu menu-li"><a href="#">Co-Working</a>
 					<ul>

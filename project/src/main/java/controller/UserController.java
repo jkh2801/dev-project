@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
 import logic.DevService;
+import logic.Message;
 import logic.User;
 
 @Controller
@@ -142,4 +145,13 @@ public class UserController {
 		return "redirect:login.dev";
 	}
 
+	@GetMapping("message")
+	public ModelAndView message(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User) session.getAttribute("loginUser");
+		List<Message> msglist = service.getMessageList(loginUser.getName());
+		mav.addObject("msglist", msglist);
+		return mav;
+	}
+	
 }

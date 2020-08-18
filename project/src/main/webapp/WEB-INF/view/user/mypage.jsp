@@ -6,11 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>마이 페이지</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
 /*
 	.list-group-item[]
@@ -53,7 +52,55 @@
 		left : 150px;
 		font-size: 20px;
 	}
+	.modalfont {
+		font-weight : bold;
+		font-size : 15px;
+		padding : 10px;
+	}
+	.modalinput {
+		position : absolute;
+		left : 200px;
+	}
+	.find-result {
+		text-align : center;
+		font-size : 20px;
+		padding-bottom : 30px;
+	}
 </style>
+<script>
+	$(function(){
+		$("#changePW").on("click",function(){
+			$.ajax({
+				url : "${path}/ajax/changepw.dev",
+				type : "post",
+				data : {
+					id : "${user.id}",
+					currentpw : $("#currentpw").val(),
+					newpw : $("#newpw").val(),
+					newpw2 : $("#newpw2").val()
+				},
+				success : function(a) {
+					$(".modalinput").val("");
+					$(".modalinput").hide();
+					$(".modalfont").hide();
+					$("#changePW").hide();
+					$(".find-result").text(a);
+					$(".find-result").show();
+				},
+				error : function(e) {
+					alert("오류 발생")
+				}
+			})
+		})
+		$(".modal-close").on("click", function () {
+		$(".modalfont").show();
+		$(".modalinput").show();
+		$(".find-result").hide();
+		$("#changePW").show();
+	})
+		
+	})
+</script>
 </head>
 <body>
 	<div class="container-fluid text-center" style="margin-top:50px">    
@@ -129,7 +176,7 @@
 								</font>
 							</td>
 							<td>
-								<input type="button" value="비밀번호 변경하기" onclick="pwchg()">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePwModal">비밀번호 변경하기</button>
 							</td>
 						</tr>
 						<tr>
@@ -139,6 +186,32 @@
 							</td>
 						</tr>
 					</table>
+					
+					
+					<div class="modal fade" id="changePwModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h4 class="modal-title" id="exampleModalLabel">비밀번호 변경하기</h4>
+					        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button> -->
+					      </div>
+					      <div class="modal-body" id="changePw-modalbody">
+					      		<font class="modalfont">현재 비밀번호</font> <input type="text" id="currentpw" class="modalinput"><br><br>
+					        	<font class="modalfont">변경 비밀번호</font> <input type="text" id="newpw" class="modalinput"><br><br>
+					        	<font class="modalfont">변경 비밀번호 재입력</font> <input type="text" id="newpw2" class="modalinput">
+					        	<div class="find-result"></div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">닫기</button>
+					        <button type="button" class="btn btn-primary" id="changePW">비밀번호 변경하기</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					
+					
 				</form:form>
 				
 			</div>
@@ -154,11 +227,6 @@
 				form.pw.focus();
 				return false;
 			}
-		}
-		
-		function pwchg() {
-			var op ="width=500, height=250, left=50, top=150";
-			open("pwchgForm.dev","",op);
 		}
 	</script>
 </body>

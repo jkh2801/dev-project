@@ -17,8 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import logic.Coworking;
 import logic.DevService;
 import logic.Hashtag;
+import logic.Message;
 import logic.Reply;
+import logic.Report;
 import logic.SNSFile;
+import logic.User;
 
 @RestController // @ResponseBody: View 없이 직접 데이터를 클라이언트에 전송
 @RequestMapping("ajax")
@@ -121,6 +124,93 @@ public class AjaxController {
 		} else {
 			return "해당 아이디가 존재하지 않습니다.";
 		}
+	}
+	
+	@PostMapping(value = "findpw", produces = "text/plain; charset=UTF-8")
+	public String findpw(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String pw = service.findPw(id, name, email);
+		if (pw != null) {
+			return "회원님의 비밀번호는 " + pw + "입니다.";
+		} else {
+			return "입력하신 정보가 잘못되었습니다.";
+		}
+	}
+
+	@PostMapping(value = "changepw", produces = "text/plain; charset=UTF-8")
+	public String changepw(HttpServletRequest request) {
+		String currentpw = request.getParameter("currentpw");
+		String newpw = request.getParameter("newpw");
+		String newpw2 = request.getParameter("newpw2");
+
+		String id = request.getParameter("id");
+
+		System.out.println("" + currentpw + newpw + id);
+
+		User DBUser = service.getUser(id);
+
+		if(!currentpw.equals(DBUser.getPw())) {
+			return "현재 비밀번호를 확인하세요";
+		} else if (newpw.equals(DBUser.getPw())) {
+			return "변경 비밀번호와 현재 비밀번호가 같습니다.";
+		} else if (newpw.length() < 4) {
+			return "비밀번호는 4자 이상 입력하세요";
+		} else if (!newpw.equals(newpw2) ) {
+			return "입력하신 정보에 오류가 있습니다.";
+		} else {
+			service.changepw(id, newpw);
+			return "비밀번호가 변경되었습니다.";
+		}
+	}
+
+	@PostMapping(value = "sendMessage", produces = "text/plain; charset=UTF-8")
+	public String sendMessage(HttpServletRequest request) {
+		try {
+			String me_from = request.getParameter("me_from");
+			String me_to = request.getParameter("me_to");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int meno = service.maxmno() + 1;
+
+			Message msg = new Message();
+			msg.setMeno(meno);
+			msg.setMe_from(me_from);
+			msg.setMe_to(me_to);
+			msg.setTitle(title);
+			msg.setContent(content);
+
+			service.messageInsert(msg);
+			return "쪽지를 발송했습니다";
+		} catch (Exception e) {
+			return "오류가 발생했습니다";
+		}
+	}
+
+	@PostMapping(value = "report", produces = "text/plain; charset=UTF-8")
+	public String report(HttpServletRequest request) {
+		try {
+			String content = request.getParameter(("content"));
+			String reportedName = request.getParameter("reportedName");
+			int no = Integer.parseInt(request.getParameter("no"));
+			int wno = service.getmaxwno_Report(no) + 1;
+			int reno = service.getmaxreno_Report() +1;
+
+			Report report = new Report();
+			report.setNo(no);
+			report.setWno(wno);
+			report.setReno(reno);
+			report.setName(reportedName);
+			report.setContent(content);
+
+			System.out.println(report);
+			service.reportInsert(report);
+			return "신고가 완료되었습니다";
+		} catch (Exception e) {
+			return "오류가 발생했습니다";
+		}
+
 	}
 
 	@RequestMapping(value = "commentinsert", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)

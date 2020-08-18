@@ -90,7 +90,7 @@
 .pagewrap .contents section form input, 
 .pagewrap .contents section form select {
 	display: block;
-	width: 70%;
+	width: 60%;
 	height: 60px;
 	background: transparent;
 	border: 1px solid #555;
@@ -189,14 +189,18 @@
 .pagewrap .contents section form .category-input input[type="radio"]:checked + label{
 	border: 1px solid #fff;
 }
-.pagewrap .contents section form .category-input input[type="radio"]:checked + label:after{
+.pagewrap .contents section form .category-input input[type="radio"]:checked + label:before {
 	content: "✓";
 	line-height: 40px;
-	background: transparent;
+	background: #222;
 	z-index: 999;
 	position: absolute;
-	top: -35px;
+	top: -25px;
 	font-size: 40px;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	width: 40px;
+	left: -15%;
 }
 .pagewrap .contents section form .category-input label {
 	position: relative;
@@ -210,7 +214,7 @@
 	box-sizing: border-box;
 	border-radius: 5px;
 	padding: 10px;
-	margin: 0 5%;	
+	margin: 0 7%;	
 }
 </style>
 </head>
@@ -235,19 +239,43 @@
 						<form:radiobutton path="category" value="공모전" label="공모전"/>
 						<form:radiobutton path="category" value="프로젝트" label="프로젝트"/>
 					</div>
+					<div class="project-input">
+						<form:input path="title" placeholder="프로젝트 명"/>
+					</div>
 					<div class="name-input">
-						<input type="text" class="name" placeholder="Name">
+						<form:input path="name"/>
 					</div>
-					<div class="username-input">
-						<input type="text" class="username" placeholder="Username">
+					<div class="maxnum-input">
+						<form:input path="maxnum" placeholder="모집인원"/>
 					</div>
-					<div class="select-input">
-						<select disabled="disabled">
-							<option>Car Type</option>
-						</select>
+					<div class="hash-input">
+						<div class="hashtag-container"><div class="hashtag"><input/>  
+  					</div></div>
 					</div>
-					<div class="id-input">
-						<input type="text" class="id" placeholder="ID">
+					<div class="loc-input">
+						<form:input path="loc" placeholder="지역"/>
+					</div>
+					<div class="deadline-input">
+						<form:input path="deadline" placeholder="모집 마감일"/>
+					</div>
+					<div class="startdate-input">
+						<form:input path="startdate" placeholder="시작일"/>
+					</div>
+					&nbsp;~&nbsp;
+					<div class="enddate-input">
+						<form:input path="enddate" placeholder="마지막일"/>
+					</div>
+					<div class="process-input">
+						<form:radiobutton path="process" value="오프라인" label="오프라인"/>
+						<form:radiobutton path="process" value="온라인" label="온라인"/>
+					</div>
+					<div class="grade-input">
+						<form:radiobutton path="grade" value="초급" label="초급"/>
+						<form:radiobutton path="grade" value="중급" label="중급"/>
+						<form:radiobutton path="grade" value="고급" label="고급"/>
+					</div>
+					<div class="content-input">
+						<form:textarea path="content"/>
 					</div>
 				</form:form>
 			</section>

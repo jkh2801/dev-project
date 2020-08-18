@@ -26,8 +26,10 @@
 				<li><a href="${path}/user/login.dev"><i class="fa fa-sign-in"></i></a></li>
 			</c:if>
 			<c:if test="${loginUser != null}">
-				<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-				<li><a href="#"><i class="fa fa-bell"></i></a></li>
+				<c:if test="${!sessionScope.loginUser.id.equals('admin')}">
+					<li><a href="${path}/user/message.dev?id=${sessionScope.loginUser.id}"><i class="fa fa-envelope"></i></a></li>
+					<li><a href="#"><i class="fa fa-bell"></i></a></li>
+				</c:if>
 				<li class="sub-menu"><a href="#"><i class="fa fa-user-circle"></i></a>
 					<ul id="final">
 						<c:if test="${sessionScope.loginUser.id.equals('admin')}">

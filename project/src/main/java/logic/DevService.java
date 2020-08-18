@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
 import dao.CoworkingDao;
+import dao.MessageDao;
 import dao.ReplyDao;
+import dao.ReportDao;
 import dao.UserDao;
 import dao.UserGroupDao;
 import dao.fileDao;
@@ -39,6 +41,12 @@ public class DevService {
 	@Autowired
 	private UserGroupDao usergroupDao;
 
+	@Autowired
+	private MessageDao messageDao;
+
+	@Autowired
+	private ReportDao reportDao;
+	
 	private Map<String, Object> map = new HashMap<>();
 
 	public void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
@@ -219,5 +227,41 @@ public class DevService {
 
 	public String getMembermaset(int gno) {
 		return usergroupDao.getMembermaset(gno);
+	}
+	
+	public String findPw(String id, String name, String email) {
+		return userDao.findPw(id, name, email);
+	}
+
+	public void changepw(String id, String newpw) {
+		userDao.changepw(id, newpw);
+	}
+
+	public int maxmno() {
+		return messageDao.maxmno();
+	}
+
+	public void messageInsert(Message msg) {
+		messageDao.messageInsert(msg);
+	}
+
+	public List<Message> getMessageList(String name) {
+		return messageDao.getMessageList(name);
+	}
+
+	public int getmaxwno_Report(int no) {
+		return reportDao.getmaxwno(no);
+	}
+
+	public int getmaxreno_Report() {
+		return reportDao.getmaxreno();
+	}
+
+	public void reportInsert(Report report) {
+		reportDao.reportInsert(report);
+	}
+
+	public List<Report> getReports() {
+		return reportDao.getReports();
 	}
 }
