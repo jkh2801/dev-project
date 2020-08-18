@@ -16,6 +16,7 @@ import dao.CoworkingDao;
 import dao.MessageDao;
 import dao.ReplyDao;
 import dao.ReportDao;
+import dao.TilDao;
 import dao.UserDao;
 import dao.UserGroupDao;
 import dao.fileDao;
@@ -46,6 +47,9 @@ public class DevService {
 
 	@Autowired
 	private ReportDao reportDao;
+	
+	@Autowired
+	private TilDao tilDao;
 	
 	private Map<String, Object> map = new HashMap<>();
 
@@ -263,5 +267,34 @@ public class DevService {
 
 	public List<Report> getReports() {
 		return reportDao.getReports();
+	}
+	
+	public void Til_insert(TIL til) {
+		int max=tilDao.maxnum();
+		System.out.println(max);
+		til.setBno(++max);
+		til.setNo(3);
+		System.out.println(til);
+		tilDao.insert(til); 
+	}
+
+	public List<TIL> tillist() {
+		
+		return tilDao.list();
+	}
+
+	public TIL getTil(Integer no, Integer bno) {
+		
+		return tilDao.selectOne(no,bno);
+	}
+
+	public void tilDelete(TIL til) {
+		tilDao.delete(til);
+		
+	}
+
+	public void tilUpdate(TIL til, HttpServletRequest request) {
+		tilDao.update(til);
+		
 	}
 }
