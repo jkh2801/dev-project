@@ -38,6 +38,7 @@ public class TILController {
 			System.out.println(
 					"===============================================================================================");
 		}
+		System.out.println(til);
 		mav.addObject("no", no);
 		
 		mav.addObject("til", til);
@@ -100,12 +101,18 @@ public class TILController {
 	
 	@PostMapping("update")
 	public ModelAndView update(TIL til, HttpServletRequest request) {
+		System.out.println(til);
 		ModelAndView mav= new ModelAndView();
+		int no = Integer.parseInt(request.getParameter("no"));
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
+		til.setNo(no);
+		til.setBno(bno);
 		System.out.println(til);
 		try {
 			service.tilUpdate(til, request);
-			mav.setViewName("redirect:info.dev?no=" + til.getNo() + "&&bno=" + til.getBno());
+			
+			mav.setViewName("redirect:info.dev?no=" + til.getNo() + "&bno=" + til.getBno());
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new BoardException("게시물 수정 오류입니다.", "update.dev?no=" + til.getNo() + "&&bno=" + til.getBno());

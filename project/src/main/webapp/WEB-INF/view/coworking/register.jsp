@@ -87,24 +87,6 @@
 	padding-top: 60px;
 	padding-bottom: 7px;
 }
-.pagewrap .contents section form input, 
-.pagewrap .contents section form select {
-	display: block;
-	width: 60%;
-	height: 60px;
-	background: transparent;
-	border: 1px solid #555;
-	border-radius: 5px;
-	margin: 0 auto;
-	font-size: 18px;
-	color: #fff;
-	letter-spacing: 2px;
-	padding-left: 20px;
-	margin-top: 20px;
-}
-.pagewrap .contents section form input:focus {
-	outline: none;
-}
 ::-webkit-input-placeholder {
 	color: #fff;
 }
@@ -178,18 +160,30 @@
   flex: 1;
   background: transparent;
 }
-.pagewrap .contents section form .category-input {
+.pagewrap .contents section .input-layout {
+	margin: 0 auto;
+	width: 80%;
+}
+.pagewrap .contents section form .category-input,
+.pagewrap .contents section form .process-input,
+.pagewrap .contents section form .grade-input {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 }
-.pagewrap .contents section form .category-input input[type="radio"] {
+.pagewrap .contents section form .category-input input[type="radio"],
+.pagewrap .contents section form .process-input input[type="radio"],
+.pagewrap .contents section form .grade-input input[type="radio"] {
 	display: none;
 }
-.pagewrap .contents section form .category-input input[type="radio"]:checked + label{
+.pagewrap .contents section form .category-input input[type="radio"]:checked + label,
+.pagewrap .contents section form .process-input input[type="radio"]:checked + label,
+.pagewrap .contents section form .grade-input input[type="radio"]:checked + label {
 	border: 1px solid #fff;
 }
-.pagewrap .contents section form .category-input input[type="radio"]:checked + label:before {
+.pagewrap .contents section form .category-input input[type="radio"]:checked + label:before,
+.pagewrap .contents section form .process-input input[type="radio"]:checked + label:before,
+.pagewrap .contents section form .grade-input input[type="radio"]:checked + label:before {
 	content: "✓";
 	line-height: 40px;
 	background: #222;
@@ -202,7 +196,9 @@
 	width: 40px;
 	left: -15%;
 }
-.pagewrap .contents section form .category-input label {
+.pagewrap .contents section form .category-input label,
+.pagewrap .contents section form .process-input label,
+.pagewrap .contents section form .grade-input label {
 	position: relative;
 	color: #fff;
 	background-color: transparent;
@@ -214,7 +210,51 @@
 	box-sizing: border-box;
 	border-radius: 5px;
 	padding: 10px;
-	margin: 0 7%;	
+	margin: 0 auto;	
+}
+.pagewrap .contents section form .project-input,
+.pagewrap .contents section form .name-input,
+.pagewrap .contents section form .maxnum-input {
+	display: flex;
+	width: calc(100% - 23px);
+	height: 60px;
+	background: transparent;
+	border: 1px solid #555;
+	border-radius: 5px;
+	margin: 0;
+	font-size: 20px;
+	color: #fff;
+	letter-spacing: 2px;
+	margin-top: 20px;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 20px;
+}
+.pagewrap .contents section form .project-input input,
+.pagewrap .contents section form .name-input input,
+.pagewrap .contents section form .maxnum-input input {
+	margin-left: 20px;
+	border: none;
+	color: #fff;
+	background: transparent;
+	width: 60%;
+	height: 40px;
+	font-size: 20px;
+}
+.pagewrap .contents section form .project-input input:focus,
+.pagewrap .contents section form .name-input input:focus,
+.pagewrap .contents section form .maxnum-input input:focus {
+	outline: none;
+	border-bottom: 1px solid #fff;
+}
+.pagewrap .contents section form .row {
+	display: flex;
+	justify-content: space-around;
+	font-size: 18px;
+}
+.pagewrap .contents section form .row div  {
+	width: 40%;
+	font-size: 16px;
 }
 </style>
 </head>
@@ -234,19 +274,25 @@
 			</div>
 			<section>
 				<form:form modelAttribute="coworking" method="post" action="register.dev" name="f">
+					<div class="input-layout">
 					<div class="category-input">
 						<form:radiobutton path="category" value="스터디" label="스터디"/>
 						<form:radiobutton path="category" value="공모전" label="공모전"/>
 						<form:radiobutton path="category" value="프로젝트" label="프로젝트"/>
 					</div>
 					<div class="project-input">
-						<form:input path="title" placeholder="프로젝트 명"/>
+					<span>프로젝트 명</span>
+						<form:input path="title"/>
 					</div>
+					<div class="row">
 					<div class="name-input">
+					<span>작성자</span>
 						<form:input path="name"/>
 					</div>
 					<div class="maxnum-input">
-						<form:input path="maxnum" placeholder="모집인원"/>
+					<span>모집인원</span>
+						<form:input path="maxnum"/>
+					</div>
 					</div>
 					<div class="hash-input">
 						<div class="hashtag-container"><div class="hashtag"><input/>  
@@ -276,6 +322,7 @@
 					</div>
 					<div class="content-input">
 						<form:textarea path="content"/>
+					</div>
 					</div>
 				</form:form>
 			</section>

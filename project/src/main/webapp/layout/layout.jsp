@@ -38,7 +38,7 @@
 				        <c:if test="${!sessionScope.loginUser.id.equals('admin')}">
 							<li><a href="${path}/user/mypage.dev">회원정보 수정</a></li>
 							<li><a href="#">My Portfolio</a></li>
-							<li><a href="#">My TIL</a></li>
+							<li><a href="${path}/til/mytil.dev">TIL</a></li>
 						</c:if>
 						<li><a href="${path}/user/logout.dev">로그아웃</a></li>
 					</ul>
@@ -48,7 +48,7 @@
 		</nav>
 		<nav class="nav2">
 			<ul class="nav-menu">
-				<li class="menu-li"><a href="#">TIL</a></li>
+				<li class="menu-li"><a href="${path}/til/main.dev">TIL</a></li>
 				<li class="sub-menu menu-li"><a href="#">Community</a>
 					<ul>
 						<li><a href="${path}/board/list.dev?no=4">Q&A게시판</a></li>

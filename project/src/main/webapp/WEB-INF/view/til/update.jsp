@@ -18,6 +18,8 @@
 	<tr><td><form:radiobutton path="open" value="0" label="공개(public)"/><br/>
 			<form:radiobutton path="open" value="1" label="비공개(private)"/></td></tr>
 	<form:hidden path="name" value="바보"/>
+	<form:hidden path="no"/>
+	<form:hidden path="bno"/>
 	
 	
 	<tr><td><form:textarea path="content" rows="15" cols="80" />

@@ -19,7 +19,7 @@ public interface TilMapper {
 	@Select("select ifnull(max(bno),0) from board")
 	int maxnum();
 
-	@Select("select * from board ORDER BY regdate desc")
+	@Select("select * from board  where no = 3 ORDER BY regdate desc")
 	List<TIL> list(Map<String, Object> param);
 
 
@@ -30,7 +30,7 @@ public interface TilMapper {
 	@Delete("delete from board where no= #{no} and bno=#{bno}")
 	void delete(TIL til);
 
-	@Update("update board set name= #{name}, title= #{title}, content= #{content}, open=#{open}   where no= #{no} and bno=${bno}")
+	@Update("update board set name= #{name}, title= #{title}, content= #{content}, open=#{open}   where no= #{no} and bno=#{bno}")
 	void update(TIL til);
 
 }
