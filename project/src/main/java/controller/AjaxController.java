@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import logic.Hashtag;
 import logic.Message;
 import logic.Reply;
 import logic.Report;
-import logic.SNSFile;
+import logic.UserFile;
 import logic.User;
 
 @RestController // @ResponseBody: View 없이 직접 데이터를 클라이언트에 전송
@@ -30,17 +31,24 @@ public class AjaxController {
 	@Autowired
 	private DevService service;
 
-	@RequestMapping(value = "fileupload", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
-	public String fileupload(MultipartFile[] files, HttpServletRequest request) {
+	@RequestMapping(value = "saveprofile", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String saveprofile(MultipartFile[] files, HttpServletRequest request, HttpSession session) {
 		System.out.println("ajax");
 		System.out.println(files);
+		System.out.println(files[0]);
+		User user = (User) session.getAttribute("loginUser");
+		System.out.println(user);
 		for (MultipartFile file : files) {
 			System.out.println(file.getOriginalFilename());
-			service.uploadFileCreate(file, request, "test/file/");
-			SNSFile f = service.maxfno();
-			f.setfileurl("file/");
-			f.setFilename(file.getOriginalFilename());
-			service.insert_file(f);
+			service.uploadFileCreate(file, request, "profile/", user);
+			UserFile f = new UserFile();
+			f.setNo(1);
+			f.setWno(user.getUno());
+			f.setFno(1);
+			f.setName(user.getName());
+			f.setFilename(user.getName()+".jpg");
+			f.setFileurl("profile/");
+			service.update_file(f);
 		}
 		return null;
 	}
@@ -127,7 +135,7 @@ public class AjaxController {
 			return "해당 아이디가 존재하지 않습니다.";
 		}
 	}
-	
+
 	@PostMapping(value = "findpw", produces = "text/plain; charset=UTF-8")
 	public String findpw(HttpServletRequest request) {
 		String id = request.getParameter("id");
@@ -153,13 +161,13 @@ public class AjaxController {
 
 		User DBUser = service.getUser(id);
 
-		if(!currentpw.equals(DBUser.getPw())) {
+		if (!currentpw.equals(DBUser.getPw())) {
 			return "현재 비밀번호를 확인하세요";
 		} else if (newpw.equals(DBUser.getPw())) {
 			return "변경 비밀번호와 현재 비밀번호가 같습니다.";
 		} else if (newpw.length() < 4) {
 			return "비밀번호는 4자 이상 입력하세요";
-		} else if (!newpw.equals(newpw2) ) {
+		} else if (!newpw.equals(newpw2)) {
 			return "입력하신 정보에 오류가 있습니다.";
 		} else {
 			service.changepw(id, newpw);
@@ -197,7 +205,7 @@ public class AjaxController {
 			String reportedName = request.getParameter("reportedName");
 			int no = Integer.parseInt(request.getParameter("no"));
 			int wno = service.getmaxwno_Report(no) + 1;
-			int reno = service.getmaxreno_Report() +1;
+			int reno = service.getmaxreno_Report() + 1;
 
 			Report report = new Report();
 			report.setNo(no);

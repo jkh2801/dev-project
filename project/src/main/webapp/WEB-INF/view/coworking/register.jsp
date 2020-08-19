@@ -205,7 +205,7 @@
 
 .pagewrap .contents section form .form-radio input[type="radio"]:checked+label
 	{
-	border: 1px solid #fff;
+	border: 3px solid #fff;
 }
 
 .pagewrap .contents section form .form-radio input[type="radio"]:checked+label:before
@@ -298,13 +298,13 @@
 	font-size: 16px;
 }
 
-.pagewrap .contents section form .row div {
+.pagewrap .contents section form .row .form-input {
 	width: 40%;
 	font-size: 16px;
 }
 
 .pagewrap .contents section form .row .date-picker{
-	width: 100%;
+	width: 70%;
 }
 
 .datapick{
@@ -346,6 +346,7 @@
 	right: 0;
 	background-color: #FFF;
 	z-index: 10000;
+	width: 250px;
 }
 
 .date-picker .dates.active {
@@ -615,7 +616,6 @@ $("#submit").on("click", function () {
 	
 	$(function() {
 		var date_picker = $(".date-picker");
-		console.log(date_picker);
 		var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 		var date = new Date();
 		var day = date.getDate();
@@ -627,45 +627,67 @@ $("#submit").on("click", function () {
 		var selectedMonth = month;
 		var selectedYear = year;
 		
+		
 		$.each(date_picker, function () {
-			$(this).children(".dates .month .mth").text(year + '년 ' + months[month]);
+			$(this).children(".dates").children(".month").children(".mth").text(year + '년 ' + months[month]);
 			$(this).children(".selected-date").text(formatDate(date));
 			$(this).children(".selected-date").data("value",selectedDate);
-			
-			populateDates();
+			populateDates($(this).children(".dates").children(".days"));
 		})
 		
-		$(".date-picker .dates .days .day").on("click", function () {
-			selectedDate = new Date(year + '-' + (month + 1) + '-' + (i + 1));
-			selectedDay = (i + 1);
+		
+		$(document).on("click", ".date-picker .dates .days .day", function(e){
+			var i = Number($(this).text());
+			selectedDate = new Date(year + '-' + (month + 1) + '-' + i);
+			selectedDay = i;
 			selectedMonth = month;
 			selectedYear = year;
 			
-			$(this).parent().parent().parent().children(".selected-date").text(formatDate(date));
+			$(this).parent().parent().parent().children(".selected-date").text(formatDate(selectedDate));
 			$(this).parent().parent().parent().children(".selected-date").data("value",selectedDate);
 
-			populateDates();
-			$(this).parent().parent().toggleClass("active");
+			populateDates($(this).parent());
+			/* $(this).parent().parent().toggleClass("active"); */
 		})
 			
-		$(".date_picker").on("click", function () {
-			if (!checkEventPathForClass(e.path, 'dates')) {
-				$(this).children(".dates .days").toggleClass('active');
-			}
+		$(".date-picker").on("click", function (e) {
+			if(e.target.classList.contains('day') || e.target.classList.contains("selected-date")) {
+				$(this).children(".dates").toggleClass('active');
+				}
 		})
 		
-		function populateDates() {
-			$(this).children(".dates .days").innerHTML = '';
+		$(".date-picker .dates .month .next-mth").on("click", function () {
+			month++;
+			if (month > 11) {
+				month = 0;
+				year++;
+			}
+			$(this).parent().children(".mth").text(year + '년 ' + months[month]);
+			populateDates($(this).parent().parent().children(".days"));
+		})
+		
+		$(".date-picker .dates .month .prev-mth").on("click", function () {
+			month--;
+			if (month < 0) {
+				month = 11;
+				year--;
+			}
+			$(this).parent().children(".mth").text(year + '년 ' + months[month]);
+			populateDates($(this).parent().parent().children(".days"));
+		})
+		
+		function populateDates(th) {
+			th.html("");
 			var firstDate = new Date(year,month,1);
 			var lastDate = new Date(year,month+1,0);
 			var first_day = firstDate.getDay();
 
 			for (var i = 0; i < first_day; i++) {
-				$(this).children(".dates .days").append('<div class="day"></div>')
+				th.append('<div class="day"></div>')
 			}
 			
 			var amount_days = lastDate.getDate();
-
+			
 			for (var i = 0; i < amount_days; i++) {
 				var day_data = '<div class="day">'+(i+1)+'</div>'
 
@@ -673,7 +695,7 @@ $("#submit").on("click", function () {
 					day_data = '<div class="day selected">'+(i+1)+'</div>'
 				}
 				
-				$(this).children(".dates .days").append(day_data)
+				th.append(day_data)
 			}
 		}
 		
@@ -690,123 +712,7 @@ $("#submit").on("click", function () {
 		return year + '-' + month + '-' + day;
 	}
 	})
-	/* const date_picker_element = document.querySelector('.date-picker');
-	const selected_date_element = document.querySelector('.date-picker .selected-date');
-	const dates_element = document.querySelector('.date-picker .dates');
-	const mth_element = document.querySelector('.date-picker .dates .month .mth');
-	const next_mth_element = document.querySelector('.date-picker .dates .month .next-mth');
-	const prev_mth_element = document.querySelector('.date-picker .dates .month .prev-mth');
-	const days_element = document.querySelector('.date-picker .dates .days');
-
-	const months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-
-	let date = new Date();
-	let day = date.getDate();
-	let month = date.getMonth();
-	let year = date.getFullYear();
 	
-	let selectedDate = date;
-	let selectedDay = day;
-	let selectedMonth = month;
-	let selectedYear = year;
-
-	mth_element.textContent = year + '년 ' + months[month];
-
-	selected_date_element.textContent = formatDate(date);
-	selected_date_element.dataset.value = selectedDate;
-
-	populateDates();
-
-	date_picker_element.addEventListener('click', toggleDatePicker);
-	next_mth_element.addEventListener('click', goToNextMonth);
-	prev_mth_element.addEventListener('click', goToPrevMonth);
-
-	function toggleDatePicker (e) {
-		if (!checkEventPathForClass(e.path, 'dates')) {
-			dates_element.classList.toggle('active');
-		}
-	}
-
-	function goToNextMonth (e) {
-		month++;
-		if (month > 11) {
-			month = 0;
-			year++;
-		}
-		mth_element.textContent = year + '년 ' + months[month];
-		populateDates();
-	}
-
-	function goToPrevMonth (e) {
-		month--;
-		if (month < 0) {
-			month = 11;
-			year--;
-		}
-		mth_element.textContent = year + '년 ' + months[month];
-		populateDates();
-	}
-
-	function populateDates (e) {
-		days_element.innerHTML = '';
-		let firstDate = new Date(year,month,1);
-		let lastDate = new Date(year,month+1,0);
-		let first_day = firstDate.getDay();
-
-		for (let i = 0; i < first_day; i++) {
-			const day_element = document.createElement('div');
-			day_element.classList.add('day');	
-			days_element.appendChild(day_element);
-		}
-		
-		let amount_days = lastDate.getDate();
-
-		for (let i = 0; i < amount_days; i++) {
-			const day_element = document.createElement('div');
-			day_element.classList.add('day');
-			day_element.textContent = i + 1;
-
-			if (selectedDay == (i + 1) && selectedYear == year && selectedMonth == month) {
-				day_element.classList.add('selected');
-			}
-
-			day_element.addEventListener('click', function () {
-				selectedDate = new Date(year + '-' + (month + 1) + '-' + (i + 1));
-				selectedDay = (i + 1);
-				selectedMonth = month;
-				selectedYear = year;
-
-				selected_date_element.textContent = formatDate(selectedDate);
-				selected_date_element.dataset.value = selectedDate;
-
-				populateDates();
-				dates_element.classList.toggle('active');
-			});
-
-			days_element.appendChild(day_element);
-		}
-	}
-
-	function checkEventPathForClass (path, selector) {
-		for (let i = 0; i < path.length; i++) {
-			if (path[i].classList && path[i].classList.contains(selector)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	function formatDate (d) {
-		let day = d.getDate();
-		if (day < 10) {
-			day = '0' + day;
-		}
-		let month = d.getMonth() + 1;
-		if (month < 10) {
-			month = '0' + month;
-		}
-		let year = d.getFullYear();
-		return year + '-' + month + '-' + day;
-	} */
 	</script>
 </body>
 </html>

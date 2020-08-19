@@ -20,6 +20,7 @@ import exception.LoginException;
 import logic.DevService;
 import logic.Message;
 import logic.User;
+import logic.UserFile;
 
 @Controller
 @RequestMapping("user")
@@ -74,6 +75,16 @@ public class UserController {
 			user.setUno(uno);
 			user.setAuth("일반회원");
 			service.userInsert(user);
+			
+			UserFile f = new UserFile();
+			f.setNo(1);
+			f.setWno(user.getUno());
+			f.setFno(1);
+			f.setName(user.getName());
+			f.setFilename(user.getName()+".jpg");
+			f.setFileurl("profile/");
+			service.insert_file(f);
+			
 			mav.setViewName("redirect:login.dev");
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();

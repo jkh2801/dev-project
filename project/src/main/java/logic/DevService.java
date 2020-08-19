@@ -53,7 +53,7 @@ public class DevService {
 	
 	private Map<String, Object> map = new HashMap<>();
 
-	public void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
+	public void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path, User user) {
 		String orgFile = picture.getOriginalFilename();
 		String uploadPath = request.getServletContext().getRealPath("/") + path;
 		// 웹 어플리케이션의 경로를 구하기 (webapp폴더까지)
@@ -63,20 +63,20 @@ public class DevService {
 		if (!fpath.exists())
 			fpath.mkdirs();
 		try {
-			picture.transferTo(new File(uploadPath + orgFile));
+			picture.transferTo(new File(uploadPath + user.getName()+".jpg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public SNSFile maxfno() {
-		return filedao.maxfno();
-	}
-
-	public void insert_file(SNSFile f) {
+	public void insert_file(UserFile f) {
 		filedao.insert_file(f);
 	}
 
+	public void update_file(UserFile f) {
+		filedao.update_file(f);
+	}
+	
 	public User getUser(String id) {
 		return userDao.selectOne(id);
 	}
@@ -297,4 +297,5 @@ public class DevService {
 		tilDao.update(til);
 		
 	}
+
 }

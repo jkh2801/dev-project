@@ -34,6 +34,7 @@
 	img {
 		position : absolute;
 		left: 100px;
+		border-radius: 50%;
 	}
 	.userid {
 		position : absolute;
@@ -65,6 +66,24 @@
 		text-align : center;
 		font-size : 20px;
 		padding-bottom : 30px;
+	}
+	.img-container {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	.img-container .img-content {
+		height: 420px;
+		width: 470px;
+	}
+	.img-container .img-content #canvas {
+		max-height: 400px;
+		max-width: 450px;
+	}
+	.img-container .img-content:last-child {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
 <script>
@@ -121,12 +140,12 @@
 			 
 				<h1><strong>회원 정보 수정</strong></h1>
 				<div class="img-change-box">
-					<img src="${path}/img/defaultprofile.jpg" width="150" height="160">
+					<img src="${path}/profile/${loginUser.name}.jpg" width="150" height="160" id="profileimg">
 					<div class="userid">
 						<strong>${user.id}</strong>
 					</div>
 					<div class="img-change-button">
-						<a href="#">프로필 이미지 변경하기</a>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#img-btn">프로필 이미지 변경하기</button>
 					</div>
 				</div>
 				
@@ -211,6 +230,25 @@
 					  </div>
 					</div>
 					
+					<div class="modal fade" id="img-btn" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" style="max-width: max-content; margin: 28px auto;">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h4 class="modal-title">프로필 이미지</h4>
+					      </div>
+					      <div class="modal-body">
+					      	<div class="img-container">
+					      		<div class="img-content"><input type="file" id="profile"><canvas id="canvas"></canvas></div>
+					      		<div class="img-content" id="crop-content"><canvas id="canvas_crop"></canvas></div>
+					      	</div>
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">닫기</button>
+					      	<button type="button" class="btn btn-primary" id="imgchangebtn">변경</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 					
 				</form:form>
 				
@@ -228,6 +266,144 @@
 				return false;
 			}
 		}
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			var profile = $("#profile");
+			var canvas = $("#canvas");
+			var canvas_crop = $("#canvas_crop");
+			var crop_content = $("#crop-content");
+			var clsImage;
+			var iCropLeft, iCropTop, iCropWidth, iCropHeight;
+			crop_content.hide();
+			profile.change(function() {
+				crop_content.show();
+				var clsFileReader = new FileReader();
+				clsFileReader.onload = function() {
+					clsImage = new Image();
+					clsImage.onload = function() {
+						var canvas = document.getElementById("canvas");
+						canvas.width = clsImage.width;
+						canvas.height = clsImage.height;
+
+						iCropLeft = 100;
+						iCropTop = 100;
+						/* iCropWidth = clsImage.width - 200;
+						iCropHeight = clsImage.height - 200; */
+						iCropWidth = 400;
+						iCropHeight = 400;
+						iImageWidth = clsImage.width;
+						iImageHeight = clsImage.height;
+
+						DrawCropRect();
+						CropImage();
+						AddCropMoveEvent();
+					};
+
+					clsImage.src = clsFileReader.result;
+				};
+
+				clsFileReader.readAsDataURL(profile[0].files[0]);
+			})
+			
+			function DrawCropRect() {
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+
+			ctx.drawImage(clsImage, 0, 0);
+
+			ctx.strokeStyle = "#fff";
+			ctx.lineWidth = 10;
+			ctx.beginPath(); // 새로운 경로 생성
+			ctx.rect(iCropLeft, iCropTop, iCropWidth, iCropHeight);
+			ctx.stroke(); // 도형을 그린다.
+		}
+			
+			function AddCropMoveEvent() {
+				var canvas = document.getElementById("canvas");
+				var bDrag = false;
+				var iOldX, iOldY;
+				var iCropLeftOld, iCropTopOld;
+
+				canvas.onmousedown = function(e) {
+					bDrag = true;
+					iOldX = e.clientX;
+					iOldY = e.clientY;
+					iCropLeftOld = iCropLeft;
+					iCropTopOld = iCropTop;
+				};
+
+				canvas.onmousemove = function(e) {
+					if (bDrag == false)
+						return;
+
+					var iX = e.clientX - iOldX;
+					var iY = e.clientY - iOldY;
+
+					iCropLeft = iCropLeftOld + iX;
+					if (iCropLeft < 0) {
+						iCropLeft = 0;
+					} else if (iCropLeft + iCropWidth > clsImage.width) {
+						iCropLeft = clsImage.width - iCropWidth;
+					}
+
+					iCropTop = iCropTopOld + iY;
+					if (iCropTop < 0) {
+						iCropTop = 0;
+					} else if (iCropTop + iCropHeight > clsImage.height) {
+						iCropTop = clsImage.height - iCropHeight;
+					}
+
+					DrawCropRect();
+					CropImage();
+				};
+
+				canvas.onmouseup = function(e) {
+					bDrag = false;
+				};
+			}
+			
+			function CropImage() {
+				var canvas = document.getElementById("canvas");
+				img = new Image();
+				img.onload = function() {
+					var canvas = document.getElementById("canvas_crop");
+					canvas.width = iCropWidth;
+					canvas.height = iCropHeight;
+					var ctx = canvas.getContext("2d");
+					ctx.drawImage(img, iCropLeft, iCropTop, iCropWidth,
+							iCropHeight, 0, 0, iCropWidth, iCropHeight);
+				};
+
+				img.src = canvas.toDataURL();
+			}
+			
+			$("#imgchangebtn").on("click", function () {
+				var canvas = document.getElementById("canvas_crop");
+				var imgDataUrl = canvas.toDataURL('image/jpeg');
+				
+				var blobBin = atob(imgDataUrl.split(',')[1]);	
+			    var array = [];
+			    for (var i = 0; i < blobBin.length; i++) {
+			        array.push(blobBin.charCodeAt(i));
+			    }
+			    var file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});	
+			    var formdata = new FormData();	
+			    formdata.append("files", file);	
+			    
+			    $.ajax({
+			        type : 'post',
+			        url : '${path}/ajax/saveprofile.dev',
+			        data : formdata,
+			        processData : false,	
+			        contentType : false,	
+			        success : function (data) {
+			        	alert("프로필이 변경되었습니다.");
+			        	location.reload();
+			        }
+			    });
+			})
+		})
 	</script>
 </body>
 </html>
