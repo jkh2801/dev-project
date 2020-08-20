@@ -2,6 +2,7 @@ package controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -97,17 +98,21 @@ public class AjaxController {
 		}
 		StringBuilder sb = new StringBuilder("[");
 		int i = 0;
+		Date now = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		for (Coworking co : list) {
+			long diff = (co.getDeadline().getTime() - now.getTime()) / (1000*60*60*24);
 			sb.append("{\"gno\":\"" + co.getGno() + "\",");
 			sb.append("\"name\":\"" + co.getName() + "\",");
 			sb.append("\"title\":\"" + co.getTitle() + "\",");
 			sb.append("\"category\":\"" + co.getCategory() + "\",");
 			sb.append("\"content\":\"" + co.getContent() + "\",");
 			sb.append("\"maxnum\":\"" + co.getMaxnum() + "\",");
+			sb.append("\"grade\":\"" + co.getGrade() + "\",");
 			sb.append("\"startdate\":\"" + sf.format(co.getStartdate()) + "\",");
 			sb.append("\"enddate\":\"" + sf.format(co.getEnddate()) + "\",");
-			sb.append("\"deadline\":\"" + sf.format(co.getDeadline()) + "\",");
+			sb.append("\"diff\":\"" + diff + "\",");
+			sb.append("\"regdate\":\"" + sf.format(co.getRegdate()) + "\",");			
 			sb.append("\"hashlist\":[");
 			for (int j = 0; j < co.getHashlist().size(); j++) {
 				sb.append("\"" + co.getHashlist().get(j) + "\"");

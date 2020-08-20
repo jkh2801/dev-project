@@ -18,48 +18,26 @@
 .card {
 	position: relative;
 	width: 250px;
-	height: 250px;
+	height: 185px;
 	overflow: hidden;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 	font-family: 'Roboto Condensed', sans-serif !important;
 }
 
-.card .post-image {
-	height: 155px;
-	overflow: hidden;
-}
-
-.card .post-image img {
-	transition: .5s;
-	height: 100%;
-	width: 100%;
-}
-
-.card:hover .post-image img {
-	transform: scale(1.1) translateY(-50px);
-}
-
 .card .news-content {
 	position: absolute;
-	bottom: -150px;
+	top: +30px;
 	padding: 10px 20px 60px;
 	background: #fff;
 	transition: .5s;
-	border-top: 2px solid #000;
+	height: 155px;
 	width: 250px;
-}
-
-.card:hover .news-content {
-	bottom: -50px;
 }
 
 .card .category {
 	position: absolute;
-	top: -30px;
-	left: 0;
 	height: 30px;
 	line-height: 20px;
-	background: #00B8F4;
 	text-align: center;
 	color: #fff;
 	text-transform: uppercase;
@@ -67,6 +45,7 @@
 	font-size: 16px;
 	font-weight: bold;
 	transition: .5s;
+	width: 250px;
 }
 
 .card .news-content .post-meta {
@@ -88,7 +67,28 @@
 	transition: .5s;
 }
 
+.card .news-content .post-meta .grade {
+	text-decoration: none;
+	padding-right: 10px;
+	color: black;
+	font-weight: bold;
+	transition: .5s;
+}
+
+.card .news-content .post-meta .date {
+	text-decoration: none;
+	padding-right: 10px;
+	color: black;
+	font-weight: bold;
+	transition: .5s;
+	float: right;
+}
+
 .card .news-content .post-meta .author a:hover {
+	color: #DF084A;
+}
+
+.card .news-content .post-meta .grade a:hover {
 	color: #DF084A;
 }
 
@@ -108,15 +108,11 @@
 	padding: 0;
 	color: black;
 	transition: .5s;
-	opacity: 0;
-	height: 70px;
+	opacity: 1;
+	height: 40px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-}
-
-.card:hover .news-content .hashlist {
-	opacity: 1;
 }
 
 .card:hover .news-content .hashlist a:hover {
@@ -338,6 +334,7 @@
 					<option value="hashname">해시태그</option>
 				</select>
 				<button type="button" id="search">Search</button>
+				<input type="button" value="페이지 새로 고침" onClick="window.location.reload()">
 			</div>
 			<div class="plus">
 				<div class="box">
@@ -352,18 +349,12 @@
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="card">
-									<div class="post-image">
-										<img src="${path}/img/raspberry.jpg" class="img-responsive">
-									</div>
+								<span class="category" style="background: ${data.category == '스터디'? '#00B8F4': data.category == '프로젝트'? '#00FF7F' : '#EE82EE' }">${data.category == "스터디"? "Study": data.category == "프로젝트"? "Project" : "Contest" }</span>
 									<div class="news-content">
-										<span class="category">${data.category == "스터디"? "Study": data.category == "프로젝트"? "Project" : "Contest" }</span>
 										<div class="post-meta">
-											<span class="author"> <a href="#"> <i
-													class="fa fa-user"></i> ${data.name }
-											</a></span> <span class="time"> <i class="fa fa-clock-o"></i> <fmt:formatDate
-													value="${data.deadline}" pattern="yyyy-MM-dd" />
-
-											</span>
+											<span class="author"><a href="#"> <i class="fa fa-user"></i> ${data.name }</a></span> 
+											<span class="time"> <i class="fa fa-clock-o"></i> <fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd" /></span>
+											<span class="grade"> <i class="fas fa-user-graduate"></i> ${data.grade}</span>
 											<div class="clearfix"></div>
 										</div>
 										<h2 class="post-header">
@@ -374,6 +365,14 @@
 											<c:forEach var="hash" items="${data.hashlist }">
 												<a><span>#${hash }</span></a>&nbsp;
 											</c:forEach>
+										</div>
+										<div class="post-meta">
+											<span class="date">
+											<jsp:useBean id="now" class="java.util.Date" />
+											<fmt:parseNumber value="${now.time / (1000*60*60*24) }" var="nowDate" integerOnly="true"/>
+											<fmt:parseNumber value="${data.deadline.time / (1000*60*60*24) }" var="deadlineDate" integerOnly="true"/>
+											마감 ${deadlineDate - nowDate}일 전
+											</span>
 										</div>
 									</div>
 								</div>
@@ -459,27 +458,25 @@
 				var data_card = "";
 				$.each(data,function(i, v) {
 									console.log(v);
-									data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4">'
-									data_card += '<div class="card"><div class="post-image"><img src="${path}/img/raspberry.jpg" class="img-responsive">'
-									data_card += '</div><div class="news-content"><span class="category">'
-									data_card += v.category == "스터디" ? "Study"
-											: v.category == "프로젝트" ? "Project"
-													: "Contest"
-									data_card += '</span><div class="post-meta"><span class="author"> <a href="#"> <i class="fa fa-user"></i> '
-									data_card += v.name
-									data_card += '</a></span> <span class="time"> <i class="fa fa-clock-o"></i> '
-									data_card += v.deadline
-									data_card += '</span><div class="clearfix"></div></div><h2 class="post-header"><a href="${path}/coworking/details.dev?gno='
-									data_card += v.gno
-									data_card += '">' + v.title
-									data_card += '</a></h2><div class="hashlist">'
-									for (var i = 0; i < v.hashlist.length; i++) {
-										data_card += '<a><span>#'
-												+ v.hashlist[i] + '</span></a>&nbsp;'
-									}
-									data_card += '</div></div></div></div></div></div></div>'
-									content.append(data_card);
-									data_card = ""
+									data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4"><div class="card">'
+										data_card += '<span class="category" style="background: '
+										data_card += v.category == "스터디" ? "#00B8F4" : v.category == "프로젝트" ? "#00FA9A" : "#EE82EE" 
+										data_card += '">'
+										data_card += v.category == "스터디" ? "Study" : v.category == "프로젝트" ? "Project" : "Contest"
+										data_card += '</span>'
+										data_card += '<div class="news-content"><div class="post-meta">' 
+										data_card += '<span class="author"><a href="#"> <i class="fa fa-user"></i> ' + v.name + '</a></span>'
+										data_card += '<span class="time"> <i class="fa fa-clock-o"></i> ' + v.regdate + '</span>' 
+										data_card += '<span class="grade"> <i class="fas fa-user-graduate"></i> ' + v.grade + '</span>'
+										data_card += '<div class="clearfix"></div></div><h2 class="post-header"><a href="${path}/coworking/details.dev?gno='
+										data_card += v.gno + '">' + v.title + '</a></h2><div class="hashlist">' 
+										for (var i = 0; i < v.hashlist.length; i++) {
+											data_card += '<a><span>#' + v.hashlist[i] + '</span></a>&nbsp;'
+										}
+										data_card += '</div><div class="post-meta"><span class="date">'
+										data_card += '마감 '+ v.diff +'일 전</span></div></div></div></div></div></div></div>'
+										content.append(data_card);
+										data_card = ""
 								})
 			}
 
