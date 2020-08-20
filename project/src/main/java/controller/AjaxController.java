@@ -21,8 +21,9 @@ import logic.Hashtag;
 import logic.Message;
 import logic.Reply;
 import logic.Report;
-import logic.UserFile;
+import logic.Tag;
 import logic.User;
+import logic.UserFile;
 
 @RestController // @ResponseBody: View 없이 직접 데이터를 클라이언트에 전송
 @RequestMapping("ajax")
@@ -150,7 +151,7 @@ public class AjaxController {
 	}
 
 	@PostMapping(value = "changepw", produces = "text/plain; charset=UTF-8")
-	public String changepw(HttpServletRequest request) {
+	public String changepw(HttpServletRequest request, HttpSession session) {
 		String currentpw = request.getParameter("currentpw");
 		String newpw = request.getParameter("newpw");
 		String newpw2 = request.getParameter("newpw2");
@@ -169,10 +170,12 @@ public class AjaxController {
 			return "비밀번호는 4자 이상 입력하세요";
 		} else if (!newpw.equals(newpw2)) {
 			return "입력하신 정보에 오류가 있습니다.";
-		} else {
-			service.changepw(id, newpw);
-			return "비밀번호가 변경되었습니다.";
 		}
+			service.changepw(id, newpw);
+			DBUser.setPw(newpw);
+			session.setAttribute("loginUser", DBUser);
+			return "비밀번호가 변경되었습니다.";
+		
 	}
 
 	@PostMapping(value = "sendMessage", produces = "text/plain; charset=UTF-8")
@@ -262,5 +265,36 @@ public class AjaxController {
 		sb.append("]");
 		System.out.println(sb);
 		return sb.toString();
+	}
+	
+	@RequestMapping(value="portfolioSave", produces = "text/plain; charset=UTF-8")
+	public String portfolioSave (HttpServletRequest request, HttpSession session) {
+		int userno = ((User)session.getAttribute("loginUser")).getUno();
+		String[] pTags = request.getParameterValues("pTags");
+		String[] sTags = request.getParameterValues("sTags");
+		String giturl = request.getParameter("giturl");
+		String giturlable = request.getParameter("giturlable");
+		int positionNo = 7;
+		int skillsNo = 8;
+
+		service.positionTagsClear(positionNo, userno);
+		service.skillsTagsClear(skillsNo, userno);
+
+		Tag tag = new Tag();
+		tag.setWno(userno);
+
+		tag.setNo(positionNo);
+		for(String t : pTags) {
+			tag.setTno(service.getMaxTno()+1);
+			tag.setTag(t);
+			service.insertTag(tag);
+		}
+		tag.setNo(skillsNo);
+		for(String t : sTags) {
+			tag.setTno(service.getMaxTno()+1);
+			tag.setTag(t);
+			service.insertTag(tag);
+		}
+		return null;
 	}
 }

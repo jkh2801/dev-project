@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import dao.BoardDao;
 import dao.CoworkingDao;
 import dao.MessageDao;
+import dao.ProjectDao;
 import dao.ReplyDao;
 import dao.ReportDao;
 import dao.TilDao;
@@ -50,6 +51,9 @@ public class DevService {
 	
 	@Autowired
 	private TilDao tilDao;
+	
+	@Autowired
+	private ProjectDao projectDao;
 	
 	private Map<String, Object> map = new HashMap<>();
 
@@ -298,4 +302,44 @@ public class DevService {
 		
 	}
 
+	public void positionTagsClear(int positionNo, int userno) {
+		projectDao.positionTagsClear(positionNo, userno);
+	}
+
+	public void skillsTagsClear(int skillsNo, int userno) {
+		projectDao.skillsTagsClear(skillsNo, userno);
+	}
+
+	public int getMaxTno() {
+		return projectDao.getMaxTno();
+	}
+
+	public void insertTag(Tag tag) {
+		projectDao.insert(tag);
+	}
+
+	public List<Tag> getTags(int userno) {
+		return projectDao.getTags(userno);
+	}
+	
+	public void likeit(Integer no, Integer bno,Integer gno, String name) {
+		boardDao.likeit(no,bno,gno, name);
+
+	}
+
+	public int maxgno(Integer no, Integer bno) {
+		return boardDao.maxgno(no,bno);
+	}
+
+	public int likechk(Integer no, Integer bno, String name) {
+		return boardDao.likechk(no,bno,name);
+	}
+
+	public List<Goodorbad> goodorbadlist(Integer no,Integer pageNum, int limit) {
+		return boardDao.goodorbadlist(no,pageNum,limit);
+	}
+	
+	public int getpoint(Integer no, Integer bno) {
+		return boardDao.getpoint(no,bno);
+	}
 }

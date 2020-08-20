@@ -41,6 +41,8 @@ public class BoardController {
 				readcntable = true;
 			// board: 파라미터 num에 해당하는 게시물 정보 저장
 			board = service.getBoard(no, bno, readcntable);
+			int point = service.getpoint(no,bno);
+			mav.addObject("point",point);
 		}
 		mav.addObject("no", no);
 		mav.addObject("board", board);
@@ -155,6 +157,20 @@ public class BoardController {
 			throw new BoardException("게시글 삭제 실패했습니다.", "delete.shop?num=");
 		}
 		return mav;
+	}
+	
+	@GetMapping("likeit")
+	public ModelAndView likeit(Board board, Integer no, Integer bno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User) session.getAttribute("loginUser");
+		if (service.likechk(no, bno, user.getName()) == 0) {
+			int maxgno = service.maxgno(no, bno);
+			++maxgno;
+			service.likeit(no, bno, maxgno, user.getName());
+		} else {
+			throw new BoardException("이미 추천한 게시물 입니다.", "detail.dev?bno=" + bno + "&&no=" + no);
+		}
+		throw new BoardException("게시물을 추천 하였습니다.", "detail.dev?bno=" + bno + "&&no=" + no);
 	}
 
 	@PostMapping("update")

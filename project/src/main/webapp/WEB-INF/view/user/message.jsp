@@ -12,8 +12,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
 	.container {
-		margin: 0;
-		padding: 30px 20%;
+		margin: 30px auto;
+    	max-width: 1000px;
 	}
 	.content > hr {
 		width : 100%;
@@ -26,7 +26,7 @@
 	.pagetitle {
 		font-weight : bold;
 		font-size : 50px;
-		color : #8572EE;
+		color : #5A3FEE;
 	}
 	.message-content {
 		padding-top : 50px;

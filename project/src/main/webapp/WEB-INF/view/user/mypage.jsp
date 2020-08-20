@@ -105,6 +105,7 @@
 					$("#changePW").hide();
 					$(".find-result").text(a);
 					$(".find-result").show();
+					location.reload();
 				},
 				error : function(e) {
 					alert("오류 발생")
@@ -260,7 +261,7 @@
 	</div>
 	<script>
 		function inputcheck(form) {
-			if(form.pw.value != ${user.pw}) {
+			if(form.pw.value != ${loginUser.pw}) {
 				alert("비밀번호를 확인하세요");
 				form.pw.focus();
 				return false;
