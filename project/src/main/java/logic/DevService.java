@@ -17,6 +17,7 @@ import dao.MessageDao;
 import dao.ProjectDao;
 import dao.ReplyDao;
 import dao.ReportDao;
+import dao.SubcribeDao;
 import dao.TilDao;
 import dao.UserDao;
 import dao.UserGroupDao;
@@ -54,6 +55,9 @@ public class DevService {
 	
 	@Autowired
 	private ProjectDao projectDao;
+	
+	@Autowired
+	private SubcribeDao subcribeDao;
 	
 	private Map<String, Object> map = new HashMap<>();
 
@@ -341,5 +345,27 @@ public class DevService {
 	
 	public int getpoint(Integer no, Integer bno) {
 		return boardDao.getpoint(no,bno);
+	}
+	
+	public void subinsert(Subscribe sub) {
+		subcribeDao.insert(sub);
+		
+	}
+
+	public void subdelete(Subscribe sub) {
+		subcribeDao.delete(sub);
+		
+	}
+
+	public Subscribe getSubscribe(String scrapper, String scrapped) {
+		return subcribeDao.getSubscribe(scrapper, scrapped);
+	}
+
+	public List<TIL> mytillist(String name) {
+		return tilDao.mytillist(name);
+	}
+
+	public List<Board> getCommunitylist(int no, int num, int limit) {
+		return boardDao.getCommunitylist(no, num, limit);
 	}
 }

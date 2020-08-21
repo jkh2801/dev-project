@@ -42,7 +42,7 @@ public class GroupController {
 		return mav;
 	}
 	@GetMapping("main")
-	public ModelAndView main(Integer gno, HttpSession session) {
+	public ModelAndView loginCheckmain(Integer gno, HttpSession session) {
 		System.out.println(gno);
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");

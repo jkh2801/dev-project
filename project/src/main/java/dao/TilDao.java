@@ -52,4 +52,10 @@ public class TilDao {
 		template.getMapper(TilMapper.class).update(til);
 		
 	}
+
+	public List<TIL> mytillist(String name) {
+		param.clear();
+		param.put("name", name);
+		return template.getMapper(TilMapper.class).mytillist(param);
+	}
 }

@@ -125,6 +125,14 @@ public class BoardDao {
 		return template.getMapper(BoardMapper.class).getpoint(param);
 	}
 
+	public List<Board> getCommunitylist(int no, int num, int limit) {
+		param.clear();
+		param.put("no", no);
+		param.put("num", num);
+		param.put("limit", limit);
+		return template.getMapper(BoardMapper.class).getCommunitylist(param);
+	}
+
 
 
 

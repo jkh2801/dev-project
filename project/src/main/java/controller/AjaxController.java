@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import logic.Board;
 import logic.Coworking;
 import logic.DevService;
 import logic.Hashtag;
 import logic.Message;
 import logic.Reply;
 import logic.Report;
+import logic.Subscribe;
 import logic.Tag;
 import logic.User;
 import logic.UserFile;
@@ -124,6 +126,44 @@ public class AjaxController {
 			if (i < list.size())
 				sb.append(",");
 		}
+		sb.append("]");
+		System.out.println(sb);
+		return sb.toString();
+	}
+	
+	@RequestMapping(value = "searchcommunity", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String searchcommunity(HttpServletRequest request) {
+		int no = Integer.parseInt(request.getParameter("no"));
+		int num = Integer.parseInt(request.getParameter("num"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		List<Board> list = service.getCommunitylist(no, num, limit);
+		System.out.println(list);
+		StringBuilder sb = new StringBuilder("[");
+		int i = 0;
+//		for (Board b : list) {
+//			long diff = (co.getDeadline().getTime() - now.getTime()) / (1000*60*60*24);
+//			sb.append("{\"gno\":\"" + co.getGno() + "\",");
+//			sb.append("\"name\":\"" + co.getName() + "\",");
+//			sb.append("\"title\":\"" + co.getTitle() + "\",");
+//			sb.append("\"category\":\"" + co.getCategory() + "\",");
+//			sb.append("\"content\":\"" + co.getContent() + "\",");
+//			sb.append("\"maxnum\":\"" + co.getMaxnum() + "\",");
+//			sb.append("\"grade\":\"" + co.getGrade() + "\",");
+//			sb.append("\"startdate\":\"" + sf.format(co.getStartdate()) + "\",");
+//			sb.append("\"enddate\":\"" + sf.format(co.getEnddate()) + "\",");
+//			sb.append("\"diff\":\"" + diff + "\",");
+//			sb.append("\"regdate\":\"" + sf.format(co.getRegdate()) + "\",");			
+//			sb.append("\"hashlist\":[");
+//			for (int j = 0; j < co.getHashlist().size(); j++) {
+//				sb.append("\"" + co.getHashlist().get(j) + "\"");
+//				if (j < co.getHashlist().size() - 1)
+//					sb.append(",");
+//			}
+//			sb.append("]}");
+//			i++;
+//			if (i < list.size())
+//				sb.append(",");
+//		}
 		sb.append("]");
 		System.out.println(sb);
 		return sb.toString();
@@ -300,6 +340,43 @@ public class AjaxController {
 			tag.setTag(t);
 			service.insertTag(tag);
 		}
+		return null;
+	}
+	
+	@PostMapping(value = "subinsert", produces="text/plain; charset=UTF-8")
+	public String subinsert(HttpServletRequest request, HttpSession session) {
+		Subscribe sub = new Subscribe(); //로직 호출
+		
+		String scrapped = request.getParameter("name"); 
+		User scrapper = (User)session.getAttribute("loginUser");
+		
+		
+		sub.setScrapped(scrapped);
+		sub.setScrapper(scrapper.getName());
+		
+		
+		
+		service.subinsert(sub);
+		
+		return null;
+	}
+	
+	@PostMapping(value = "subdelete", produces="text/plain; charset=UTF-8")
+	public String subdelete(HttpServletRequest request, HttpSession session) {
+		Subscribe sub = new Subscribe(); //로직 호출
+		
+		String scrapped = request.getParameter("name"); 
+		User scrapper = (User)session.getAttribute("loginUser");
+		System.out.println(scrapper);
+		System.out.println(scrapped);
+		
+		sub.setScrapped(scrapped);
+		sub.setScrapper(scrapper.getName());
+		
+		
+		
+		service.subdelete(sub);
+		
 		return null;
 	}
 }
