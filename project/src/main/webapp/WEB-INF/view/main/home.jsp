@@ -233,6 +233,40 @@ section .btn {
 	letter-spacing: 2px;
 	font-weight: 500;
 }
+#customers {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 70%;
+	margin: auto;
+}
+
+#customers td, #customers th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+	background-color: #ddd;
+}
+
+.qBx #customers th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #4b47a2;
+	color: white;
+}
+.fBx #customers th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #23865f;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -254,22 +288,22 @@ section .btn {
 				<div class="serviceBx">
 					<img src="${path}/img/coworking.png">
 					<h3>Co-Working</h3>
-					<!-- <p>혼자하지 말고 같이 해보세요.</p> -->
 				</div>
 			</div>
 		</section>
-		<section>
+		<section id="til">
 			<div class="titleBx">
 				<h2><span>T</span>oday <span>I</span> <span>L</span>earned &lt; 본인의 지식을 정리해 보세요. &gt;</h2>
 			</div>
 		</section>
-		<section>
+		<section id="community">
 			<div class="titleBx">
 				<h2><span>C</span>omunity &lt; 이곳에서 오류, 에러, 고민을 풀어보세요. &gt;</h2>
 			</div>
-			<div class="comunityBx"></div>
+			<div class="comunityBx qBx"></div>
+			<div class="comunityBx fBx"></div>
 		</section>
-		<section>
+		<section id="coworking">
 			<div class="titleBx">
 				<h2><span>C</span>o-<span>W</span>orking &lt; 혼자하지 말고 같이 해보세요. &gt;</h2>
 			</div>
@@ -281,7 +315,18 @@ section .btn {
 		</section>
 		<script type="text/javascript">
 			$(function() {
+				
+				$(".service-content .serviceBx").on("click", function() {
+					var idx = $(this).index();
+					if(idx == 0) location.href = "#til";
+					else if (idx == 1) location.href = "#community";
+					else location.href = "#coworking";
+				})
+				
 				comunitysearch(4, 0, 10);
+				comunitysearch(5, 0, 10);
+				var qBx = $(".qBx");
+				var fBx = $(".fBx");
 				function comunitysearch(a, b, c) {
 					var data = {
 							no : a,
@@ -295,10 +340,32 @@ section .btn {
 						success : function(response) {
 							var res = JSON.parse(response);
 							console.log(res);
+							viewCommunity(a, res);
 						}
 					})
 					
 				}
+				
+				function viewCommunity(no, data) {
+					var data_card = '<table id="customers">';
+					if(no == 4) data_card += '<tr><td colspan="6" align="center"><h4>QnA게시판</h4></td></tr>';
+					if(no == 5) data_card += '<tr><td colspan="6" align="center"><h4>자유 게시판</h4></td></tr>';
+					
+					data_card += '<tr><th width="50%;">제목</th><th width="10%">작성자</th><th width="5%">추천</th><th width="8%">날짜</th></tr>'
+					$.each(data,function(i, v) {
+							console.log(v);
+							data_card += '<tr><td style="text-align: left;"><a href="detail.dev?bno='
+							data_card += v.bno + '&&no='+v.no
+							data_card += '">'+v.title
+							data_card += '</a></td><td>' + v.name
+							data_card += '</td><td>' + v.point + '</td><td>'
+							data_card += v.regdate + '</td></tr>'
+							})
+						if(no == 4) qBx.append(data_card);
+						if(no == 5) fBx.append(data_card);
+						data_card = ""
+				}
+				
 				coworkingsearch("","","deadline", 0, 0, 8);
 				var coworkingBx = $(".coworkingBx");
 				function coworkingsearch(a, b, c, d, e, f) {
@@ -324,7 +391,6 @@ section .btn {
 				function viewContent(data) {
 					var data_card = "";
 					$.each(data,function(i, v) {
-										console.log(v);
 										data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4"><div class="card">'
 											data_card += '<span class="category" style="background: '
 											data_card += v.category == "스터디" ? "#00B8F4" : v.category == "프로젝트" ? "#00FA9A" : "#EE82EE" 

@@ -19,7 +19,7 @@
 	<c:if test="${!empty member }">
 			<h2>강남 스터디</h2>
 			<div class="board">
-			<a href="#">공지사항</a>
+			<a href="../board/list.dev?no=${param.gno+100 }">공지사항</a>
 				<table>
 					<tr>
 						<th>제목</th>

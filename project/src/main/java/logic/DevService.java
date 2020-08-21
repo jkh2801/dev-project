@@ -368,4 +368,28 @@ public class DevService {
 	public List<Board> getCommunitylist(int no, int num, int limit) {
 		return boardDao.getCommunitylist(no, num, limit);
 	}
+	
+	public int getMaxProno(String name) {
+		return projectDao.getMaxProno(name);
+	}
+
+	public void addProject(Project newproject) {
+		projectDao.addProject(newproject);
+	}
+
+	public List<Project> getProjects(String name) {
+		return projectDao.getProjects(name);
+	}
+
+	public void updateProjectAble(String username, int prono) {
+		projectDao.updateProjectAble(username, prono);
+	}
+
+	public void clearProjectable(String name) {
+		projectDao.clearProjectable(name);
+	}
+
+	public void giturlUpdate(User dbUser) {
+		userDao.giturlUpdate(dbUser);
+	}
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,6 +22,7 @@ import logic.Coworking;
 import logic.DevService;
 import logic.Hashtag;
 import logic.Message;
+import logic.Project;
 import logic.Reply;
 import logic.Report;
 import logic.Subscribe;
@@ -140,30 +142,18 @@ public class AjaxController {
 		System.out.println(list);
 		StringBuilder sb = new StringBuilder("[");
 		int i = 0;
-//		for (Board b : list) {
-//			long diff = (co.getDeadline().getTime() - now.getTime()) / (1000*60*60*24);
-//			sb.append("{\"gno\":\"" + co.getGno() + "\",");
-//			sb.append("\"name\":\"" + co.getName() + "\",");
-//			sb.append("\"title\":\"" + co.getTitle() + "\",");
-//			sb.append("\"category\":\"" + co.getCategory() + "\",");
-//			sb.append("\"content\":\"" + co.getContent() + "\",");
-//			sb.append("\"maxnum\":\"" + co.getMaxnum() + "\",");
-//			sb.append("\"grade\":\"" + co.getGrade() + "\",");
-//			sb.append("\"startdate\":\"" + sf.format(co.getStartdate()) + "\",");
-//			sb.append("\"enddate\":\"" + sf.format(co.getEnddate()) + "\",");
-//			sb.append("\"diff\":\"" + diff + "\",");
-//			sb.append("\"regdate\":\"" + sf.format(co.getRegdate()) + "\",");			
-//			sb.append("\"hashlist\":[");
-//			for (int j = 0; j < co.getHashlist().size(); j++) {
-//				sb.append("\"" + co.getHashlist().get(j) + "\"");
-//				if (j < co.getHashlist().size() - 1)
-//					sb.append(",");
-//			}
-//			sb.append("]}");
-//			i++;
-//			if (i < list.size())
-//				sb.append(",");
-//		}
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		for (Board b : list) {
+			sb.append("{\"no\":\"" + b.getNo() + "\",");
+			sb.append("\"bno\":\"" + b.getBno() + "\",");
+			sb.append("\"name\":\"" + b.getName() + "\",");
+			sb.append("\"title\":\"" + b.getTitle() + "\",");
+			sb.append("\"regdate\":\"" + sf.format(b.getRegdate()) + "\",");
+			sb.append("\"point\":\"" +b.getPoint() + "\"}");
+			i++;
+			if (i < list.size())
+				sb.append(",");
+		}
 		sb.append("]");
 		System.out.println(sb);
 		return sb.toString();
@@ -315,19 +305,23 @@ public class AjaxController {
 	@RequestMapping(value="portfolioSave", produces = "text/plain; charset=UTF-8")
 	public String portfolioSave (HttpServletRequest request, HttpSession session) {
 		int userno = ((User)session.getAttribute("loginUser")).getUno();
+		String username = ((User)session.getAttribute("loginUser")).getName();
+		
 		String[] pTags = request.getParameterValues("pTags");
 		String[] sTags = request.getParameterValues("sTags");
 		String giturl = request.getParameter("giturl");
 		String giturlable = request.getParameter("giturlable");
+		String[] projectablePronos = request.getParameterValues("projectablepronos");
 		int positionNo = 7;
 		int skillsNo = 8;
-
+		
+		//태그 클리어 하고 추가. --> 입력안 되었을 시 에러 발생 상태
 		service.positionTagsClear(positionNo, userno);
 		service.skillsTagsClear(skillsNo, userno);
 
 		Tag tag = new Tag();
 		tag.setWno(userno);
-
+		
 		tag.setNo(positionNo);
 		for(String t : pTags) {
 			tag.setTno(service.getMaxTno()+1);
@@ -340,7 +334,56 @@ public class AjaxController {
 			tag.setTag(t);
 			service.insertTag(tag);
 		}
+		
+		//깃허브 주소랑 공개 여부
+		User dbUser = (User)session.getAttribute("loginUser");
+		dbUser.setGiturl(giturl);
+		if(giturlable.equals("false"))
+			dbUser.setGiturlable(false);
+		else 
+			dbUser.setGiturlable(true);
+
+		service.giturlUpdate(dbUser);
+		
+		//프로젝트 공개여부 변경
+		service.clearProjectable(username);
+		for(String prono : projectablePronos) {
+			service.updateProjectAble(username,Integer.parseInt(prono));
+		}
+		
 		return null;
+	}
+	
+	@RequestMapping(value="addProject", produces = "text/plain; charset=UTF-8")
+	public String addProject (HttpServletRequest request, HttpSession session) throws ParseException {
+		
+		String name = request.getParameter("name");
+		String subject = request.getParameter("subject");
+		int numbers = Integer.parseInt(request.getParameter("numbers"));
+		String description = request.getParameter("description");
+		String repository = request.getParameter("repository");
+			String startStr = request.getParameter("start");
+			String endStr = request.getParameter("end");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date start = formatter.parse(startStr);
+		Date end = formatter.parse(endStr);
+		int prono = service.getMaxProno(name) + 1;
+		
+		Project newproject = new Project();
+		newproject.setName(name);
+		newproject.setSubject(subject);
+		newproject.setNum(numbers);
+		newproject.setDescription(description);
+		newproject.setRepository(repository);
+		newproject.setStart(start);
+		newproject.setEnd(end);
+		newproject.setProno(prono);
+		service.addProject(newproject);
+		String result = 
+				"{\"subject\":\"" + subject + "\",\"term\":\"" + startStr + "-" + endStr + 
+				"\",\"numbers\":\"" + numbers + "\",\"prono\":\""+prono+"\"}";
+		
+		return result;
 	}
 	
 	@PostMapping(value = "subinsert", produces="text/plain; charset=UTF-8")

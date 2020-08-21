@@ -592,7 +592,6 @@ document.addEventListener('click', (e) => {
   }
 })
 
-input.focus();
 
 $("#submit").on("click", function () {
 	var hash = {hash : tags};

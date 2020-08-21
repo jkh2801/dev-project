@@ -334,7 +334,7 @@
 					<option value="hashname">해시태그</option>
 				</select>
 				<button type="button" id="search">Search</button>
-				<input type="button" value="페이지 새로 고침" onClick="window.location.reload()">
+				<!-- <input type="button" value="페이지 새로 고침" onClick="window.location.reload()"> -->
 			</div>
 			<div class="plus">
 				<div class="box">
@@ -344,6 +344,9 @@
 		</div>
 		<div class="content">
 			<c:forEach var="data" items="${list }">
+				<jsp:useBean id="now" class="java.util.Date" />
+				<fmt:parseNumber value="${now.time / (1000*60*60*24) }" var="nowDate" integerOnly="true"/>
+				<fmt:parseNumber value="${data.deadline.time / (1000*60*60*24) }" var="deadlineDate" integerOnly="true"/>
 				<div class="container-fluid">
 					<div class="container">
 						<div class="row">
@@ -368,9 +371,6 @@
 										</div>
 										<div class="post-meta">
 											<span class="date">
-											<jsp:useBean id="now" class="java.util.Date" />
-											<fmt:parseNumber value="${now.time / (1000*60*60*24) }" var="nowDate" integerOnly="true"/>
-											<fmt:parseNumber value="${data.deadline.time / (1000*60*60*24) }" var="deadlineDate" integerOnly="true"/>
 											마감 ${deadlineDate - nowDate}일 전
 											</span>
 										</div>
