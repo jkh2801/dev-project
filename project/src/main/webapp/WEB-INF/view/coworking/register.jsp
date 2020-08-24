@@ -632,6 +632,8 @@ $("#submit").on("click", function () {
 			$(this).children(".selected-date").text(formatDate(date));
 			$(this).children(".selected-date").data("value",selectedDate);
 			populateDates($(this).children(".dates").children(".days"));
+			$(this).parent().children("input").val(formatDate(date));
+			console.log($(this).parent());
 		})
 		
 		

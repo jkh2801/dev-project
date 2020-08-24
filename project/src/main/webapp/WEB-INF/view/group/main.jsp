@@ -95,7 +95,7 @@
 				</div>
 			</div>
 			<div class="calendar">
-				<!-- 일자 클릭시 메뉴오픈 -->
+		<!-- 일자 클릭시 메뉴오픈 -->
 		<div id="contextMenu" class="dropdown clearfix">
 			<ul class="dropdown-menu dropNewEvent" role="menu"
 				aria-labelledby="dropdownMenu"
@@ -114,8 +114,8 @@
 
 		<!-- 일정 추가 MODAL -->
 		<div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
-			<div class="modal-dialog" role="document" style="height: 100%; margin-top: 0px; margin-right: 0px;">
-				<div class="modal-content" style="float: right;height: 100%;">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -127,11 +127,11 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="subject">회의제목</label> <input
-									class="inputModal" type="text" name="subject"
-									id="subject" required="required" />
+									class="inputModal" type="text" name="subject" id="subject"
+									required="required" />
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="content">회의내용</label>
@@ -139,12 +139,20 @@
 									id="content" style="resize: none;"></textarea>
 							</div>
 						</div>
-						
+
+
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="start">시작시간</label> <input
-									class="inputModal" type="text" name="start"
-									id="start" />
+									class="inputModal" type="text" name="start" id="start" />
+							</div>
+						</div>
+						
+							
+						<div class="row">
+							<div class="col-xs-12">
+								<label class="col-xs-4" for="start">장소</label> <input
+									class="inputModal" type="button" name="position" id="position" value="위치" />
 							</div>
 						</div>
 						<div class="row">
@@ -153,7 +161,7 @@
 									class="inputModal" type="text" name="end" id="end" />
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="color">색상</label> <select
@@ -170,7 +178,7 @@
 								</select>
 							</div>
 						</div>
-						
+
 					</div>
 					<div class="modal-footer modalBtnContainer-addEvent">
 						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
@@ -187,7 +195,7 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
-			</div>
+	</div>
 	</c:if>
 	<script src="../calendar/vendor/js/jquery.min.js"></script>
 	<script src="../calendar/vendor/js/bootstrap.min.js"></script>
