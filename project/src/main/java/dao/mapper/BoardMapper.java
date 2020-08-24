@@ -104,12 +104,6 @@ public interface BoardMapper {
 			+ "where b.no= #{no} order by point desc limit #{num} , #{limit}")
 	List<Board> getCommunitylist(Map<String, Object> param);
 
-	
-
-	
-	
-
-
-	
-	
+	@Select("SELECT * from board where no= #{no} order by bno desc limit 0 , #{limit} ")
+	List<Board> list2(Map<String, Object> param);
 }

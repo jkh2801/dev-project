@@ -5,15 +5,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.BoardException;
+
 import logic.DevService;
+import logic.Goodorbad;
+
 import logic.Subscribe;
 import logic.TIL;
 import logic.User;
@@ -139,10 +144,55 @@ public class TILController {
 			Subscribe sub = new Subscribe();
 			sub = service.getSubscribe(scrapper, scrapped);
 			mav.addObject("sub",sub);
+			
+			
+			
+			
+			String name=((User)session.getAttribute("loginUser")).getName();
+			int wno=til.getBno();
+
+			Goodorbad gob= new Goodorbad();
+			gob = service.getPoint(no,wno,name); 
+			mav.addObject("gob", gob);
+			
+			int count = service.getcount(no,bno);
+			mav.addObject("count",count);
+			
+			
+			System.out.println(gob);
+			System.out.println("??????????????????");
 			System.out.println(sub);
 		}
+		
 		mav.addObject("til", til);
 		return mav;
 	}
+	
+	
+	@RequestMapping("subuser")
+	public ModelAndView subuser(Subscribe sub, HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		
+		User scrapper = (User)session.getAttribute("loginUser");
+		sub.setScrapper(scrapper.getName());
+		List<User> list = service.getUserList();
+		List<Subscribe> subuser = service.getsubuser();
+		mav.addObject("list", list);
+		mav.addObject("subuser", subuser);
+
+		System.out.println("????"); 
+		System.out.println(list);
+		System.out.println(subuser);
+		
+		
+		
+	
+		
+		
+		
+		return mav;
+	}
+	
 
 }

@@ -12,7 +12,7 @@ import logic.UserFile;
 
 
 @Repository
-public class fileDao {
+public class FileDao {
 
 	@Autowired
 	private SqlSessionTemplate template;

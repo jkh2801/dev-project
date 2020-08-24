@@ -21,13 +21,14 @@ import dao.SubcribeDao;
 import dao.TilDao;
 import dao.UserDao;
 import dao.UserGroupDao;
-import dao.fileDao;
+import dao.FileDao;
+import dao.GoodorbadDao;
 
 @Service
 public class DevService {
 
 	@Autowired
-	private fileDao filedao;
+	private FileDao filedao;
 
 	@Autowired
 	private UserDao userDao;
@@ -58,6 +59,9 @@ public class DevService {
 	
 	@Autowired
 	private SubcribeDao subcribeDao;
+	
+	@Autowired
+	private GoodorbadDao goodorbadDao;
 	
 	private Map<String, Object> map = new HashMap<>();
 
@@ -391,5 +395,35 @@ public class DevService {
 
 	public void giturlUpdate(User dbUser) {
 		userDao.giturlUpdate(dbUser);
+	}
+	
+	public List<Subscribe> getsubuser() {
+		return subcribeDao.getsubuser();
+	}
+
+
+	public void likeinsert(Goodorbad gob) {
+		goodorbadDao.insert(gob);
+
+	}
+
+	public int getmaxgno(int no, int wno) {
+		return goodorbadDao.getmaxgno(no,wno);
+	}
+
+	public void likedelete(int no, int wno, String name) {
+		goodorbadDao.likedelete(no,wno, name);
+	}
+	
+	public Goodorbad getPoint(Integer no, int wno, String name) {
+		return goodorbadDao.getlike(no, wno, name);
+	}
+
+	public int getcount(Integer no, Integer bno) {
+		return tilDao.getcount(no,bno);
+	}
+
+	public List<Board> boardlist2(int no,  int limit) {
+		return boardDao.list2(no,  limit );
 	}
 }

@@ -20,64 +20,30 @@
 			<h2>강남 스터디</h2>
 			<div class="board">
 			<a href="../board/list.dev?no=${param.gno+100 }">공지사항</a>
-				<table>
+			<table>
+				<tr>
+					<th style="text-align: center;">제목</th>
+					<th style="text-align: center;">작성자</th>
+					<th style="text-align: center;">등록일</th>
+				</tr>
+				<c:forEach items="${boardlist}" var="board">
+
 					<tr>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>등록일</th>
+						<td ><a
+							href="../board/detail.dev?bno=${board.bno}&&no=${board.no}"
+							style="color: red;"><font color=red>
+										<b><span >	${board.title }</span></b>
+									</font> </a></td>
+						<td>${board.name }</td>
+						<td><fmt:formatDate value="${board.regdate}"
+								pattern="yyyy-MM-dd" /></td>
 					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-					<tr>
-						<td>Test123</td>
-						<td>Test123</td>
-						<td>2020-08-10</td>
-					</tr>
-				</table>
-			</div>
+
+				</c:forEach>
+
+
+			</table>
+		</div>
 			<div class="member">
 				<input type="hidden" value="${param.gno}" name="gno">
 				<c:if test="${loginUser.name == membermaster}">

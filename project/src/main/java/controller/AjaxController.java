@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import logic.Board;
 import logic.Coworking;
 import logic.DevService;
+import logic.Goodorbad;
 import logic.Hashtag;
 import logic.Message;
 import logic.Project;
@@ -420,6 +421,29 @@ public class AjaxController {
 		
 		service.subdelete(sub);
 		
+		return null;
+	}
+	
+	@PostMapping(value = "likeinsert", produces="text/plain; charset=UTF-8")
+	public String likeinsert(HttpServletRequest request, HttpSession session) {
+		Goodorbad gob= new Goodorbad();
+		gob.setNo(3);
+		int wno = Integer.parseInt(request.getParameter("wno"));
+		gob.setWno(wno);
+		gob.setName(((User)session.getAttribute("loginUser")).getName());
+		gob.setGno(service.getmaxgno(3, wno)+1);
+		System.out.println(gob);
+		service.likeinsert(gob);
+		return null;
+	}
+
+	@PostMapping(value = "likedelete", produces="text/plain; charset=UTF-8")
+	public String likedelete(HttpServletRequest request, HttpSession session) {
+		int wno = Integer.parseInt(request.getParameter("wno"));
+		int no = Integer.parseInt(request.getParameter("no"));
+		String name = request.getParameter("name");
+		service.likedelete(no, wno, name);
+
 		return null;
 	}
 }

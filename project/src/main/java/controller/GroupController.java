@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import logic.Board;
 import logic.Coworking;
 import logic.DevService;
 import logic.User;
@@ -71,14 +72,17 @@ public class GroupController {
 		mav.addObject("project",project);
 		mav.addObject("group",group);
 		if(gno != null) {
-		List<Usergroup> member = service.getMember(gno);
-		String membermaster = service.getMembermaset(gno);
-		int membercount = service.getMembercount(gno);
-		int membermax = service.getMembermax(gno);
-		mav.addObject("membermaster",membermaster);
-		mav.addObject("membermax",membermax);
-		mav.addObject("member",member);
-		mav.addObject("membercount",membercount);
+			int limit=10;
+			List<Board> boardlist = service.boardlist2(gno+100, limit);	
+			List<Usergroup> member = service.getMember(gno);
+			String membermaster = service.getMembermaset(gno);
+			int membercount = service.getMembercount(gno);
+			int membermax = service.getMembermax(gno);
+			mav.addObject("boardlist",boardlist);
+			mav.addObject("membermaster",membermaster);
+			mav.addObject("membermax",membermax);
+			mav.addObject("member",member);
+			mav.addObject("membercount",membercount);
 		}
 		return mav;
 	}

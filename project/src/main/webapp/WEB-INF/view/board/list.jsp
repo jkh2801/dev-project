@@ -15,6 +15,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	function listpage(page){
@@ -182,6 +184,9 @@
 			<c:if test="${no ==10 }">
 				<td colspan="6" align="center"><h4>건의 게시판</h4></td>
 			</c:if>
+				<c:if test="${no >=100 }">
+				<td colspan="6" align="center"><h4>그룹 공지사항</h4></td>
+			</c:if>
 
 
 
@@ -191,9 +196,13 @@
 				<th width="5%">번호</th>
 				<th width="50%;">제목</th>
 				<th width="10%">작성자</th>
-				<c:if test="${no !=10 }">
+				<c:if test="${ !(no >=100) }">
+				<c:if test="${  no !=10  }">
 					<th width="5%">추천</th>
+					<c:if test="${no!=5 }">
 					<th width="12%">기술</th>
+					</c:if>
+				</c:if>
 				</c:if>
 				<th width="8%">날짜</th>
 			</tr>
@@ -223,10 +232,13 @@
 
 						<fmt:formatDate var="regdate" value="${board.regdate}"
 							pattern="yyyyMMdd" />
+						<c:if test="${ !(no >=100) }">	
 						<c:if test="${no != 10}">
 							<td>${board.point }</td>
-
+					<c:if test="${no!=5 }">
 							<td>궁금한 기술</td>
+							</c:if>
+							</c:if>
 						</c:if>
 						<td><c:if test="${today == regdate}">
 								<fmt:formatDate value="${board.regdate}" pattern="HH:mm:ss" />
@@ -258,7 +270,9 @@
 			</tr>
 		</c:if>
 		<tr>
+		<c:if test="${!empty loginUser.name  }">
 			<td colspan="6" align="right"><a href="write.dev?no=${no }">[글쓰기]</a></td>
+			</c:if>
 		</tr>
 	</table>
 	<br>
