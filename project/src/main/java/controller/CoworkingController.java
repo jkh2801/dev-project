@@ -49,6 +49,7 @@ public class CoworkingController {
 			}
 			
 		}
+		System.out.println("==============");
 		System.out.println(list);
 		System.out.println(hash);
 		mav.addObject("list", list);
@@ -65,13 +66,20 @@ public class CoworkingController {
 	}
 	
 	@GetMapping("details")
-	public ModelAndView form(Integer gno) {
-		ModelAndView mav = new ModelAndView();
-		try {
-			Coworking cwk = service.getdetails(gno);
-			mav.addObject("cwk",cwk);
-		}catch(Exception e) {
-			e.printStackTrace();
+		public ModelAndView loginCheckform(Integer gno, String name, HttpSession session) {
+			ModelAndView mav = new ModelAndView();
+			try {
+				Coworking cwk = service.getdetails(gno);
+				int membercount = service.getMembercount(gno);
+				int membermax = service.getMembermax(gno);
+				int recruitment = (membermax - membercount);
+				String chk = service.getChk(gno,name);
+				System.out.println(chk);
+				mav.addObject("chk",chk);
+				mav.addObject("recruitment",recruitment);
+				mav.addObject("cwk",cwk);
+			}catch(Exception e) {
+				e.printStackTrace();
 		}
 		return mav;
 	}

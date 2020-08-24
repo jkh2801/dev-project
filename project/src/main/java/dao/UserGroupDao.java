@@ -83,4 +83,11 @@ public class UserGroupDao {
 		param.put("gno",gno);
 		return template.getMapper(UserGroupMapper.class).getMembermaset(param);
 	}
+
+	public String getChk(Integer gno, String name) {
+		param.clear();
+		param.put("gno",gno);
+		param.put("name",name);
+		return template.getMapper(UserGroupMapper.class).getChk(param);
+	}
 }

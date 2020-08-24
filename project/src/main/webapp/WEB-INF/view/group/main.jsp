@@ -17,7 +17,7 @@
 </head>
 <body>
 	<c:if test="${!empty member }">
-			<h2>강남 스터디</h2>
+			<h2>${grouptitle}</h2>
 			<div class="board">
 			<a href="../board/list.dev?no=${param.gno+100 }">공지사항</a>
 			<table>

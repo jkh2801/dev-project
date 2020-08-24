@@ -295,7 +295,15 @@
                </div>
          </section>
          <div class="btn-area">
-         	<input type="button" value="신청" onclick="document.getElementById('join').style.display='block'" style="text-align: center; margin-bottom: 3px;"><br>
+         <c:if test="${empty chk}">
+        	<input type="button" value="신청" onclick="document.getElementById('join').style.display='block'" style="text-align: center; margin-bottom: 3px;"><br>	
+         </c:if>
+         <c:if test="${chk eq '승인'}">
+        	<input type="button" value="완료" style="text-align: center; margin-bottom: 3px;"><br>	
+         </c:if>
+         <c:if test="${chk eq '신청'}">
+        	<input type="button" value="신청중" style="text-align: center; margin-bottom: 3px;"><br>	
+         </c:if>
          </div>
       </div>
    </div>

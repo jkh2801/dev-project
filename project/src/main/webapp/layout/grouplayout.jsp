@@ -88,8 +88,8 @@ body {
 	font-size: 20px;
 }
 .content .board {
-	padding: 0 50px;
-	width: 600px;
+	padding: 0 20px;
+	width: 400px;
 	float: left;
 	text-align: center;
 }
@@ -109,7 +109,7 @@ body {
 }
 .content .member {
 	width: 400px;
-	padding: 0 150px 0 50px;
+	padding: 0 0px 0 50px;
 	float: right;
 	text-align: center;
 }
@@ -168,7 +168,7 @@ body {
 				<li class="menu-li"><a href="${path}/til/main.dev">TIL</a>
 				<ul>
 						<li><a href="${path}/til/main.dev?no=3">TIL 페이지 목록</a></li>
-						<li><a href="${path}/til/subuser.dev">구독한 사용자 목록</a></li>
+						<li><a href="${path}/til/list.dev?no=5">구독한 사용자 목록</a></li>
 				</ul></li>
 				<li class="sub-menu menu-li"><a href="#">Community</a>
 					<ul>
@@ -196,7 +196,12 @@ body {
 						<c:if test="${!empty study}"><li>스터디 <i class="fa fa-caret-down"></i></li></c:if>
 							<c:forEach items="${study}" var="st">
 								<li>
-									<a href="${path}/group/main.dev?gno=${st.gno}">${st.title}</a>
+									<c:if test="${loginUser.name != st.name}">
+										<a href="${path}/group/main.dev?gno=${st.gno}" style="color:#EE82EE">${st.title}</a>
+									</c:if>
+									<c:if test="${loginUser.name == st.name}">
+										<a href="${path}/group/main.dev?gno=${st.gno}" style="color:#00FA9A">${st.title}</a>
+									</c:if>
 								</li>
 							</c:forEach>
 					</ul>
@@ -204,7 +209,12 @@ body {
 						<c:if test="${!empty contest}"><li>공모전 <i class="fa fa-caret-down"></i></li></c:if>
 							<c:forEach items="${contest}" var="co">
 								<li>
-									<a href="${path}/group/main.dev?gno=${co.gno}">${co.title}</a>
+									<c:if test="${loginUser.name != co.name}">	
+										<a href="${path}/group/main.dev?gno=${co.gno}" style="color:#EE82EE">${co.title}</a>
+									</c:if>
+									<c:if test="${loginUser.name == co.name}">
+										<a href="${path}/group/main.dev?gno=${co.gno}" style="color:#00FA9A">${co.title}</a>
+									</c:if>
 								</li>
 							</c:forEach>
 					</ul>
@@ -212,7 +222,12 @@ body {
 						<c:if test="${!empty project}"><li>프로젝트 <i class="fa fa-caret-down"></i></li></c:if>
 							<c:forEach items="${project}" var="pr">
 								<li>
-									<a href="${path}/group/main.dev?gno=${pr.gno}">${pr.title}</a>
+									<c:if test="${loginUser.name != pr.name}">	
+										<a href="${path}/group/main.dev?gno=${pr.gno}" style="color:#EE82EE">${pr.title}</a>
+									</c:if>
+									<c:if test="${loginUser.name == pr.name}">
+										<a href="${path}/group/main.dev?gno=${pr.gno}" style="color:#00FA9A">${pr.title}</a>
+									</c:if>
 								</li>
 							</c:forEach>
 					</ul>

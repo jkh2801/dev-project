@@ -72,6 +72,9 @@ public class GroupController {
 		mav.addObject("project",project);
 		mav.addObject("group",group);
 		if(gno != null) {
+			String grouptitle = service.grouptitle(gno);
+			mav.addObject("grouptitle",grouptitle);
+			
 			int limit=10;
 			List<Board> boardlist = service.boardlist2(gno+100, limit);	
 			List<Usergroup> member = service.getMember(gno);

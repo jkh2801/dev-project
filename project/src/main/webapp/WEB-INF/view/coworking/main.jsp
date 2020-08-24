@@ -469,8 +469,11 @@
 			<div class="contentbox">
 			<c:forEach var="data" items="${list }">
 				<jsp:useBean id="now" class="java.util.Date" />
-				<fmt:parseNumber value="${now.time / (1000*60*60*24) }" var="nowDate" integerOnly="true"/>
-				<fmt:parseNumber value="${data.deadline.time / (1000*60*60*24) }" var="deadlineDate" integerOnly="true"/>
+				<fmt:formatDate value="${now}" var="now2" pattern="yyyyMMdd"/>
+				<fmt:parseNumber value="${now2}" var="today" integerOnly="true"/>
+				<fmt:formatDate value="${data.deadline}" var="dl" pattern="yyyyMMdd"/>
+				<fmt:parseNumber value="${dl}" var="deadline" integerOnly="true"/>
+				<c:if test="${(deadline - today) > 0}">	
 				<div class="container-fluid">
 					<div class="container">
 						<div class="row">
@@ -485,7 +488,7 @@
 											<div class="clearfix"></div>
 										</div>
 										<h2 class="post-header">
-											<a href="${path}/coworking/details.dev?gno=${data.gno}">${data.title }
+											<a href="${path}/coworking/details.dev?gno=${data.gno}&name=${loginUser.name}">${data.title }
 											</a>
 										</h2>
 										<div class="hashlist">
@@ -495,7 +498,7 @@
 										</div>
 										<div class="post-meta">
 											<span class="date">
-											마감 ${deadlineDate - nowDate}일 전
+											마감 ${deadline - today}일 전
 											</span>
 										</div>
 									</div>
@@ -504,6 +507,7 @@
 						</div>
 					</div>
 				</div>
+				</c:if>
 			</c:forEach>
 			</div>
 		</div>

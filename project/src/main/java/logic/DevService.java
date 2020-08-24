@@ -426,4 +426,12 @@ public class DevService {
 	public List<Board> boardlist2(int no,  int limit) {
 		return boardDao.list2(no,  limit );
 	}
+
+	public String grouptitle(Integer gno) {
+		return coworkingDao.grouptitle(gno);
+	}
+
+	public String getChk(Integer gno, String name) {
+		return usergroupDao.getChk(gno,name);
+	}
 }

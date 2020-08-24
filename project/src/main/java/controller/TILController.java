@@ -67,10 +67,9 @@ public class TILController {
 	public ModelAndView tillist(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<TIL> tillist = service.tillist();
+		System.out.println(tillist);
 		mav.addObject("tillist", tillist);
-
 		return mav;
-
 	}
 
 	@RequestMapping("mytil")

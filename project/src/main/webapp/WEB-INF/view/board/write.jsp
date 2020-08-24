@@ -104,8 +104,6 @@
 	</c:if>
 
 	<tr><td align="center">글쓴이</td><td><form:input path="name"  value="${loginUser.name}" size="40%" readonly="true" /></td>
-				<td><form:input path="name" value="${loginUser.name}"
-						size="40%" readonly="true" /></td>
 			</tr>
 
 			<tr>

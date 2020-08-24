@@ -46,7 +46,7 @@ public interface CoworkingMapper {
 			+ "</script>"})
 	List<Coworking> getHashWorkinglist(Map<String, Object> param);
 
-	@Select("SELECT user_group.gno, working.category, working.title from working JOIN user_group ON user_group.gno = working.gno " + 
+	@Select("SELECT user_group.gno, working.category, working.title, working.name from working JOIN user_group ON user_group.gno = working.gno " + 
 			"where user_group.name = #{name} and chk = '승인'")
 	List<Coworking> getUsergroup(Map<String, Object> param);
 

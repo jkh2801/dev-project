@@ -54,5 +54,8 @@ public interface UserGroupMapper {
 	@Select("SELECT NAME FROM user_group WHERE gno = #{gno} AND auth = '팀장'")
 	String getMembermaset(Map<String, Object> param);
 
+	@Select("select chk from user_group where gno = #{gno} and name = #{name}")
+	String getChk(Map<String, Object> param);
+
 
 }
