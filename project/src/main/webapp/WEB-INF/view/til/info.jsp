@@ -1,67 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TIL</title>
 <style>
-#customers {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	border-collapse: collapse;
-	width: 60%;
-	margin: auto;
+.container {
+	min-height: 100vh;
+	background: #fff;
+	border-top: 1.5px solid #ddd;
 }
-
-#customers td, #customers th {
-	border: 1px solid #ddd;
-	padding: 8px;
+.container .infobox {
+	margin: 100px 25vw 50px;
+	padding: 20px;
 }
-
-#customers tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-#customers tr:hover {
-	background-color: #ddd;
-}
-
-#customers th {
-	padding-top: 12px;
-	padding-bottom: 12px;
-	text-align: left;
-	background-color: #4CAF50;
-	color: white;
-}
-</style>
-<meta charset="UTF-8">
-<title>게시물 상세보기</title>
-<style type="text/css">
-.leftcol {
-	text-align: left;
-	vertical-align: top;
-}
-
-.lefttoptable {
-	height: 250px;
-	border-width: 0px;
-	text-align: left;
-	vertical-align: top;
-	padding: 0px;
-}
-
-input[type=text]:focus {
-	border: 3px solid #555;
+.container .infobox .simpleinfo {
+	display: flex;
 }
 </style>
 </head>
 <body>
-
+<div class="container">
+	<div class="infobox">
+		<div class="header">
+			<div class="title"><h1>${til.title}</h1></div>
+			<div class="simpleinfo">
+			<div class="name">${til.name}</div><div class="regdate"><fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" /></div>
+			</div>
+		</div>
+	</div>
+</div>
 	<h6>TIL 상세화면</h6>
 	
 	

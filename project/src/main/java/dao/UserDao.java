@@ -31,9 +31,9 @@ public class UserDao {
 		template.getMapper(UserMapper.class).update(user);
 	}
 
-	public void delete(String id) {
+	public void delete(String name) {
 		param.clear();
-		param.put("id", id);
+		param.put("name", name);
 		template.getMapper(UserMapper.class).delete(param);
 	}
 
@@ -69,5 +69,11 @@ public class UserDao {
 	
 	public void giturlUpdate(User dbUser) {
 		template.getMapper(UserMapper.class).giturlUpdate(dbUser);
+	}
+
+	public User getPortfolio(String name) {
+		param.clear();
+		param.put("name",name);	
+		return template.getMapper(UserMapper.class).getPortfolio(param).get(0);
 	}
 }

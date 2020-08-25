@@ -27,7 +27,13 @@ public class PortfolioController {
 	public ModelAndView portfolio(HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String name = request.getParameter("name");
-		mav.addObject("name",name);
+		User pfUser  = service.getPortfolio(name);
+		List<Tag> tags = service.getTags(pfUser.getUno());
+		List<Project> projects = service.getProjects(name);
+		
+		mav.addObject("projects",projects);
+		mav.addObject("tags",tags);
+		mav.addObject("pfUser",pfUser);
 		return mav;
 	}
 

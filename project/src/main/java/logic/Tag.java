@@ -4,6 +4,7 @@ public class Tag {
 	private int no;
 	private int wno;
 	private int tno;
+	private int prono; 
 	private String tag;
 	public int getNo() {
 		return no;
@@ -23,6 +24,12 @@ public class Tag {
 	public void setTno(int tno) {
 		this.tno = tno;
 	}
+	public int getProno() {
+		return prono;
+	}
+	public void setProno(int prono) {
+		this.prono = prono;
+	}
 	public String getTag() {
 		return tag;
 	}
@@ -31,6 +38,7 @@ public class Tag {
 	}
 	@Override
 	public String toString() {
-		return "Tag [no=" + no + ", wno=" + wno + ", tno=" + tno + ", tag=" + tag + "]";
+		return "Tag [no=" + no + ", wno=" + wno + ", tno=" + tno + ", prono=" + prono + ", tag=" + tag + "]";
 	}
+	
 }

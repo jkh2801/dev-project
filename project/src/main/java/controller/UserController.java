@@ -125,23 +125,23 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("delete")
-	public ModelAndView delete(String id, String pw, HttpSession session) {
+	public ModelAndView delete(String name, String pw, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");
 		if(!pw.equals(loginUser.getPw())) {
 			throw new LoginException
-			("비밀번호 오류", "delete.dev?id=" + id);
+			("비밀번호 오류", "delete.dev?name=" + name);
 		}
 		try {
-			service.delete(id);	
+			service.delete(name);	
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new LoginException
-			("탈퇴 오류", "delete.dev?id=" + id);
+			("탈퇴 오류", "delete.dev?name=" + name);
 		}		
 		session.invalidate();
 		throw new LoginException
-		(id+"님 탈퇴 완료", "login.dev");		
+		(name+"님 탈퇴 완료", "login.dev");		
 	}
 	
 	@RequestMapping("main")

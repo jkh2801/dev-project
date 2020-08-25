@@ -20,13 +20,9 @@ public class TilDao {
 	private Map<String, Object> param = new HashMap<>();
 
 	public void insert(TIL til) {
-
+		System.out.println("========til.insert");
+		System.out.println(til);
 		template.getMapper(TilMapper.class).insert(til);
-	}
-
-	public int maxnum() {
-		return template.getMapper(TilMapper.class).maxnum();
-
 	}
 
 	public List<TIL> list() {
@@ -64,5 +60,11 @@ public class TilDao {
 		param.put("no",no);	
 		param.put("bno",bno);	
 		return template.getMapper(TilMapper.class).getcount(param);
+	}
+
+	public int getmaxbno(int no) {
+		param.clear();
+		param.put("no",no);
+		return template.getMapper(TilMapper.class).getmaxbno(param);
 	}
 }

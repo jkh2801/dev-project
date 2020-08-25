@@ -65,10 +65,12 @@ public class AjaxController {
 		String[] arr = request.getParameterValues("hash");
 		System.out.println(Arrays.toString(arr));
 		Hashtag hash = new Hashtag();
-		hash.setNo(6);
-		hash.setWno(service.getmaxcono() + 1);
+		int no = Integer.parseInt(request.getParameter("no"));
+		hash.setNo(no);
+		if(no == 6) hash.setWno(service.getmaxcono() + 1);
+		else hash.setWno(service.getmaxbno(no) + 1);
 		for (int i = 0; i < arr.length; i++) {
-			hash.setHno(i + 1);
+			hash.setHno(i+1);
 			hash.setHashname(arr[i]);
 			service.insertHashtag(hash);
 		}
@@ -323,17 +325,21 @@ public class AjaxController {
 		Tag tag = new Tag();
 		tag.setWno(userno);
 		
-		tag.setNo(positionNo);
-		for(String t : pTags) {
-			tag.setTno(service.getMaxTno()+1);
-			tag.setTag(t);
-			service.insertTag(tag);
+		if(pTags != null) {
+			tag.setNo(positionNo);
+			for(String t : pTags) {
+				tag.setTno(service.getMaxTno()+1);
+				tag.setTag(t);
+				service.insertTag(tag);
+			}
 		}
-		tag.setNo(skillsNo);
-		for(String t : sTags) {
-			tag.setTno(service.getMaxTno()+1);
-			tag.setTag(t);
-			service.insertTag(tag);
+			if(sTags != null) {
+				tag.setNo(skillsNo);
+				for(String t : sTags) {
+					tag.setTno(service.getMaxTno()+1);
+					tag.setTag(t);
+					service.insertTag(tag);
+				}
 		}
 		
 		//깃허브 주소랑 공개 여부
@@ -348,8 +354,10 @@ public class AjaxController {
 		
 		//프로젝트 공개여부 변경
 		service.clearProjectable(username);
-		for(String prono : projectablePronos) {
-			service.updateProjectAble(username,Integer.parseInt(prono));
+		if(projectablePronos != null) {
+			for(String prono : projectablePronos) {
+				service.updateProjectAble(username,Integer.parseInt(prono));
+			}
 		}
 		
 		return null;
@@ -358,6 +366,7 @@ public class AjaxController {
 	@RequestMapping(value="addProject", produces = "text/plain; charset=UTF-8")
 	public String addProject (HttpServletRequest request, HttpSession session) throws ParseException {
 		
+		int userno = ((User)session.getAttribute("loginUser")).getUno();
 		String name = request.getParameter("name");
 		String subject = request.getParameter("subject");
 		int numbers = Integer.parseInt(request.getParameter("numbers"));
@@ -369,7 +378,26 @@ public class AjaxController {
 		Date start = formatter.parse(startStr);
 		Date end = formatter.parse(endStr);
 		int prono = service.getMaxProno(name) + 1;
-		
+		/*
+		Tag 테이블
+			no : 2
+			wno : username
+			tno : tno
+			prono : prono
+	 */
+	String[] usedTags = request.getParameterValues("usedTags");
+	Tag tag = new Tag();
+	tag.setNo(2);
+	tag.setWno(userno);
+	tag.setProno(prono);
+	if (usedTags != null) {
+		for (String t : usedTags) {
+			tag.setTag(t);
+			tag.setTno(service.getMaxTno()+1);
+			service.insertTag(tag);
+		}
+	}
+
 		Project newproject = new Project();
 		newproject.setName(name);
 		newproject.setSubject(subject);
@@ -385,6 +413,18 @@ public class AjaxController {
 				"\",\"numbers\":\"" + numbers + "\",\"prono\":\""+prono+"\"}";
 		
 		return result;
+	}
+	
+	@RequestMapping(value="deleteProject", produces = "text/plain; charset=UTF-8")
+	public String deleteProject (HttpServletRequest request, HttpSession session) {
+		String username = request.getParameter("name");
+		String[] projectslist = request.getParameterValues("projectslist");
+		if(projectslist != null) {
+			for(String prono : projectslist) {
+				service.deleteProject(username,Integer.parseInt(prono));
+			}
+		}
+		return null;
 	}
 	
 	@PostMapping(value = "subinsert", produces="text/plain; charset=UTF-8")

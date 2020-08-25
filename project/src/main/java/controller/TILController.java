@@ -34,16 +34,12 @@ public class TILController {
 	public ModelAndView list(Integer no, Integer bno, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		TIL til = null;
-		if (bno == null) { // num �Ķ���Ͱ� ���� ���
+		if (bno == null) {
 			til = new TIL();
 		} else {
-
 			til = service.getTil(no, bno); // board:파라미터 bno에 해당하는 게시물 정보 저장
-			System.out.println(
-					"===============================================================================================");
 		}
-		System.out.println(til);
-		
+		til.setNo(3);
 		mav.addObject("til", til);
 		return mav;
 	}
@@ -52,7 +48,8 @@ public class TILController {
 	public ModelAndView board(TIL til, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			System.out.println(til);
+			til.setBno(service.getmaxbno(3)+1);
+			til.setNo(3);
 			service.Til_insert(til);
 			mav.setViewName("redirect:main.dev");
 
@@ -133,8 +130,6 @@ public class TILController {
 		} else {
 
 			til = service.getTil(no, bno); // board:파라미터 bno에 해당하는 게시물 정보 저장
-			System.out.println(
-					"===============================================================================================");
 		}
 		User user = (User)session.getAttribute("loginUser");
 		if (user != null) {

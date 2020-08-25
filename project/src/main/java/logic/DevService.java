@@ -101,12 +101,20 @@ public class DevService {
 		userDao.update(user);
 	}
 
-	public void delete(String id) {
-		userDao.delete(id);
+	public void delete(String name) {
+		userDao.delete(name);
 	}
 
 	public int getmaxuno() {
 		return userDao.getmaxuno();
+	}
+	
+	public void deleteProject(String username, int prono) {
+		projectDao.deleteProject(username, prono);
+	}
+
+	public User getPortfolio(String name) {
+		return userDao.getPortfolio(name);
 	}
 
 	public int boardCount(int no, String searchtype, String searchcontent) {
@@ -282,11 +290,6 @@ public class DevService {
 	}
 	
 	public void Til_insert(TIL til) {
-		int max=tilDao.maxnum();
-		System.out.println(max);
-		til.setBno(++max);
-		til.setNo(3);
-		System.out.println(til);
 		tilDao.insert(til); 
 	}
 
@@ -433,5 +436,9 @@ public class DevService {
 
 	public String getChk(Integer gno, String name) {
 		return usergroupDao.getChk(gno,name);
+	}
+
+	public int getmaxbno(int no) {
+		return tilDao.getmaxbno(no);
 	}
 }

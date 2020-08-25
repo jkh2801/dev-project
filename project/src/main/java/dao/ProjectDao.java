@@ -75,5 +75,12 @@ public class ProjectDao {
 		template.getMapper(ProjectMapper.class).clearProjectable(param);
 	}
 	
+	public void deleteProject(String username, int prono) {
+		param.clear();
+		param.put("name", username);
+		param.put("prono", prono);
+		template.getMapper(ProjectMapper.class).deleteProject(param);
+	}
+	
 
 }

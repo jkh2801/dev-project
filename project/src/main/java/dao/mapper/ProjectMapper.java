@@ -22,7 +22,7 @@ public interface ProjectMapper {
 	@Select("Select ifnull(max(tno),0) from tag")
 	int getMaxTno();
 	
-	@Insert("Insert into tag (no, wno, tno, tag) values (#{no}, #{wno}, #{tno}, #{tag})")
+	@Insert("Insert into tag (no, wno, tno, prono, tag) values (#{no}, #{wno}, #{tno}, #{prono}, #{tag})")
 	void insertTag(Tag tag);
 
 	@Select("Select * from tag where wno=#{userno}")
@@ -42,4 +42,7 @@ public interface ProjectMapper {
 
 	@Update("Update project set able=false where name=#{name}")
 	void clearProjectable(Map<String, Object> param);
+
+	@Delete("Delete from project where name=#{name} and prono=#{prono}")
+	void deleteProject(Map<String, Object> param);
 }

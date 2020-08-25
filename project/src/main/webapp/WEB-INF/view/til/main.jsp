@@ -23,7 +23,7 @@
 .container .header_Area {
 	width: 100vw;
 	height: 30vh;
-	background: #ee5454;
+	background: linear-gradient(45deg, #ee5454, #8572EE);
 }
 .container .header_Area .search_Area {
 	text-align: center;
@@ -264,7 +264,7 @@
 			</div>
 			<div class="plus">
 				<div class="box">
-					<a href="register.dev"><i class="fa fa-plus"></i></a>
+					<a href="write.dev"><i class="fa fa-plus"></i></a>
 				</div>
 			</div>
 		</div>
@@ -312,5 +312,12 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(function() {
+			$(".container .searchArea .plus .box").click(function() {
+				location.href = "write.dev";
+			})
+		})
+	</script>
 </body>
 </html>

@@ -25,7 +25,7 @@ public interface UserMapper {
 	@Update("update user set name=#{name},email=#{email},phone=#{phone} where id=#{id}")
 	void update(User user);
 
-	@Delete("delete from user where id=#{id}")
+	@Delete("delete from user where name=#{name}")
 	void delete(Map<String, Object> param);
 
 	@Select("select ifnull(max(uno),0) uno from user")
@@ -42,4 +42,7 @@ public interface UserMapper {
 	
 	@Update("update user set giturl=#{giturl}, giturlable=#{giturlable} where name=#{name}")
 	void giturlUpdate(User dbUser);
+
+	@Select("Select * from user where name=#{name}")
+	List<User> getPortfolio(Map<String, Object> param);
 }

@@ -12,12 +12,8 @@ import logic.TIL;
 
 public interface TilMapper {
 
-	@Insert("insert into board(no,bno,name,title,content,regdate,open)"
-			+" values (#{no},#{bno},#{name},#{title},#{content},now(),#{open})")
+	@Insert("insert into board(no,bno,name,title,content,regdate,open)  values (#{no},#{bno},#{name},#{title},#{content},now(),#{open})")
 	void insert(TIL til);
-
-	@Select("select ifnull(max(bno),0) from board")
-	int maxnum();
 
 	@Select("select * from board  where no = 3 and open=0 ORDER BY regdate desc")
 	List<TIL> list(Map<String, Object> param);
@@ -38,5 +34,8 @@ public interface TilMapper {
 	
 	@Select("SELECT IFNULL(COUNT(*),0) FROM goodorbad WHERE NO=#{no} AND wno=#{bno}")
 	int getcount(Map<String, Object> param);
+
+	@Select("select ifnull(max(bno),0) from board where no=#{no}")
+	int getmaxbno(Map<String, Object> param);
 
 }

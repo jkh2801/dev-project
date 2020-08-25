@@ -21,16 +21,17 @@ public interface CoworkingMapper {
 	@Select("select * from working where gno = #{gno}")
 	Coworking getdetails(Integer gno);
 
-	@Select({"<script> select * from working "
-			+ "<where>"
-			+ "<if test='searchtype != null and searchinput != null '> ${searchtype} like '%${searchinput}%' </if>"
-			+ "<if test='category != null'> and category = #{category} </if>"
-			+ "</where>"
-			+ "<if test='searchsort != null '> order by regdate desc </if> "
-			+ "<if test='searchsort == null '> order by deadline </if> "
-			+ " limit #{num} , #{limit}  "
-			+ "</script>"})
-	List<Coworking> getWorkinglist(Map<String, Object> param);
+	   @Select({"<script> select gno, name, title, category, content, maxnum, startdate, enddate, deadline, process, grade, loc, regdate, (TO_DAYS(deadline) - TO_DAYS(NOW())) as date from working "
+		         + "<where>"
+		         + "<if test='searchtype != null and searchinput != null '> ${searchtype} like '%${searchinput}%' </if>"
+		         + "<if test='category != null'> and category = #{category} </if>"
+		         + "and (TO_DAYS(deadline) - TO_DAYS(NOW())) > 0"
+		         + "</where>"
+		         + "<if test='searchsort != null '> order by regdate desc </if> "
+		         + "<if test='searchsort == null '> order by deadline </if> "
+		         + " limit #{num} , #{limit}  "
+		         + "</script>"})
+	   List<Coworking> getWorkinglist(Map<String, Object> param);
 
 	@Insert("insert into hash (no, wno, hno, hashname) values(#{no}, #{wno}, #{hno}, #{hashname})")
 	void insertHashtag(Hashtag hash);

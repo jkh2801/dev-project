@@ -366,7 +366,7 @@
 .container .header_Area {
 	width: 100vw;
 	height: 30vh;
-	background: #54a0ee;
+	background: linear-gradient(45deg, #54a0ee, #8572EE);
 }
 .container .header_Area .search_Area {
 	text-align: center;

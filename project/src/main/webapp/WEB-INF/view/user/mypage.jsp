@@ -202,7 +202,7 @@
 						<tr>
 							<td colspan="2" align="center">
 								<input type="submit" value="수정">
-								<input type="button" value="탈퇴하기" onclick="location.href='delete.dev?id=${loginUser.id}'">
+								<input type="button" value="탈퇴하기" onclick="location.href='delete.dev?name=${loginUser.name}'">
 							</td>
 						</tr>
 					</table>

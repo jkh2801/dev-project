@@ -506,8 +506,7 @@
 						</form:form>
 					</section>
 					<div class="btn-area">
-						<button type="button" onclick="javascript:document.f.submit()"
-							id="submit">Register</button>
+						<button type="button" id="submit">Register</button>
 					</div>
 				</div>
 			</div>
@@ -593,16 +592,17 @@ document.addEventListener('click', (e) => {
 })
 
 
-$("#submit").on("click", function () {
-	var hash = {hash : tags};
-	console.log(hash);
-	
+$("#submit").on("click", function (event) {
+	event.preventDefault();
+	var hash = {hash : tags,
+			no: 6};
 	$.ajax({
 		url: '${path}/ajax/hashtag.dev',
 		type: "post",
 		data: hash,
 		traditional: true,
 		success: function(response){
+			javascript:document.f.submit();
 		}
 	})
 	return true;

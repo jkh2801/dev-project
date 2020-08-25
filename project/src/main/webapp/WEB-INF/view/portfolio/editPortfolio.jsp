@@ -77,7 +77,7 @@
 	  margin: 0;
 	  padding: 0 5px;
 	  border: 1px solid #8a8a8a;
-	  border-radius: 3px;
+	  border-radius: 5px;
 	  background: #8a8a8a;
 	  display: flex;
 	  align-items: center;
@@ -120,7 +120,7 @@
 	  margin: 0;
 	  padding: 0 5px;
 	  border: 1px solid #3877ff;
-	  border-radius: 3px;
+	  border-radius: 5px;
 	  background: #3877ff;
 	  display: flex;
 	  align-items: center;
@@ -144,7 +144,7 @@
 	
 	
 	
-	// 프로젝트 리스팅 임시
+	/* 프로젝트 리스팅 임시 */
 	table {
 		border : 1px solid #000;
 	}
@@ -155,6 +155,31 @@
 		border : 1px solid #000;
 	}
 	
+	/* 프로젝트 추가시 사용 기술 */ 
+	.added-usedTag {
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-content: flex-start;
+	  padding: 5px;
+	  width: calc(100% - 30px);
+	  height : 50px;
+	}
+	.added-usedTag .usedTag {
+	  height: 30px;
+	  margin: 2px;
+	  padding: 0 5px;
+	  border: 1px solid #3877ff;
+	  border-radius: 5px;
+	  background: #3877ff;
+	  display: flex;
+	  align-items: center;
+	  color: #333;
+	  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #3877ff;
+	  cursor: pointer;
+	  font-size : 15px;
+	  color : #fff;
+	  margin-right: 5px;;
+	}
 	
 </style>
 <script>
@@ -284,7 +309,6 @@
 					projectable.push($(this).data('prono'));
 				}
 		    });
-			console.log(typeof(projectable[1]))
 			$.ajax({
 				url: '${path}/ajax/portfolioSave.dev',
 				type: "post",
@@ -297,10 +321,10 @@
 				},
 				traditional: true,
 				success: function(s) {
-					alert(s);
+					alert("저장되었습니다");
 				},
 				error : function(e) {
-					alert("오류 발생")
+					alert("오류가 발생했습니다")
 				}
 			})
 			return true;
@@ -314,6 +338,7 @@
 			<div class="content-header">
 				<div class="pagetitle">My Portfolio 작성 / 수정</div>
 				<button type="button" class="btn btn-primary" id="save">저장하기</button>
+				
 			</div>
 				<hr>
 			<div class="content-body">
@@ -369,44 +394,59 @@
 							
 					<span class="content-body-container">
 						<span class="giturl-input-span">
-							<input id="gitrulinput"/>
+							<input id="gitrulinput" value="${sessionScope.loginUser.giturl}"/>
 						</span>
 					</span>
 				</div>
 				
 				<div class="content-body-project">
 					<div class="content-name">프로젝트 관리</div>
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProject">프로젝트 추가</button>
-					<table class="projectlist">
-						<tr>
-							<th>프로젝트명</th>
-							<th>프로젝트 기간</th>
-							<th>프로젝트 인원</th>
-							<th>공개여부</th>
-							<th>삭제</th>
-						</tr>
-						<c:forEach var="projects" items="${projects}">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">프로젝트 추가</button>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">프로젝트 삭제</button>
+					
+					<c:if test='${empty projects}'>
+						<h3>프로젝트를 등록해주세요</h3>
+					</c:if>
+					<c:if test='${!empty projects}'>
+						<table class="projectlist">
 							<tr>
-								<td>${projects.subject}</td>
-								
-								<td>
-									<fmt:formatDate value="${projects.start}" pattern="yyyy-MM-dd"/> 
-									- 
-									<fmt:formatDate value="${projects.end}" pattern="yyyy-MM-dd"/>
-								</td>
-								<td>${projects.num}</td>
-								<td><input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}"></td>
-								<td><input type='checkbox'></td>
+								<th>프로젝트명</th>
+								<th>프로젝트 기간</th>
+								<th>프로젝트 인원</th>
+								<th>공개여부</th>
+								<th>삭제</th>
 							</tr>
-						</c:forEach>
-					</table>
+							<c:forEach var="projects" items="${projects}">
+								<tr id ="${projects.prono}">
+									<td>${projects.subject}</td>
+									
+									<td>
+										<fmt:formatDate value="${projects.start}" pattern="yyyy-MM-dd"/> 
+										- 
+										<fmt:formatDate value="${projects.end}" pattern="yyyy-MM-dd"/>
+									</td>
+									<td>${projects.num}</td>
+									<td>
+										<c:if test='${projects.able == false}'>
+											<input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}">
+										</c:if>
+										<c:if test='${projects.able == true}'>
+											<input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}" checked>
+										</c:if>
+									</td>
+									<td><input type='checkbox' class='deleteProjectChk' data-prono="${projects.prono}"></td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:if>
+					
 				</div>
 			</div>
 		</div>
 	</div>
 	
 	
-	<div class="modal fade" id="addProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -421,15 +461,15 @@
 					<input type="text" class="form-control" id="subject">
 				</div>
 				<div class="form-group">
-					<label for="numbers" class="col-form-label">프로젝트 인원 :</label>
+					<label for="numbers" class="col-form-label">프로젝트 인원 (숫자만 입력) :</label>
 					<input type="text" class="form-control" id="numbers">
 				</div>
 				<div class="form-group">
-					<label for="start" class="col-form-label">시작일 :</label>
+					<label for="start" class="col-form-label">시작일 (yyyy-mm-dd) :</label>
 					<input type="text" class="form-control" id="start">
 				</div>
 				<div class="form-group">
-					<label for="end" class="col-form-label">종료일 :</label>
+					<label for="end" class="col-form-label">종료일 (yyyy-mm-dd) :</label>
 					<input type="text" class="form-control" id="end">
 				</div>
 				<div class="form-group">
@@ -437,19 +477,106 @@
 					<textarea class="form-control" id="description"></textarea>
 				</div>
 				<div class="form-group">
+					<label for="used-skills-tag" class="col-form-label">사용기술 :</label>
+					<input type="text" class="form-control" id="used-skills-tag">
+					<span class="added-usedTag">
+					
+					</span>
+				</div>
+				<div class="form-group">
 					<label for="repository" class="col-form-label">Github link:</label>
 					<input type="text" class="form-control" id="repository">
 				</div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal" class="modal-close">닫기</button>
 	        <button type="button" class="btn btn-primary" id="saveNewProject">저장하기</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="deleteProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	    <%--
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">프로젝트 삭제하</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     --%>
+	      <div class="modal-body" style="padding:60px 0 60px 0">
+	      	<h4 style="text-align:center">선택하신 프로젝트를 삭제하시겠습니까?</h4>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-danger" id="deleteProject">삭제하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<script>
 		$(function(){
+			//사용 기술 태그 입력
+			const addedUsedTags = document.querySelector('.added-usedTag');
+			const usedTagInput = document.querySelector('#used-skills-tag');
+			let usedTags = [];
+			usedTagInput.addEventListener('keyup', (e) => {
+			    if (e.key === 'Enter') {
+					if (usedTags.length < 5) {
+				      	e.target.value.split(',').forEach(tag => {
+				      		usedTags.push(tag);
+				      });
+				      
+				      addUsedTags();
+				      usedTagInput.value = '';
+					}else {
+						alert("5개까지 입력이 가능합니다.")
+					}
+			    }
+			});
+			function addUsedTags() {
+				  clearUsedTags();
+				  usedTags.slice().reverse().forEach(tag => {
+					  addedUsedTags.prepend(creatUsedTag(tag));
+				  });
+				}
+			
+			function clearUsedTags() {
+			  	document.querySelectorAll('.usedTag').forEach(tag => {
+			    tag.parentElement.removeChild(tag);
+			  });
+			}
+			
+			function creatUsedTag(label) {
+				  const div = document.createElement('div');
+				  div.setAttribute('class', 'usedTag');
+				  const span = document.createElement('span');
+				  span.innerHTML = label;
+				  const closeIcon = document.createElement('i');
+				  closeIcon.innerHTML = '';
+				  closeIcon.setAttribute('class', 'fa fa-times');
+				  closeIcon.setAttribute('data-item', label);
+				  closeIcon.setAttribute('id', 'usedTagI');
+				  div.appendChild(span);
+				  div.appendChild(closeIcon);
+				  console.log(div)
+				  return div;
+			}
+			document.addEventListener('click', (e) => {
+				  if (e.target.id === 'usedTagI') {
+				    	const tagLabel = e.target.getAttribute('data-item');
+				    	const index = usedTags.indexOf(tagLabel);
+				    	usedTags = [...usedTags.slice(0, index), ...usedTags.slice(index+1)];
+				    	addUsedTags();    
+				  } 
+				})
+			
+			
+			//프로젝트 추가
 			$("#saveNewProject").on("click",function(){
 				$.ajax({
 					url : "${path}/ajax/addProject.dev",
@@ -461,26 +588,66 @@
 						start : $("#start").val(),
 						end : $("#end").val(),
 						description : $('#description').val(),
+						usedTags : usedTags,
 						repository : $('#repository').val()
+						
 					},
+					traditional : true,
 					success : function(s) {
 						var result = JSON.parse(s);
 						var html = '';
-						html += '<tr><td>' + result.subject + '</td>'
+						html += '<tr id="' + result.prono + '"><td>' + result.subject + '</td>'
 						html += '<td>' + result.term + '</td>'
 						html += '<td>' + result.numbers + '</td>'
 						html += '<td><input type="checkbox" class="projectable" name="projectable" data-prono="' + result.prono + '"></td>'
-						html += '<td><input type="checkbox"></td></tr>'
+						html += '<td><input type="checkbox" class="deleteProjectChk" data-prono="' + result.prono + '"></td></tr>'
 						alert("새로운 프로젝트가 추가되었습니다.")
 						$(".projectlist").append(html);
 						$(".form-control").val('');
-						$("#addProject").modal('hide');
+						$("#addProjectModal").modal('hide');
 						
 					},
 					error : function(e) {
 						alert("에러 발생")
 					}
 				})
+			})
+			//프로젝트 삭제
+			$('#deleteProject').on("click",function(){
+				var projectslist  = [];
+				$('.deleteProjectChk').each(function(i){
+					if($(this).is(":checked")){
+						projectslist.push($(this).data('prono'));
+					}
+			    });
+				$.ajax({
+					url : "${path}/ajax/deleteProject.dev",
+					type : "post",
+					data : {
+						name : "${sessionScope.loginUser.name}",
+						projectslist : projectslist
+					},
+					traditional: true,
+					success: function(s) {
+						alert("프로젝트가 삭제되었습니다");
+						$('.deleteProjectChk').each(function(i){
+							console.log(i)
+							if(projectslist.includes($(this).data('prono'))){
+								var id = $(this).data('prono')
+								$('tr[id=' + id + ']').remove()
+							}
+						})
+						$("#deleteProjectModal").modal('hide');
+					},
+					error : function(e) {
+						alert("오류가 발생했습니다")
+					}
+				})
+			})
+			
+			//종료 버튼
+			$(".modal-close").on("click",function(){
+				$('#message-title').val("");
 			})
 		})
 	</script>
