@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.BoardException;
-
+import logic.Coworking;
 import logic.DevService;
 import logic.Goodorbad;
-
+import logic.Hashtag;
 import logic.Subscribe;
 import logic.TIL;
 import logic.User;
@@ -63,9 +64,18 @@ public class TILController {
 	@RequestMapping("main")
 	public ModelAndView tillist(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<TIL> tillist = service.tillist();
-		System.out.println(tillist);
-		mav.addObject("tillist", tillist);
+		List <TIL> list = service.getTillist(null, "title", 0, 0, 12);
+		List <Hashtag> hash = service.getHashtaglist(3);
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			map.put(list.get(i).getBno(), i);
+		}
+		for(Hashtag h : hash) {
+			if(map.containsKey(h.getWno())) {
+				list.get(map.get(h.getWno())).addHashlist(h.getHashname());
+			}
+		}
+		mav.addObject("tillist", list);
 		return mav;
 	}
 
@@ -122,15 +132,9 @@ public class TILController {
 	}
 	
 	@GetMapping("info")
-	public ModelAndView info(Integer no, Integer bno, HttpServletRequest request, HttpSession session) {
+	public ModelAndView loginCheckinfo(Integer no, Integer bno, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		TIL til = null;
-		if (bno == null) { 
-			til = new TIL();
-		} else {
-
-			til = service.getTil(no, bno); // board:파라미터 bno에 해당하는 게시물 정보 저장
-		}
+		TIL til = service.getTil(no, bno); // board:파라미터 bno에 해당하는 게시물 정보 저장
 		User user = (User)session.getAttribute("loginUser");
 		if (user != null) {
 			String scrapped = til.getName();
@@ -138,26 +142,25 @@ public class TILController {
 			Subscribe sub = new Subscribe();
 			sub = service.getSubscribe(scrapper, scrapped);
 			mav.addObject("sub",sub);
-			
-			
-			
-			
-			String name=((User)session.getAttribute("loginUser")).getName();
-			int wno=til.getBno();
-
+			String name = user.getName();
+			int wno = til.getBno();
 			Goodorbad gob= new Goodorbad();
 			gob = service.getPoint(no,wno,name); 
 			mav.addObject("gob", gob);
 			
 			int count = service.getcount(no,bno);
 			mav.addObject("count",count);
-			
-			
-			System.out.println(gob);
-			System.out.println("??????????????????");
-			System.out.println(sub);
 		}
 		
+		List <Goodorbad> goodlist = service.getGoodorbadlist2(3, bno);
+		int chk = 0;
+		for (int i = 0; i < goodlist.size(); i++) {
+			if(goodlist.get(i).getName().equals(user.getName())) chk = 1;
+		}
+		mav.addObject("likechk", chk);
+		mav.addObject("likecnt", goodlist.size());
+		List <Hashtag> hashlist = service.getHashtaglist2(3, bno);
+		mav.addObject("hashlist", hashlist);
 		mav.addObject("til", til);
 		return mav;
 	}
@@ -166,25 +169,12 @@ public class TILController {
 	@RequestMapping("subuser")
 	public ModelAndView subuser(Subscribe sub, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		
-		
 		User scrapper = (User)session.getAttribute("loginUser");
 		sub.setScrapper(scrapper.getName());
 		List<User> list = service.getUserList();
 		List<Subscribe> subuser = service.getsubuser();
 		mav.addObject("list", list);
 		mav.addObject("subuser", subuser);
-
-		System.out.println("????"); 
-		System.out.println(list);
-		System.out.println(subuser);
-		
-		
-		
-	
-		
-		
-		
 		return mav;
 	}
 	

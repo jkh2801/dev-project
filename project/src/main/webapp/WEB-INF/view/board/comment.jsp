@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+
 <script>
 var bno = '${board.bno}'; //게시글 번호
 var no='${board.no}'
-
+var login = '${loginUser.name}';
 	
 
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
@@ -26,9 +26,12 @@ function commentList(){
             $.each(data, function(key, value){ 
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-left: 400px; margin-right: 400px;">';
                 a += '<div class="commentInfo'+value.rno+'">'+'작성자 :  '+value.name; 
-                a += '<a onclick="commentUpdate('+value.rno+',\''+value.content+'\');"> 수정 </a>';
-                a += '<a onclick="commentDelete('+value.rno+');"> 삭제 </a> </div>';
-                a += '<div class="commentContent'+value.rno+'"> <p> 내용 : '+value.content +'</p>';
+                if (login == value.name) {
+                a += '<a onclick="commentUpdate('+value.no+','+value.bno+','+value.rno+',\''+value.content+'\');"> 수정 </a>';
+                a += '<a onclick="commentDelete('+value.rno+','+value.no+','+value.bno+');"> 삭제 </a> ';
+                }
+                a += '</div><div class="commentContent'+value.rno+'"> <p> 내용 : '+value.content +'</p>';
+                
                 a += '</div></div>';
             });
             
@@ -61,39 +64,47 @@ function commentInsert(insertData){
 }
  
 //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
-function commentUpdate(cno, content){
+function commentUpdate(no,bno,rno, content2){
     var a ='';
     
     a += '<div class="input-group">';
-    a += '<input type="text" class="form-control" name="content_'+cno+'" value="'+content+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
+// 	a += '<textarea rows="5" cols="140" class="form-control" name="content2" >'+content2+'</textarea>';
+     a += '<input type="text" class="form-control"  style= "width:950px; height:85px;"   id="content2" name="content2" value="'+content2+'" /> ';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+no+','+bno+','+rno+');">수정</button> </span>';
     a += '</div>';
     
-    $('.commentContent'+cno).html(a);
+    $('.commentContent'+rno).html(a);
     
 }
  
 //댓글 수정
-function commentUpdateProc(cno){
-    var updateContent = $('[name=content_'+cno+']').val();
-    
+function commentUpdateProc(no,bno,rno){
+     updateContent = $('[name=content2]').val();
+    console.log(updateContent)
     $.ajax({
-        url : '/comment/update',
+        url : '${path}/ajax/commentupdate.dev',
         type : 'post',
-        data : {'content' : updateContent, 'cno' : cno},
+        data : {'content' : updateContent, 'no':no ,'bno':bno ,'rno' : rno },
         success : function(data){
-            if(data == 1) commentList(bno); //댓글 수정후 목록 출력 
+             commentList(bno); //댓글 수정후 목록 출력 
         }
     });
 }
  
 //댓글 삭제 
-function commentDelete(cno){
+function commentDelete(rno,no,bno){
     $.ajax({
-        url : '/comment/delete/'+cno,
+        url : '${path}/ajax/commentdelete.dev',
         type : 'post',
+        data : {
+        	'rno' :rno,
+        	'no':no,
+        	'bno':bno
+        },
         success : function(data){
-            if(data == 1) commentList(bno); //댓글 삭제후 목록 출력 
+        	
+             commentList(bno); //댓글 삭제후 목록 출력 
+             alert("댓글이 삭제되었습니다.")
         }
     });
 }
@@ -108,5 +119,3 @@ $(document).ready(function(){
  
  
 </script>
-
-

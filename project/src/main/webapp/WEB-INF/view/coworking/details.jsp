@@ -7,315 +7,162 @@
 <meta charset="UTF-8">
 <title>상세보기</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <style type="text/css">
-.container {
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
 }
-.container .content {
+.main{
+	height: 100%;
+	overflow: hidden;
 }
-.page-wrap {
-   max-width: 100%;
-   min-height: 100vh;
+.containers {
    position: relative;
-   z-index: 1
-}
-
-.pagewrap-overlay {
-   position: absolute;
-   z-index: -1;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   opacity: 0.8;
-}
-
-.contents {
    width: 40%;
+   height:100%;
    margin: 5vh auto;
-   padding: 0;
-   border: 2px solid #222;
-   border-radius: 15px;
    overflow: hidden;
 }
-.head {
-   background: #fff;
-   width: 100%;
-   height: 150px;
-   text-align: center;
-   position: relative;
+.containers .category {
+	height: 30px;
+	width: 100%;
+	position: absolute;
+	line-height: 20px;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+	padding: 5px 20px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.containers .content{
+	position: absolute;
+	padding: 20px;
+	margin-top: 30px;
+	height: auto;
+	width: 100%;
+	background-color: #ffffff;
+    border: 1px solid #e6e8eb;
+}
+.containers .content .title{
+	font-size: 13px;
+	color: #000;
+}
+.containers .content .name{
+	font-size: 13px;
+	color:#323648;  
+	text-align: right;
+}
+.containers .content .deadline{
+	font-size: 13px;
+	color:#ff6600; 
+	text-align: right;
+	font-weight: 400px;
+}
+.containers .content .w3-containers{
+	width: 100%;
+	display: table;
+}
+.containers .content .w3-containers .left{
+	display: table-cell;
+	width:50%;
 }
 
-.head:after {
-   content: '';
-   position: absolute;
-   bottom: -17px;
-   left: 0;
-   width: 100%;
-   height: 40px;
-   background: #fff;
-   z-index: 1;
-   transform: skewY(3deg);
+.containers .content .w3-containers .right{
+	display: table-cell;
+	width:50%;
 }
 
-.head h1 {
-   text-transform: uppercase;
-   font-size: 30px;
-   letter-spacing: 2px;
+.containers .content .w3-containers .right .hashlist a{
+	display: inline-block;
+	font-size: 14px;
+	background-color: #ebecec;
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-weight: 400px;
 }
 
-.head-content {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}
-.title {
-   font-weight: 600;
-}
-.pagewrap .contents section {
-   position: relative;
-   height: 100%;
-}
-.pagewrap .contents section form {
-   margin: 0 auto;
-   max-width: 100%;
-   background: #222;
-   height: 100%;
-   opacity: 0.8;
-   /* box-shadow: 0 19px 39px rgba(0, 0, 0, 0.3), 0 15px 12px
-      rgba(0, 0, 0, 0.22); */
-   padding-top: 60px;
-   padding-bottom: 7px;
-}
-::-webkit-input-placeholder {
-   color: #fff;
+.containers .content .w3-containers{
+	clear:both;
 }
 
-.pagewrap .contents section form select {
-   -moz-apperance: none;
-   -webkit-apperance: none;
+.containers .content .w3-containers .ctgy{
+	font-size: 21px;
+	font-weight: 500;
+	color: #000;
+	margin-bottom: 10px;
 }
-
-.pagewrap .contents section form select::-ms-expand {
-   display: none;
+.containers .content .w3-containers .w3-containers{
+	font-size: 15px;
+	font-weight: 500;
+	color: #000; 
+	background-color: #f9f9fa;
+	line-height: 1.8em;
 }
-.pagewrap .contents .btn-area {
-   background: #222;
-   opacity: 0.8;
-   padding: 20px 0;
-}
-.pagewrap .contents .btn-area button {
-   background: linear-gradient(to right, #fa1, #fc1);
-   width: 30%;
-   height: 65px;
-   border: none;
-   border-radius: 5px;
-   margin: 0 auto;
-   font-size: 15px;
-   color: #fff;
-   letter-spacing: 3px;
-   display: block;
-   text-transform: uppercase;
-   font-weight: 900;
-   position: relative;
-   box-shadow: 0 19px 39px rgba(0, 0, 0, 0.3), 0 15px 12px
-      rgba(0, 0, 0, 0.22);
-   cursor: pointer;
-}
-.hashtag-container {
-  margin: 0;
-  width: 80%;
-}
-.hashtag {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  padding: 5px;
-  width: 100%;
-  align-items: center;
-}
-.hashtag .tag {
-  height: 30px;
-  margin: 0;
-  padding: 0 5px;
-  border: 1px solid #fff;
-  border-radius: 3px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  color: #333;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
-  cursor: pointer;
-  font-weight: bold;
-  margin-right: 5px;
-}
-.tag i {
-  font-size: 16px;
-  color: #666;
-  margin-left: 5px;
-}
-.hashtag input {
-  padding: 5px;
-  font-size: 16px;
-  border: 0;
-  outline: none;
-  font-family: 'Rubik';
-  color: #333;
-  flex: 1;
-  background: transparent;
-}
-.pagewrap .contents section .input-layout {
-   margin: 0 auto;
-   width: 80%;
-}
-.pagewrap .contents section form .form-radio {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-top: 20px;
-}
-.pagewrap .contents section form .form-radio:first-child {
-   margin-top: 0;
-}
-.pagewrap .contents section form .form-radio input[type="radio"] {
-   display: none;
-}
-.pagewrap .contents section form .form-radio input[type="radio"]:checked + label {
-   border: 1px solid #fff;
-}
-.pagewrap .contents section form .form-radio input[type="radio"]:checked + label:before {
-   content: "✓";
-   line-height: 40px;
-   background: #222;
-   z-index: 999;
-   position: absolute;
-   top: -25px;
-   font-size: 40px;
-   border: 1px solid #fff;
-   border-radius: 50%;
-   width: 40px;
-   left: -15%;
-}
-.pagewrap .contents section form .form-radio label {
-   position: relative;
-   color: #fff;
-   background-color: transparent;
-   font-size: 18px;
-   text-align: center;
-   display: block;
-   cursor: pointer;
-   border: 1px solid #555;
-   box-sizing: border-box;
-   border-radius: 5px;
-   padding: 10px 20px;
-   margin: 0;   
-}
-.pagewrap .contents section form .form-input {
-   display: flex;
-   width: calc(100% - 23px);
-   height: 60px;
-   background: transparent;
-   border: 1px solid #555;
-   border-radius: 5px;
-   margin: 0;
-   font-size: 16px;
-   color: #fff;
-   letter-spacing: 2px;
-   margin-top: 20px;
-   justify-content: flex-start;
-   align-items: center;
-   padding-left: 20px;
-}
-.pagewrap .contents section form .form-input input {
-   margin-left: 20px;
-   border: none;
-   color: #fff;
-   background: transparent;
-   width: 60%;
-   height: 40px;
-   font-size: 20px;
-}
-.pagewrap .contents section form .form-input textarea {
-   width: 100%;
-   padding: 0;
-   height: 100%;
-   resize: none;
-   background: transparent;
-   border: none;
-}
-.pagewrap .contents section form .form-input input:focus,
-.pagewrap .contents section form .form-input textarea:focus {
-   outline: none;
-   border-bottom: 1px solid #fff;
-}
-.pagewrap .contents section form .row {
-   display: flex;
-   justify-content: space-between;
-   font-size: 16px;
-}
-.pagewrap .contents section form .row div  {
-   width: 40%;
-   font-size: 16px;
+.containers .content .btn-area{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 </style>
 </head>
 <body>
-<div class="container">
-<div class="content">
-   <div class="pagewrap">
-      <div class="pagewrap-overlay"></div>
-      <div class="contents">
-         <section>
-               <div class="input-layout">
-	               <div class="w3-display-container" style="height:100px;">
-				    <div class="w3-display-left">${cwk.title}</div>
-				    <div class="w3-display-topright">${cwk.name}</div>
-				    <div class="w3-display-bottomright"><fmt:formatDate value="${cwk.deadline}" pattern="yyyy-MM-dd" /></div>
+<div class="containers">
+	<span class="category" style="background: ${cwk.category == '스터디'? '#00B8F4': cwk.category == '프로젝트'? '#00FF7F' : '#EE82EE' }">${cwk.category == "스터디"? "Study": cwk.category == "프로젝트"? "Project" : "Contest" }</span>
+	<div class="content">
+	               <div class="w3-containers">
+				    <div class="name">${cwk.name}</div>
+				    <div class="title"><h2>${cwk.title}</h2></div>
+				    <div class="deadline"><span>모집 마감일 <fmt:formatDate value="${cwk.deadline}" pattern="yyyy-MM-dd" /></span></div>
 				   </div><hr>
-				   <div class="row">
-			            <span>개발수준: </span><span>${cwk.grade}</span>
-		           </div>
-			       <div class="row">
-			            <span>시작날짜: </span><span><fmt:formatDate value="${cwk.startdate}" pattern="yyyy-MM-dd" /></span>
-		           </div>
-			       <div class="row">
-			            <span>종료날짜: </span><span><fmt:formatDate value="${cwk.enddate}" pattern="yyyy-MM-dd" /></span>
-		           </div>
-			       <div class="row">
-			            <span>지역: </span><span>${cwk.loc}</span>
-		           </div>
-			       <div class="row">
-			            <span>모집인원: </span><span>${recruitment}명</span>
-		           </div><hr>
-		           <span>프로젝트 필수 스킬</span>
-		           <!-- 해쉬태그 값 -->
-		           <span></span><hr>
-		           <span>${cwk.category}내용</span><br>
-		           <span>${cwk.content}</span>
-               </div>
-         </section>
-         <div class="btn-area">
-         <c:if test="${empty chk}">
-        	<input type="button" value="신청" onclick="document.getElementById('join').style.display='block'" style="text-align: center; margin-bottom: 3px;"><br>	
-         </c:if>
-         <c:if test="${chk eq '승인'}">
-        	<input type="button" value="완료" style="text-align: center; margin-bottom: 3px;"><br>	
-         </c:if>
-         <c:if test="${chk eq '신청'}">
-        	<input type="button" value="신청중" style="text-align: center; margin-bottom: 3px;"><br>	
-         </c:if>
-         </div>
-      </div>
-   </div>
+				   
+				   <div class="w3-containers">
+				   	<div class="left"><table>
+				   		<tr><td><span><i class="fa fa-graduation-cap"></i> </span>${cwk.grade}&nbsp;</td><td><span><i class="fas fa-map-marker-alt"></i> </span>${cwk.loc}</td></tr>
+				   		<tr><td> <span><i class="fa fa-calendar-alt"></i> </span><fmt:formatDate value="${cwk.startdate}" pattern="yyyy-MM-dd" /> ~ 
+			            <span><fmt:formatDate value="${cwk.enddate}" pattern="yyyy-MM-dd" /></span>&nbsp;</td><td><span><i class="fa fa-users"></i> </span>${recruitment}명</td></tr>
+			       	</table></div>
+				   	<div class="right"><table>
+				   		<tr><td>프로젝트 필수 스킬</td><tr>
+				   		<tr><td><div class="hashlist">
+				   			<c:forEach var="cowork" items="${list}">
+				   				<c:forEach var="hash" items="${cowork.hashlist}">
+				   					<c:if test="${cwk.title eq cowork.title}">
+				   						<a>#${hash}</a>&nbsp;
+				   					</c:if>
+				   				</c:forEach></c:forEach>
+							</div>
+				   		</td></tr>
+				   	</table></div>
+				   </div><hr>
+		           <div class="w3-containers">
+			           <div class="ctgy">${cwk.category}내용</div>
+			           <div class="w3-containers"><pre>${cwk.content}</pre></div>
+			       </div><hr>
+			       <div class="btn-area">
+				         <c:if test="${empty chk}">
+				        	<input type="button" value="신청" onclick="document.getElementById('join').style.display='block'" style="text-align: center; margin-bottom: 3px;"><br>	
+				         </c:if>
+				         <c:if test="${chk eq '승인'}">
+				        	<input type="button" value="완료" style="text-align: center; margin-bottom: 3px;"><br>	
+				         </c:if>
+				         <c:if test="${chk eq '신청'}">
+				        	<input type="button" value="신청중" style="text-align: center; margin-bottom: 3px;"><br>	
+				         </c:if>
+				   </div>
+     </div>
 </div>
-</div>
+
+
 <!-- Modal -->
 <div id="join" class="w3-modal">
    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-round-large" style="max-width:600px">	
-   <div class="w3-container w3-border-top w3-padding-16 w3-light-grey w3-center w3-round-large">
+   <div class="w3-containers w3-border-top w3-padding-16 w3-light-grey w3-center w3-round-large">
     	<h2>프로젝트 지원</h2>
 	</div>
-    <div class="w3-container w3-border-top w3-padding-16 w3-white w3-center">
+    <div class="w3-containers w3-border-top w3-padding-16 w3-white w3-center">
     	<form action="details.dev" method="post" >
     	<input type="hidden" value="${loginUser.name}" name="name">
     	<input type="hidden" value="${param.gno}" name="gno">
@@ -327,7 +174,7 @@
 		<tr><td>주언어</td><td><input type="text" name="lang"></td></tr>
 		<tr><td>남기는 말</td><td><textarea name="comment" style="width:300px; height:200px;"></textarea></td></tr>
 	</table>
-	<div class="w3-container w3-border-top w3-padding-16 w3-white w3-center">
+	<div class="w3-containers w3-border-top w3-padding-16 w3-white w3-center">
 		<input type="submit" value="신청" class="w3-btn w3-black w3-round-xxlarge">
 		<span onclick="document.getElementById('join').style.display='none'" class="w3-button">취소</span>
 	</div>

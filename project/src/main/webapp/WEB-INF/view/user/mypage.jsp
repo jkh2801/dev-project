@@ -144,6 +144,9 @@
 					<img src="${path}/profile/${loginUser.name}.jpg" width="150" height="160" id="profileimg">
 					<div class="userid">
 						<strong>${user.id}</strong>
+						<div style="font-size:20px;">
+							누적 경고 횟수 : ${loginUser.alertnum}
+						</div>
 					</div>
 					<div class="img-change-button">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#img-btn">프로필 이미지 변경하기</button>

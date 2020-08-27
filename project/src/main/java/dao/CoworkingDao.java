@@ -51,8 +51,10 @@ public class CoworkingDao {
 		template.getMapper(CoworkingMapper.class).insertHashtag(hash);
 	}
 
-	public List<Hashtag> getHashtaglist() {
-		return template.getMapper(CoworkingMapper.class).getHashtaglist();
+	public List<Hashtag> getHashtaglist(int no) {
+		param.clear();
+		param.put("no", no);
+		return template.getMapper(CoworkingMapper.class).getHashtaglist(param);
 	}
 
 	public List<Coworking> getUsergroup(String name) {
@@ -65,5 +67,12 @@ public class CoworkingDao {
 		param.clear();
 		param.put("gno",gno);
 		return template.getMapper(CoworkingMapper.class).grouptitle(param);
+	}
+
+	public List<Hashtag> getHashtaglist2(int no, Integer bno) {
+		param.clear();
+		param.put("no", no);
+		param.put("wno", bno);
+		return template.getMapper(CoworkingMapper.class).getHashtaglist2(param);
 	}
 }

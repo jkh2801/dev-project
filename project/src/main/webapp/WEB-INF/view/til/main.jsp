@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-.container {
+.containers {
 	margin: 0;
 	padding: 0;
 	max-width: 100%;
@@ -20,37 +20,37 @@
 	align-items: center;
 	flex-direction: column;
 }
-.container .header_Area {
+.containers .header_Area {
 	width: 100vw;
 	height: 30vh;
 	background: linear-gradient(45deg, #ee5454, #8572EE);
 }
-.container .header_Area .search_Area {
+.containers .header_Area .search_Area {
 	text-align: center;
 	padding: 70px;
 }
-.container .header_Area .search_Area h2 {
+.containers .header_Area .search_Area h2 {
 	color: #fff;
 	font-style: italic;
 	font-weight: bold;
 	font-size: 2rem;
 }
-.container .header_Area .search_Area .search {
+.containers .header_Area .search_Area .search {
 	padding: 30px;
 	display: flex;
 	justify-content: center;
 }
-.container .header_Area .search_Area .search input {
+.containers .header_Area .search_Area .search input {
 	width: 15vw;
 	border-radius: 5px;
 	border: none;
 	height: 40px;
 	padding-left: 20px;
 }
-.container .header_Area .search_Area .search input:focus {
+.containers .header_Area .search_Area .search input:focus {
 	outline: none;
 }
-.container .header_Area .search_Area .search .search_button {
+.containers .header_Area .search_Area .search .search_button {
 	width: 40px;
 	height: 40px;
 	background: #fff;
@@ -63,13 +63,13 @@
 	transition: 0.5s;
 }
 
-.container .header_Area .search_Area .search .search_button:hover {
+.containers .header_Area .search_Area .search .search_button:hover {
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);
 }
-.container .header_Area .search_Area .search .search_button i {
+.containers .header_Area .search_Area .search .search_button i {
 	color: #54a0ee;
 }
-.container .searchArea {
+.containers .searchArea {
 	width: 100vw;
 	margin-top: 4vh;
 	display: flex;
@@ -78,32 +78,32 @@
 	padding: 0 10vw;
 }
 
-.container .searchArea .filter {
+.containers .searchArea .filter {
 	float: left;
 	padding: 0;
 	font-size: 18px;
 	font-weight: bold;
 }
 
-.container .searchArea .filter a {
+.containers .searchArea .filter a {
 	text-decoration: none;
 	color: #000;
 	padding: 3px 5px;
 	transition: 0.5s;
 }
-.container .searchArea .filter span a {
+.containers .searchArea .filter span a {
 	border-bottom: 2px solid #fff;
 }
-.container .searchArea .filter span a:hover {
+.containers .searchArea .filter span a:hover {
 	border-bottom: 2px solid #f00;
 	transition: 0.5s;
 }
-.container .searchArea .plus {
+.containers .searchArea .plus {
 	float: right;
 	padding: 0;
 }
 
-.container .searchArea .plus .box {
+.containers .searchArea .plus .box {
 	border: 2px solid lightcoral;
 	background: #ffcccc;
 	border-radius: 5px;
@@ -115,36 +115,36 @@
 	cursor: pointer;
 	transition: 0.5s;
 }
-.container .searchArea .plus .box:hover {
+.containers .searchArea .plus .box:hover {
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
 }
-.container .searchArea .plus .box a {
+.containers .searchArea .plus .box a {
 	color: #ff0000;
 	background: transparent;
 	transition: 0.5s;
 }
-.container .searchArea .plus .box:hover a {
+.containers .searchArea .plus .box:hover a {
 	color: #fff;
 }
-.container .content {
+.containers .content {
 	display: flex;
 	justify-content: flex-start;
 	padding: 0 10vw;
 	margin-top: 30px;
 	width: 100%;
 }
-.container .content .optionbox{
+.containers .content .optionbox{
 	width: 20%;
 	padding: 20px 10px;
 }
 
-.container .content .optionbox .hashbox #hashinput {
+.containers .content .optionbox .hashbox #hashinput {
 	width: 100%;
 	margin-top: 20px;
 	padding-left: 5px;
 }
 
-.container .content .optionbox .hashbox #searchhash {
+.containers .content .optionbox .hashbox #searchhash {
 	margin-top: 10px;
 	background: #00b8f4;
 	display: flex;
@@ -155,20 +155,20 @@
 	cursor: pointer;
 	transition: 0.5s;
 }
-.container .content .optionbox .hashbox #searchhash:hover {
+.containers .content .optionbox .hashbox #searchhash:hover {
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);
 }
-.container .content .optionbox .hashbox #searchhash i {
+.containers .content .optionbox .hashbox #searchhash i {
 	color: #fff;
 }
-.container .content .contentbox{
+.containers .content .contentbox{
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
 	width: 100%;
 	justify-content: center;
 }
-.container .content .container-fluid {
+.containers .content .containers-fluid {
 	padding: 15px;
 	margin: 0;
 	width: auto;
@@ -184,6 +184,9 @@
 .card:hover {
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, .1);
 }
+.card:hover hr {
+	background: #ddd;
+}
 .card .news-content {
 	position: absolute;
 	padding: 10px 20px 60px;
@@ -196,6 +199,7 @@
 
 .card .news-content .post-meta {
 	font-size: 12px;
+	margin: 3px 0;
 }
 
 .card .news-content .post-meta .author a {
@@ -221,7 +225,7 @@
 	margin: 0;
 	padding: 10px 0;
 	color: #007DA6;
-	height: 50px;
+	height: 40px;
 	font-size: 18px;
 	overflow: hidden;
 	font-weight: bold;
@@ -229,12 +233,12 @@
 
 .card .news-content .hashlist {
 	font-size: 16px;
-	margin: 0 0 10px;
+	margin: 10px 0 0;
 	padding: 0;
 	color: black;
 	transition: .5s;
 	opacity: 1;
-	height: 40px;
+	height: 70px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
@@ -244,10 +248,16 @@
 	color: #DF084A;
 	cursor: pointer;
 }
+.hr {
+	margin: 0;
+}
+.card .news-content .post-footer .like .fa-heart:before {
+	color: #f00;
+}
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="containers">
 		<div class="header_Area">
 			<div class="search_Area">
 				<h2>Expand your knowledge.</h2>
@@ -271,8 +281,8 @@
 		<div class="content">
 			<div class="contentbox">
 			<c:forEach var="data" items="${tillist}">
-				<div class="container-fluid">
-					<div class="container">
+				<div class="containers-fluid">
+					<div class="containers">
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="card">
@@ -281,14 +291,18 @@
 											<a href="${path}/til/info.dev?bno=${data.bno}&no=${data.no}">${data.title }
 											</a>
 										</h2>
-										<%-- <div class="hashlist">
-											<c:forEach var="hash" items="${data.hashlist }">
-												<a><span>#${hash }</span></a>&nbsp;
-											</c:forEach>
-										</div> --%>
+										<hr class="hr">
 										<div class="post-meta">
 											<span class="author"><a href="#"> <i class="fa fa-user"></i> ${data.name }</a></span> 
 											<span class="time"> <i class="fa fa-clock-o"></i> <fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd" /></span>
+										</div>
+										<div class="hashlist">
+											<c:forEach var="hash" items="${data.hashlist }">
+												<a><span>#${hash }</span></a>&nbsp;
+											</c:forEach>
+										</div>
+										<div class="post-footer">
+											<div class="like"><i class="fa fa-heart"></i> ${data.point}</div>
 										</div>
 									</div>
 								</div>
@@ -299,12 +313,6 @@
 			</c:forEach>
 			</div>
 			<div class="optionbox">
-				<div class="checkbox-btn">
-					<input type="checkbox" name="">
-					<div>
-						<span class="slide"></span>
-					</div>
-				</div>
 				<div class="hashbox">
 					<input type="text" placeholder="관련 기술" id="hashinput">
 					<div class="search_button" id="searchhash"><i class="fa fa-search"></i></div>
@@ -314,8 +322,95 @@
 	</div>
 	<script type="text/javascript">
 		$(function() {
-			$(".container .searchArea .plus .box").click(function() {
+			
+			var input = "";
+			var type = "title";
+			var sort = 0;
+			var sidx = 1;
+			var num = 12;
+			var contentbox = $(".contentbox");
+			
+			function viewContent(data) {
+				if(num == 12) contentbox.html("");
+				var data_card = "";
+				$.each(data,function(i, v) {
+					data_card += '<div class="containers-fluid"><div class="containers"><div class="row"><div class="col-sm-4"><div class="card"><div class="news-content">'
+						data_card += '<h2 class="post-header"><a href="${path}/til/info.dev?bno='
+						data_card += v.bno
+						data_card += '&no='
+						data_card += v.no
+						data_card += '">'
+						data_card += v.title
+						data_card += '</a></h2><hr class="hr"><div class="post-meta"><span class="author"><a href="#"> <i class="fa fa-user"></i>&nbsp;'
+						data_card += v.name
+						data_card += '</a></span> <span class="time"> <i class="fa fa-clock-o"></i>&nbsp;'
+						data_card += v.regdate
+						data_card += '</span></div><div class="hashlist">'
+						for (var i = 0; i < v.hashlist.length; i++) {
+							data_card += '<a><span>#' + v.hashlist[i] + '</span></a>&nbsp;'
+						}
+						data_card += '</div><div class="post-footer"><div class="like"><i class="fa fa-heart"></i>&nbsp;'
+						data_card += v.point
+						data_card += '</div></div></div></div></div></div></div></div>'
+						contentbox.append(data_card);
+						data_card = ""
+				})
+			}
+			
+			$(".containers .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #f00");
+			
+			$(".containers .searchArea .filter span a").on("click", function () {
+				sort = $(this).parent().index();
+				$(".containers .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #fff");
+				sidx = $(this).parent().index()+1;
+				$(".containers .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #f00");
+				num = 12;
+				datasearch(input, type, sort, 0, 12);
+			})
+			
+			$("#search").on("click", function() {
+				input = $("#searchinput").val();
+				type = "title";
+				num = 12;
+				datasearch(input, type, sort, 0, 12);
+			})
+			
+			$("#searchhash").on("click", function() {
+				input = $("#hashinput").val();
+				type = "hashname";
+				num = 12;
+				datasearch(input, type, sort, 0, 12);
+			})
+			
+			function datasearch(a, b, c, d, e) {
+				var data = {
+					searchinput : a,
+					searchtype : b,
+					searchsort : c,
+					num: d,
+					limit: e
+				}
+				$.ajax({
+					url : '${path}/ajax/searchtil.dev',
+					type : "post",
+					data : data,
+					success : function(response) {
+						var res = JSON.parse(response);
+						console.log(res);
+						viewContent(res);
+					}
+				})
+			}
+			
+			$(".containers .searchArea .plus .box").click(function() {
 				location.href = "write.dev";
+			})
+			
+			$(document).on("click", ".hashlist a", function() {
+				num = 12;
+				datasearch($(this).children().text().substring(1), "hashname", sort, 0, 12);
+				type = "hashname";
+				input = $(this).children().text().substring(1);
 			})
 		})
 	</script>

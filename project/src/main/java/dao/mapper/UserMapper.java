@@ -45,4 +45,10 @@ public interface UserMapper {
 
 	@Select("Select * from user where name=#{name}")
 	List<User> getPortfolio(Map<String, Object> param);
+	
+	@Select("select ifnull(max(alertnum),0) from user where name=#{name}")
+	int getAlertNum(Map<String, Object> param);
+
+	@Update("update user set alertnum=#{addedAlertnum} where name=#{name}")
+	void warnUser(Map<String, Object> param);
 }

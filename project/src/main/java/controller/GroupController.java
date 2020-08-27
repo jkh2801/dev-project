@@ -72,6 +72,7 @@ public class GroupController {
 		mav.addObject("project",project);
 		mav.addObject("group",group);
 		if(gno != null) {
+			Coworking cwk = service.getdetails(gno);
 			String grouptitle = service.grouptitle(gno);
 			mav.addObject("grouptitle",grouptitle);
 			
@@ -79,6 +80,7 @@ public class GroupController {
 			List<Board> boardlist = service.boardlist2(gno+100, limit);	
 			List<Usergroup> member = service.getMember(gno);
 			String membermaster = service.getMembermaset(gno);
+			mav.addObject("cwk",cwk);
 			int membercount = service.getMembercount(gno);
 			int membermax = service.getMembermax(gno);
 			mav.addObject("boardlist",boardlist);

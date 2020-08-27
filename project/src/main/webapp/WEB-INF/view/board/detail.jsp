@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
@@ -92,18 +93,25 @@
 <br><br>
 
 <br> <br> <br>
+
+    <div class="container">
+        <div class="commentList"></div>
+    </div>
+
+
+
 <c:if test="${!empty loginUser.name  }">
-    <div class="container" align="center" style="width:1300px; ">
+    <div class="container" align="center"  >
         <label for="content">comment</label>
         <form name="commentInsertForm">
-            <div class="input-group" style="width:1000px; ">
+            <div class="input-group"   align="center">
                <input type="hidden" name="no" value="${board.no }"/>
                <input type="hidden" name="name" value="${loginUser.name }"/>
                <input type="hidden" name="bno" value="${board.bno}"/>
-               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요." />
-
+            <input type="text" class="form-control"  style= "width:950px; height:85px;"   id="content" name="content" placeholder="내용을 입력하세요." /> 
+				
                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+                    <button class="btn btn-default" type="button" name="commentInsertBtn">댓글 등록</button>
                </span>
               </div>
         </form>
@@ -111,14 +119,8 @@
    
     <br> <br> <br>
      </c:if>
-    <div class="container">
-        <div class="commentList"></div>
-    </div>
-
-
-<%@ include file="comment.jsp" %>
-
 <br><br>
+<%@ include file="comment.jsp" %>
 </body>
 
 

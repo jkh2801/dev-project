@@ -131,6 +131,8 @@ public class BoardDao {
 		param.clear();
 		param.put("no",no);	
 		param.put("bno",bno);	
+		System.out.println("===getpoint");
+		System.out.println(param);
 		return template.getMapper(BoardMapper.class).getpoint(param);
 	}
 

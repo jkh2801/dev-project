@@ -130,7 +130,9 @@
 								<c:forEach var="msglist" items="${msglist}">
 									<c:if test="${msglist.me_to.equals(sessionScope.loginUser.name)}">
 										<tr>
-											<td><a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="${msglist.me_from}">${msglist.me_from}</a></td>
+											<td>
+												<a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="${msglist.me_from}" style="color:black;">${msglist.me_from}</a>
+											</td>
 											<td><a href="#messageDetail" class="open-detailModal" data-toggle="modal" data-datas='{"title":"${msglist.title}","me_from":"${msglist.me_from}","content":"${msglist.content}"}'>${msglist.title}</a></td>
 											<td><fmt:formatDate value="${msglist.regdate}" pattern="yyyy-MM-dd HH:mm"/></td>
 										</tr>
@@ -203,72 +205,5 @@
 			    </div>
 			  </div>
 			</div>
-	
-			<%-- 프로필모달 --%>
-			<div class="modal fade" id="profileInfo" data-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-dialog-centered modal-sm">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h3 class="modal-title" id="profile-modal-title"></h3>
-			      </div>
-			      <div class="modal-body" id="findid-modalbody">
-			      	<div class="container-fluid">
-			      		<div class="row">
-					      	<div class="col-md-4">
-					      		<a href="#">
-					      			<span style="color:#5A3FEE"><i class="fa fa-user fa-2x" aria-hidden="true"></i></span><br><span class="modal-font">포트폴리오</span>
-					      		</a>
-					      	</div>
-					      	<div class="col-md-4">
-					      		<a href="#sendMessage" data-toggle="modal" id="openMessageModalATag">
-					      			<span style="color:green"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i></span><br><span class="modal-font">쪽지보내기</span>
-					      		</a>
-					      	</div>
-					      	<div class="col-md-4">
-					      		<a href="#">
-					      			<span style="color:red"><i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i></span><br><span class="modal-font">신고하기</span>
-					      		</a>
-					      	</div>
-				      	</div>
-			      	</div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			
-			<%-- 쪽지 보내는 모달 --%>
-			<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h3 class="modal-title" id="exampleModalLabel">쪽지 보내기</h3>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        <form>
-			          <div class="form-group">
-			            <label for="recipient-name" class="col-form-label">받는 사람:</label>
-			            <input type="text" class="form-control" id="recipient-name" readonly>
-			          </div>
-			          <div class="form-group">
-			            <label for="message-title" class="col-form-label">제목:</label>
-			            <input type="text" class="form-control" id="message-title">
-			          </div>
-			          <div class="form-group">
-			            <label for="message-text" class="col-form-label">내용:</label>
-			            <textarea class="form-control" id="message-text"></textarea>
-			          </div>
-			        </form>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-success" id="sendMessageBtn">발송하기</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-	
 </body>
 </html>

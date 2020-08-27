@@ -31,7 +31,7 @@ public interface BoardMapper {
 
 	
 	@Select({"<script>"
-			+ "SELECT b.no NO, bno, NAME, title, content, regdate, IFNULL(tot,0) point FROM board b LEFT JOIN (SELECT NO, wno, IFNULL(COUNT(wno),0) tot FROM goodorbad WHERE NO = no GROUP BY wno) g ON  g.no = b.no AND bno = wno "
+			+ "SELECT b.no NO, bno, NAME, title, content, regdate, point FROM board b LEFT JOIN (SELECT NO, wno, IFNULL(COUNT(wno),0) point FROM goodorbad WHERE NO = #{no} GROUP BY wno) g ON  g.no = b.no AND bno = wno  "
 			+ "<if test='searchtype == null and searchcontent == null'> where b.no= #{no} order by bno desc limit #{startrow} , #{limit} </if> "
 			+ "<if test='searchtype != null and searchcontent != null'> where ${searchtype} like '%${searchcontent}%' and b.no = #{no} order by bno desc limit #{startrow} , #{limit}  </if> "
 			+ "</script>"})

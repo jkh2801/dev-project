@@ -17,13 +17,13 @@ section {
 	padding: 100px;
 	min-height: 100vh;
 }
-section:first-child{
+section:nth-child(even) {
+	background: #fff;
+}
+#first{
 	background: url("${path}/img/gb.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
-}
-section:nth-child(even) {
-	background: #fff;
 }
 section .textBx {
 	color: #fff;
@@ -110,11 +110,104 @@ section .coworkingBx {
 section .btn {
 	left: 45%;
 }
-@import
-	url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap')
-	;
+#til .tilBx {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+	margin: 30px auto 0;
+	max-width: 70%;
+}
+#til .tilBx .containers-fluid {
+	padding: 15px;
+	margin: 0;
+	width: auto;
+}
+#til .card {
+	position: relative;
+	width: 250px;
+	height: 185px;
+	overflow: hidden;
+	font-family: 'Roboto Condensed', sans-serif !important;
+	transition: 0.5s;
+}
+#til .card:hover {
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, .1);
+}
+#til .card:hover hr {
+	background: #ddd;
+}
+#til .card .news-content {
+	position: absolute;
+	padding: 10px 20px 60px;
+	background: #fff;
+	transition: .5s;
+	height: 155px;
+	width: 250px;
+}
 
-.card {
+
+#til .card .news-content .post-meta {
+	font-size: 12px;
+	margin: 3px 0;
+}
+
+#til .card .news-content .post-meta .author a {
+	text-decoration: none;
+	padding-right: 10px;
+	color: black;
+	font-weight: bold;
+	transition: .5s;
+}
+
+#til .card .news-content .post-meta .time {
+	padding-right: 10px;
+	color: black;
+	font-weight: bold;
+	transition: .5s;
+}
+
+#til .card .news-content .post-meta .author a:hover {
+	color: #DF084A;
+}
+
+#til .card .news-content .post-header {
+	margin: 0;
+	padding: 10px 0;
+	color: #007DA6;
+	height: 40px;
+	font-size: 18px;
+	overflow: hidden;
+	font-weight: bold;
+}
+
+#til .card .news-content .hashlist {
+	font-size: 16px;
+	margin: 10px 0 0;
+	padding: 0;
+	color: black;
+	transition: .5s;
+	opacity: 1;
+	height: 70px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+#til .card:hover .news-content .hashlist a:hover {
+	color: #DF084A;
+	cursor: pointer;
+}
+#til .hr {
+	margin: 0;
+}
+#til .card .news-content .post-footer .like .fa-heart:before {
+	color: #f00;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+#coworking .card {
 	position: relative;
 	width: 250px;
 	height: 185px;
@@ -124,7 +217,7 @@ section .btn {
 	margin: 10px 0;
 }
 
-.card .news-content {
+#coworking .card .news-content {
 	position: absolute;
 	top: +30px;
 	padding: 10px 20px 60px;
@@ -134,7 +227,7 @@ section .btn {
 	width: 250px;
 }
 
-.card .category {
+#coworking .card .category {
 	position: absolute;
 	height: 30px;
 	line-height: 20px;
@@ -148,11 +241,11 @@ section .btn {
 	width: 250px;
 }
 
-.card .news-content .post-meta {
+#coworking .card .news-content .post-meta {
 	font-size: 12px;
 }
 
-.card .news-content .post-meta .author a {
+#coworking .card .news-content .post-meta .author a {
 	text-decoration: none;
 	padding-right: 10px;
 	color: black;
@@ -160,14 +253,14 @@ section .btn {
 	transition: .5s;
 }
 
-.card .news-content .post-meta .time {
+#coworking .card .news-content .post-meta .time {
 	padding-right: 10px;
 	color: black;
 	font-weight: bold;
 	transition: .5s;
 }
 
-.card .news-content .post-meta .grade {
+#coworking .card .news-content .post-meta .grade {
 	text-decoration: none;
 	padding-right: 10px;
 	color: black;
@@ -175,7 +268,7 @@ section .btn {
 	transition: .5s;
 }
 
-.card .news-content .post-meta .date {
+#coworking .card .news-content .post-meta .date {
 	text-decoration: none;
 	padding-right: 10px;
 	color: black;
@@ -184,15 +277,15 @@ section .btn {
 	float: right;
 }
 
-.card .news-content .post-meta .author a:hover {
+#coworking .card .news-content .post-meta .author a:hover {
 	color: #DF084A;
 }
 
-.card .news-content .post-meta .grade a:hover {
+#coworking .card .news-content .post-meta .grade a:hover {
 	color: #DF084A;
 }
 
-.card .news-content .post-header {
+#coworking .card .news-content .post-header {
 	margin: 0;
 	padding: 10px 0;
 	color: #007DA6;
@@ -202,7 +295,7 @@ section .btn {
 	font-weight: bold;
 }
 
-.card .news-content .hashlist {
+#coworking .card .news-content .hashlist {
 	font-size: 16px;
 	margin: 0 0 10px;
 	padding: 0;
@@ -215,7 +308,7 @@ section .btn {
 	justify-content: flex-start;
 }
 
-.card:hover .news-content .hashlist a:hover {
+#coworking .card:hover .news-content .hashlist a:hover {
 	color: #DF084A;
 	cursor: pointer;
 }
@@ -243,6 +336,7 @@ section .btn {
 #customers td, #customers th {
 	border: 1px solid #ddd;
 	padding: 8px;
+	text-align: center;
 }
 
 #customers tr:nth-child(even) {
@@ -256,21 +350,34 @@ section .btn {
 .qBx #customers th {
 	padding-top: 12px;
 	padding-bottom: 12px;
-	text-align: left;
+	text-align: center;
 	background-color: #4b47a2;
 	color: white;
 }
 .fBx #customers th {
 	padding-top: 12px;
 	padding-bottom: 12px;
-	text-align: left;
+	text-align: center;
 	background-color: #23865f;
 	color: white;
+}
+#community {
+	background: aliceblue;
+}
+#community .community_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 30px;
+}
+#community .community_container .communityBx {
+	width: 40vw;
 }
 </style>
 </head>
 <body>
-<section>
+<div class="scrollTop" onclick="scrollToTop()"></div>
+		<section id="first">
 			<div class="textBx">
 				<h3>개발자를 위한 자기계발 사이트</h3>
 				<h2>Build-Dev</h2>
@@ -295,20 +402,24 @@ section .btn {
 			<div class="titleBx">
 				<h2><span>T</span>oday <span>I</span> <span>L</span>earned &lt; 본인의 지식을 정리해 보세요. &gt;</h2>
 			</div>
+			<div class="tilBx"></div>
+			<a href="${path}/til/main.dev?no=3" class="btn">View More</a>
 		</section>
 		<section id="community">
 			<div class="titleBx">
-				<h2><span>C</span>omunity &lt; 이곳에서 오류, 에러, 고민을 풀어보세요. &gt;</h2>
+				<h2><span>C</span>ommunity &lt; 이곳에서 오류, 에러, 고민을 풀어보세요. &gt;</h2>
 			</div>
-			<div class="comunityBx qBx"></div>
-			<div class="comunityBx fBx"></div>
+			<div class="community_container">
+			<div class="communityBx qBx"></div>
+			<div class="communityBx fBx"></div>
+			</div>
 		</section>
 		<section id="coworking">
 			<div class="titleBx">
 				<h2><span>C</span>o-<span>W</span>orking &lt; 혼자하지 말고 같이 해보세요. &gt;</h2>
 			</div>
 			<div class="coworkingBx"></div>
-			<a href="#" class="btn">View More</a>
+			<a href="${path}/coworking/main.dev" class="btn">View More</a>
 		</section>
 		<section>
 		
@@ -322,6 +433,30 @@ section .btn {
 					else if (idx == 1) location.href = "#community";
 					else location.href = "#coworking";
 				})
+				
+				var tilBx = $(".tilBx");
+				tilsearch("", "", 0, 0, 8);
+				function tilsearch(a, b, c, d, e) {
+					var data = {
+						searchinput : a,
+						searchtype : b,
+						searchsort : c,
+						num: d,
+						limit: e
+					}
+					$.ajax({
+						url : '${path}/ajax/searchtil.dev',
+						type : "post",
+						data : data,
+						success : function(response) {
+							var res = JSON.parse(response);
+							console.log(res);
+							viewTil(res);
+						}
+					})
+				}
+				
+				
 				
 				comunitysearch(4, 0, 10);
 				comunitysearch(5, 0, 10);
@@ -339,11 +474,35 @@ section .btn {
 						data : data,
 						success : function(response) {
 							var res = JSON.parse(response);
-							console.log(res);
 							viewCommunity(a, res);
 						}
 					})
 					
+				}
+				function viewTil(data) {
+					var data_card = "";
+					$.each(data,function(i, v) {
+						data_card += '<div class="containers-fluid"><div class="containers"><div class="row"><div class="col-sm-4"><div class="card"><div class="news-content">'
+							data_card += '<h2 class="post-header"><a href="${path}/til/info.dev?bno='
+							data_card += v.bno
+							data_card += '&no='
+							data_card += v.no
+							data_card += '">'
+							data_card += v.title
+							data_card += '</a></h2><hr class="hr"><div class="post-meta"><span class="author"><a href="#"> <i class="fa fa-user"></i>&nbsp;'
+							data_card += v.name
+							data_card += '</a></span> <span class="time"> <i class="fa fa-clock-o"></i>&nbsp;'
+							data_card += v.regdate
+							data_card += '</span></div><div class="hashlist">'
+							for (var i = 0; i < v.hashlist.length; i++) {
+								data_card += '<a><span>#' + v.hashlist[i] + '</span></a>&nbsp;'
+							}
+							data_card += '</div><div class="post-footer"><div class="like"><i class="fa fa-heart"></i>&nbsp;'
+							data_card += v.point
+							data_card += '</div></div></div></div></div></div></div></div>'
+								tilBx.append(data_card);
+							data_card = ""
+					})
 				}
 				
 				function viewCommunity(no, data) {
@@ -351,15 +510,15 @@ section .btn {
 					if(no == 4) data_card += '<tr><td colspan="6" align="center"><h4>QnA게시판</h4></td></tr>';
 					if(no == 5) data_card += '<tr><td colspan="6" align="center"><h4>자유 게시판</h4></td></tr>';
 					
-					data_card += '<tr><th width="50%;">제목</th><th width="10%">작성자</th><th width="5%">추천</th><th width="8%">날짜</th></tr>'
+					data_card += '<tr><th width="50%;">제목</th><th width="10%">작성자</th><th width="10%">추천</th></tr>'
 					$.each(data,function(i, v) {
 							console.log(v);
-							data_card += '<tr><td style="text-align: left;"><a href="detail.dev?bno='
+							data_card += '<tr><td style="text-align: left;"><a href="${path}/board/detail.dev?bno='
 							data_card += v.bno + '&&no='+v.no
 							data_card += '">'+v.title
 							data_card += '</a></td><td>' + v.name
-							data_card += '</td><td>' + v.point + '</td><td>'
-							data_card += v.regdate + '</td></tr>'
+							data_card += '</td><td>' + v.point + '</td>'
+							data_card += '</tr>'
 							})
 						if(no == 4) qBx.append(data_card);
 						if(no == 5) fBx.append(data_card);
@@ -391,7 +550,7 @@ section .btn {
 				function viewContent(data) {
 					var data_card = "";
 					$.each(data,function(i, v) {
-										data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4"><div class="card">'
+										data_card += '<div class="containers-fluid"><div class="containers"><div class="row"><div class="col-sm-4"><div class="card">'
 											data_card += '<span class="category" style="background: '
 											data_card += v.category == "스터디" ? "#00B8F4" : v.category == "프로젝트" ? "#00FA9A" : "#EE82EE" 
 											data_card += '">'

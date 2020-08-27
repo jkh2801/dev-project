@@ -16,38 +16,50 @@
 		margin: 30px auto;
     	max-width: 1000px;
 	}
-	.content > hr {
-		width : 100%;
-		border : thin solid #8572EE;
+	#whole-save-btn {
+		text-align : right;
+		padding : 0 30px 0 0;
 	}
-	.container .content .content-header {
-		padding-top : 100px;
-		padding-bottom : 40px;
+	#content-edit-tab {
+		border : 1px solid #a473fa;
+		border-radius: 15px 15px 0 0;
+		/* background-color : #a473fa; */
+		padding : 8px 30px 4px 30px;
+		margin-left : 100px;
+		font-size : 25px;
+		background: rgba(211,120,190,1);
+		background: -moz-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
+		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(211,120,190,1)), color-stop(0%, rgba(184,0,125,1)), color-stop(0%, rgba(200,91,169,1)), color-stop(100%, rgba(162,145,242,1)));
+		background: -webkit-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
+		background: -o-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
+		background: -ms-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
+		background: linear-gradient(to right, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d378be', endColorstr='#a291f2', GradientType=1 );
 	}
 	.container .content .content-body {
-		margin : 30px 50px 30px 50px;
+		margin : 0 20px 30px 20px;
 		padding : 30px 50px 30px 50px;
-		border : 1px solid black;
-	}
-	.pagetitle {
-		font-weight : bold;
-		font-size : 50px;
-		color : #5A3FEE;
+		border : 1px solid #b5b3bd;
+		border-radius: 25px;
+		background-color : #fff;
+		-webkit-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
+		-moz-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
+		box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 	}
 	.content-name {
 		width : 200px;
 		margin-right : 0;
 		font-weight : bold;
-		font-size : 25px;
+		font-size : 30px;
 	}
 	.content-body-position {
-		margin-bottom : 20px;
+		margin-bottom : 40px;
 	}
 	.content-body-skills {
-		margin-bottom : 20px;
+		margin-bottom : 40px;
 	}
 	.content-body-giturl {
-		margin-bottom : 20px;
+		margin-bottom : 60px;
 	}
 	.content-body-container {
 	  margin: 0;
@@ -73,20 +85,13 @@
 	  height : 50px;
 	}
 	.added-pTags .pTag {
-	  height: 40px;
-	  margin: 0;
-	  padding: 0 5px;
-	  border: 1px solid #8a8a8a;
-	  border-radius: 5px;
-	  background: #8a8a8a;
-	  display: flex;
-	  align-items: center;
-	  color: #333;
-	  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #8a8a8a;
-	  cursor: pointer;
-	  font-size : 20px;
-	  color : #fff;
-	  margin-right: 5px;
+	  padding : 4px 8px;
+		margin : 0 5px;
+		border : 1px solid #e5e1f7;
+		background-color : #e5e1f7;
+		border-radius : 5px;
+		color : #8572EE;
+		font-size : 20px;
 	}
 	.pTag i {
 	  font-size: 16px;
@@ -116,20 +121,13 @@
 	  height : 50px;
 	}
 	.added-sTags .sTag {
-	  height: 40px;
-	  margin: 0;
-	  padding: 0 5px;
-	  border: 1px solid #3877ff;
-	  border-radius: 5px;
-	  background: #3877ff;
-	  display: flex;
-	  align-items: center;
-	  color: #333;
-	  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #3877ff;
-	  cursor: pointer;
-	  font-size : 20px;
-	  color : #fff;
-	  margin-right: 5px;;
+	  padding : 4px 8px;
+		margin : 0 5px;
+		border : 1px solid #4171f2;
+		background-color : #4171f2;
+		border-radius : 5px;
+		color : white;
+		font-size : 20px;
 	}
 	.sTag i {
 	  font-size: 16px;
@@ -141,20 +139,25 @@
 		width : 300px;
 	}
 	
-	
-	
-	
-	/* 프로젝트 리스팅 임시 */
+	.project-buttons {
+		margin-top : 20px;
+		margin-bottom :20px;
+		text-align : right;
+	}
 	table {
-		border : 1px solid #000;
+		border-bottom : 1px solid #bdbdbd;
+		text-align : center;
 	}
 	th {
-		border : 1px solid #000;
+		border-left : 1px solid #bdbdbd;
+		border-right : 1px solid #bdbdbd;
+		border-bottom : 3px solid #bdbdbd;
+		background-color : #d2c9ff;
 	}
 	td {
-		border : 1px solid #000;
+		border-left : 1px solid #bdbdbd;
+		border-right : 1px solid #bdbdbd;
 	}
-	
 	/* 프로젝트 추가시 사용 기술 */ 
 	.added-usedTag {
 	  display: flex;
@@ -180,7 +183,29 @@
 	  color : #fff;
 	  margin-right: 5px;;
 	}
-	
+	.banner{
+		width: 100vw;
+		height: 20vh;
+		text-align : center;
+		padding : 70px;
+		background: rgba(203,96,179,1);
+		background: -moz-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(203,96,179,1)), color-stop(17%, rgba(193,70,161,1)), color-stop(100%, rgba(133,114,238,1)));
+		background: -webkit-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: -o-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: -ms-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: linear-gradient(to right, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb60b3', endColorstr='#8572ee', GradientType=1 );
+	}
+	.banner h2 {
+		color: #fff;
+		font-style: italic;
+		font-weight: bold;
+		font-size: 2rem;
+	}
+	.fa-circle {
+		color: rgba(211,120,190,1);
+	}
 </style>
 <script>
 	$(function() {
@@ -333,20 +358,27 @@
 </script>
 </head>
 <body>
+	<div class="banner">
+		<h2>Portfolio</h2>
+	</div>
 	<div class="container">
 		<div class="content">
-			<div class="content-header">
-				<div class="pagetitle">My Portfolio 작성 / 수정</div>
-				<button type="button" class="btn btn-primary" id="save">저장하기</button>
-				
+			<div id="whole-save-btn">
+				<button type="button" class="btn btn-warning btn-lg" id="save">저장하기</button>
 			</div>
-				<hr>
+			<span id="content-edit-tab">
+				My Portfolio 수정하기
+			</span>
 			<div class="content-body">
 				<div class="content-body-position">
-					<div class="content-name">Position</div>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						&nbsp;&nbsp;
+					<span class="content-name">
+						Position
+					</span>
 					<span class="content-body-container">
 						<span class="pTag-input-span">
-							<input/>  
+							<input style="font-size:20px; border-radius:5px; margin: 0 0 15px 10px;"/>  
   						</span>
 	  					<span class="added-pTags">
 	  						<c:forEach var="pTag" items="${tags}">
@@ -362,10 +394,14 @@
 				</div>
 				
 				<div class="content-body-skills">
-					<div class="content-name">Skills</div>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						&nbsp;&nbsp;
+					<span class="content-name">
+						Skills
+					</span>
 					<span class="content-body-container">
 						<span class="sTag-input-span">
-							<input/>  
+							<input style="font-size:20px; border-radius:5px; margin: 0 0 15px 10px;"/>  
   						</span>
 	  					<span class="added-sTags">
 	  						<c:forEach var="sTag" items="${tags}">
@@ -381,10 +417,14 @@
 				</div>
 				
 				<div class="content-body-giturl">
-					<div class="content-name">Github</div>
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						&nbsp;&nbsp;
+					<span class="content-name">
+						Github
+					</span>
 					<span class="custom-control custom-switch">
 						<c:if test='${sessionScope.loginUser.giturlable==false}'>
-						    <input type="checkbox" class="custom-control-input" id="giturlable">
+						    <input type="checkbox" class="custom-control-input" id="giturlable" >
 						</c:if>
 						<c:if test='${sessionScope.loginUser.giturlable==true}'>
 						    <input type="checkbox" class="custom-control-input" id="giturlable" checked>
@@ -394,49 +434,58 @@
 							
 					<span class="content-body-container">
 						<span class="giturl-input-span">
-							<input id="gitrulinput" value="${sessionScope.loginUser.giturl}"/>
+							<input id="gitrulinput" value="${sessionScope.loginUser.giturl}" style="font-size:20px; border-radius:5px; width:500px;"/>
 						</span>
 					</span>
 				</div>
 				
 				<div class="content-body-project">
-					<div class="content-name">프로젝트 관리</div>
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">프로젝트 추가</button>
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">프로젝트 삭제</button>
-					
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						&nbsp;&nbsp;
+					<span class="content-name">
+						프로젝트 관리
+					</span>
+					<div class="project-buttons">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">프로젝트 추가</button>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">프로젝트 삭제</button>
+					</div>
 					<c:if test='${empty projects}'>
-						<h3>프로젝트를 등록해주세요</h3>
+						<h3><span style="color:red;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>  프로젝트를 등록해주세요</h3>
 					</c:if>
 					<c:if test='${!empty projects}'>
-						<table class="projectlist">
-							<tr>
-								<th>프로젝트명</th>
-								<th>프로젝트 기간</th>
-								<th>프로젝트 인원</th>
-								<th>공개여부</th>
-								<th>삭제</th>
-							</tr>
-							<c:forEach var="projects" items="${projects}">
-								<tr id ="${projects.prono}">
-									<td>${projects.subject}</td>
-									
-									<td>
-										<fmt:formatDate value="${projects.start}" pattern="yyyy-MM-dd"/> 
-										- 
-										<fmt:formatDate value="${projects.end}" pattern="yyyy-MM-dd"/>
-									</td>
-									<td>${projects.num}</td>
-									<td>
-										<c:if test='${projects.able == false}'>
-											<input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}">
-										</c:if>
-										<c:if test='${projects.able == true}'>
-											<input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}" checked>
-										</c:if>
-									</td>
-									<td><input type='checkbox' class='deleteProjectChk' data-prono="${projects.prono}"></td>
+						<table class="projectlist table table-hover">
+							<thead>
+								<tr>
+									<th scope="col">프로젝트명</th>
+									<th scope="col">프로젝트 기간</th>
+									<th scope="col">프로젝트 인원</th>
+									<th scope="col">공개여부</th>
+									<th scope="col">삭제</th>
 								</tr>
-							</c:forEach>
+							</thead>
+							<tbody>
+								<c:forEach var="projects" items="${projects}">
+									<tr id ="${projects.prono}">
+										<td>${projects.subject}</td>
+										
+										<td>
+											<fmt:formatDate value="${projects.start}" pattern="yyyy-MM-dd"/> 
+											~
+											<fmt:formatDate value="${projects.end}" pattern="yyyy-MM-dd"/>
+										</td>
+										<td>${projects.num}</td>
+										<td>
+											<c:if test='${projects.able == false}'>
+												<input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}">
+											</c:if>
+											<c:if test='${projects.able == true}'>
+												<input type='checkbox' class="projectable" name="projectable" data-prono="${projects.prono}" checked>
+											</c:if>
+										</td>
+										<td><input type='checkbox' class='deleteProjectChk' data-prono="${projects.prono}"></td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</c:if>
 					
@@ -620,29 +669,33 @@
 						projectslist.push($(this).data('prono'));
 					}
 			    });
-				$.ajax({
-					url : "${path}/ajax/deleteProject.dev",
-					type : "post",
-					data : {
-						name : "${sessionScope.loginUser.name}",
-						projectslist : projectslist
-					},
-					traditional: true,
-					success: function(s) {
-						alert("프로젝트가 삭제되었습니다");
-						$('.deleteProjectChk').each(function(i){
-							console.log(i)
-							if(projectslist.includes($(this).data('prono'))){
-								var id = $(this).data('prono')
-								$('tr[id=' + id + ']').remove()
-							}
-						})
-						$("#deleteProjectModal").modal('hide');
-					},
-					error : function(e) {
-						alert("오류가 발생했습니다")
-					}
-				})
+				if (projectslist.length == 0) {
+					alert("삭제할 프로젝트를 선택하세요")
+				} else {
+					$.ajax({
+						url : "${path}/ajax/deleteProject.dev",
+						type : "post",
+						data : {
+							name : "${sessionScope.loginUser.name}",
+							projectslist : projectslist
+						},
+						traditional: true,
+						success: function(s) {
+							alert("프로젝트가 삭제되었습니다");
+							$('.deleteProjectChk').each(function(i){
+								console.log(i)
+								if(projectslist.includes($(this).data('prono'))){
+									var id = $(this).data('prono')
+									$('tr[id=' + id + ']').remove()
+								}
+							})
+							$("#deleteProjectModal").modal('hide');
+						},
+						error : function(e) {
+							alert("오류가 발생했습니다")
+						}
+					})
+				}
 			})
 			
 			//종료 버튼

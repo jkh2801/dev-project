@@ -81,6 +81,8 @@ public class BoardController {
 		mav.addObject("startpage", startpage);
 		mav.addObject("endpage", endpage);
 		mav.addObject("listcount", listcount);
+		System.out.println("===boardlist");
+		System.out.println(boardlist);
 		mav.addObject("boardlist", boardlist);
 		mav.addObject("boardno", boardno);
 		mav.addObject("today", // "20200713"

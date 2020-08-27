@@ -7,143 +7,190 @@
 <meta charset="UTF-8">
 <title>TIL</title>
 <style>
-.container {
+.containers {
 	min-height: 100vh;
 	background: #fff;
 	border-top: 1.5px solid #ddd;
 }
-.container .infobox {
-	margin: 100px 25vw 50px;
+.containers .infobox {
+	margin: 85px 25vw 50px;
 	padding: 20px;
 }
-.container .infobox .simpleinfo {
+.containers .header {
+}
+.containers .infobox .simpleinfo {
 	display: flex;
+	justify-content: space-between;
+}
+.containers .infobox .simpleinfo .button a {
+	text-decoration: none;
+	padding: 3px 5px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	color: #ddd;
+	transition: 0.5s;
+}
+.containers .infobox .simpleinfo .button a:first-child:hover {
+	background: #01ff09;
+	color: #fff;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+.containers .infobox .simpleinfo .button a:last-child:hover {
+	background: #ff0101;
+	color: #fff;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+.containers .infobox .hash_containers {
+	margin: 10px 0;
+	border-top: 2px solid #000;
+}
+.containers .infobox .hashbox {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+	align-items: center;
+	height: 32px;
+	justify-content: flex-start;
+}
+.containers .infobox .hashbox .hash {
+	height: 30px;
+	margin: 0;
+	padding: 0 5px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	background: #ddd;
+	display: flex;
+	align-items: center;
+	color: #333;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #ddd;
+	cursor: pointer;
+	font-weight: bold;
+	margin-right: 5px;
+}
+.containers .infobox .contentbox {
+	margin-top: 10px;
+}
+.containers .infobox .contentbox .content {
+	border-bottom: 2px solid #000;
+	border-top: 2px solid #000;
+	min-height: 50vh;
+	padding: 10px 0;
+}
+.containers .infobox .comment {
+	margin-top: 20px;
+}
+.containers .infobox .comment textarea {
+	width: 100%;
+	box-sizing: border-box;
+	resize: none;
+}
+.containers .infobox .commentbutton  {
+	float: right;
+}
+.containers .like {
+	position: fixed;
+	left: calc(100% - 400px);
+	width: 100px;
+	top: 40vh;
+	text-align: center;
+	padding: 20px;
+	border: 2px solid #ddd;
+	border-radius: 50px;
+}
+.containers .like .fa-heart:before{
+	font-size: 50px;
+	color: #ddd;
+	cursor: pointer;
+	transition: 0.5s;
+}
+.containers .like.chk .fa-heart:before{
+	font-size: 50px;
+	color: #ff0101;
+	cursor: pointer;
+	transition: 0.5s;
 }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="containers">
+	<div class="like">
+		<h6>GOOD</h6> 
+		<i class="fa fa-heart"></i>
+		<div class="likecnt">${likecnt}</div>
+	</div>
 	<div class="infobox">
 		<div class="header">
 			<div class="title"><h1>${til.title}</h1></div>
 			<div class="simpleinfo">
-			<div class="name">${til.name}</div><div class="regdate"><fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" /></div>
+			<div class="data">${til.name} &nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" /></div>
+			<div class="button"><a href="#">수정</a>&nbsp;<a href="#">삭제</a></div>
 			</div>
 		</div>
+		<c:if test="${!empty hashlist}">
+		<div class="hash_containers">
+		<div class="hashbox">
+			<c:forEach items="${hashlist}" var="hash">
+				<div class="hash">${hash.hashname}</div> 
+			</c:forEach>
+		</div>
+		</div>
+		</c:if>
+		<div class="contentbox">
+			<div class="content">${til.content}</div>
+		</div>
+		<div class="comment">
+			<textarea rows="5"></textarea>
+		</div>
+		<div class="commentbutton"><button type="button">등록</button></div>
+		<div class="commentbox"></div>
 	</div>
 </div>
-	<h6>TIL 상세화면</h6>
-	
-	
-	
-	
-	<table id="customers">
-		<tr>
-			<td>${til.name}</td>
-			<td><c:if test="${today==rdate}">
-					<fmt:formatDate value="${til.regdate}"
-						pattern="yyyy년 MM월 dd일 HH:mm:ss" />
-				</c:if> <c:if test="${today != rdate}">
-					<fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" />
-				</c:if></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="포토폴리오 보기"></td>
-		
-			<c:choose>
-				<c:when test="${!empty sessionScope.loginUser}">
-					<c:if test="${til.name != sessionScope.loginUser.name}">
-							<td>
-								<input type="button" value="구독 " id=subinsert>
-								<input type="button" value="구독 취소 " id=subdelete>
-							</td>
-						</c:if>	
-			<div style="position: fixed; top: 112px;">
-					
-						<input type="button" value="☆ " id=likeinsert>
-						<input type="button" value="★ " id=likedelete>
-						<h3>좋아요 수:${count}</h3>
-			</div>
-
-				</c:when>
-			</c:choose>
-		
-			
-
-
-			<c:if test="${til.name == loginUser.name }">
-				<td><input type="button" value="게시물 수정"
-					onClick="location.href='update.dev?no=${til.no}&bno=${til.bno}'"></td>
-				<td><input type="button" value="게시물 삭제"
-					onClick="location.href='delete.dev?no=${til.no}&bno=${til.bno}'"></td>
-			</c:if>
-		</tr>
-		<tr>
-			<td>해쉬태그 창</td>
-		</tr>
-		<tr>
-			<td>${til.title}</td>
-		</tr>
-
-
-		<tr>
-			<td class="leftcol">
-				<table class="lefttoptable">
-					<tr>
-						<td class="leftcol lefttoptable">${til.content}</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-
-
-	</table>
-
-	<div id="replylist"></div>
-
-	<table border="1" style="width: 100%; margin: auto;">
-
-
-		<c:if test="${empty sessionScope.login}">
-			<br>
-			<tr bgcolor="#F5F5F5">
-				<!-- 아이디 -->
-				<td width="100">${sessionScope.login}아이디</td>
-				<!-- 본문 작성 -->
-				<td width="400"><textarea name="reply_content" rows="4"
-						cols="60" id="reply_content"></textarea></td>
-				<td width="100">
-					<div style="text-align: center;">
-						<button type="button" id="reply_insert"
-							class="btn btn-info btn btn-default btn-lg">댓글 게시</button>
-					</div>
-
-				</td>
-
-			</tr>
-		</c:if>
-	</table>
-
-
-	<input type="hidden" id="per" value="${sub.scrapper}">
-	<input type="hidden" id="ped" value="${sub.scrapped}">
-	
-	
-	<input type="hidden" id="likename" value="${gob.name}">
-	<input type="hidden" id="likeno" value="${gob.no}">
-	<input type="hidden" id="likewno" value="${gob.wno}">
-	
-	<input type="hidden" id="no" value="${til.no}">
-	<input type="hidden" id="bno" value="${til.bno}">
-	
-	<input type="hidden" name="scrapper" id="scrapper"
-		value="${sessionScope.loginUser.name}">
-	<input type="hidden" name="scrapped" id="scrapped" value="${til.name}">
 
 <script type="text/javascript">
 
 	$(function() {
-		subview()
+		$("body").css("background", "#fff");
+		var likechk = ${likechk};
+		var likecnt = ${likecnt};
+		chk_like();
+		function chk_like() {
+			if (likechk == 1) {
+				$(".containers .like").addClass("chk");
+			}else {
+				$(".containers .like").removeClass("chk");
+			}
+		}
+		
+		$(".containers .like i").click(function() {
+			if (likechk == 0) {
+				likechk = 1;
+			}else {
+				likechk = 0;
+			}
+			
+			$.ajax({
+				type: "post",
+				url: '${path}/ajax/likeEvent.dev',
+				data : {
+					likechk : likechk,
+					no : ${til.no},
+					wno : ${til.bno} 
+				},
+				success : function (res) { 
+					if(likechk == 1) {
+						likecnt += 1;
+					}else {
+						likecnt -= 1;
+					}
+					$(".likecnt").text(likecnt);
+					chk_like();
+				}
+			}) 
+		})
+		
+		
+		
+		/* subview()
 		likeview()
 		
 		function subview() {
@@ -262,7 +309,7 @@
 				
 			}
 		})
-	})  
+	})   */
 	
 	
 	

@@ -179,8 +179,12 @@ public class DevService {
 		coworkingDao.insertHashtag(hash);
 	}
 
-	public List<Hashtag> getHashtaglist() {
-		return coworkingDao.getHashtaglist();
+	public List<Hashtag> getHashtaglist(int no) {
+		return coworkingDao.getHashtaglist(no);
+	}
+	
+	public List<Hashtag> getHashtaglist2(int no, Integer bno) {
+		return coworkingDao.getHashtaglist2(no, bno);
 	}
 
 	public String findId(String name, String email) {
@@ -293,10 +297,6 @@ public class DevService {
 		tilDao.insert(til); 
 	}
 
-	public List<TIL> tillist() {
-		
-		return tilDao.list();
-	}
 
 	public TIL getTil(Integer no, Integer bno) {
 		
@@ -441,4 +441,43 @@ public class DevService {
 	public int getmaxbno(int no) {
 		return tilDao.getmaxbno(no);
 	}
+	
+	public void replyDelete(Reply reply) {
+		replyDao.replyDelete(reply);
+
+	}
+
+	public List<TIL> getTillist(String input, String type, int sort, int num, int limit) {
+		return tilDao.getTillist(input, type, sort, num, limit);
+	}
+	
+	public int getAlertNum(String name) {
+		return userDao.getAlertNum(name);
+	}
+
+	public void warnUser(int addedAlertnum, String name) {
+		userDao.warnUser(addedAlertnum, name);
+	}
+
+	public List<Goodorbad> getGoodorbadlist2(Integer no, Integer bno) {
+		return goodorbadDao.getGoodorbadlist2(no, bno);
+	}
+
+	public int getmaxlike(int no, int wno) {
+		return goodorbadDao.getmaxlike(no, wno);
+	}
+
+	public void insert_like(Goodorbad g) {
+		goodorbadDao.insert_like(g);
+	}
+
+	public void delete_like(int no, int wno, String name) {
+		goodorbadDao.delete_like(no, wno, name);
+	}
+
+	public void replyUpdate(Reply reply) {
+		replyDao.replyUpdate(reply);
+		
+	}
+
 }

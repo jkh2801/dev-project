@@ -38,7 +38,7 @@ public class CoworkingController {
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
 		List <Coworking> list = service.getWorkinglist(null, null, "regdate", 0, 0, 12);
-		List <Hashtag> hash = service.getHashtaglist();
+		List <Hashtag> hash = service.getHashtaglist(6);
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < list.size(); i++) {
 			map.put(list.get(i).getGno(), i);
@@ -49,9 +49,6 @@ public class CoworkingController {
 			}
 			
 		}
-		System.out.println("==============");
-		System.out.println(list);
-		System.out.println(hash);
 		mav.addObject("list", list);
 		mav.addObject("hash", hash);
 		return mav;
@@ -74,7 +71,21 @@ public class CoworkingController {
 				int membermax = service.getMembermax(gno);
 				int recruitment = (membermax - membercount);
 				String chk = service.getChk(gno,name);
-				System.out.println(chk);
+				List <Coworking> list = service.getWorkinglist(null, null, "regdate", 0, 0, 12);
+				List <Hashtag> hash = service.getHashtaglist(6);
+				HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+				for (int i = 0; i < list.size(); i++) {
+					map.put(list.get(i).getGno(), i);
+				}
+				for(Hashtag h : hash) {
+					if(map.containsKey(h.getWno())) {
+						list.get(map.get(h.getWno())).addHashlist(h.getHashname());
+					}
+				}
+				System.out.println(list);
+				System.out.println(hash);
+				mav.addObject("list", list);
+				mav.addObject("hash", hash);
 				mav.addObject("chk",chk);
 				mav.addObject("recruitment",recruitment);
 				mav.addObject("cwk",cwk);

@@ -34,7 +34,7 @@ public interface ProjectMapper {
 	@Insert("Insert into project (name, prono, subject, num, description, repository, able, start, end) values (#{name}, #{prono}, #{subject}, #{num}, #{description}, #{repository}, #{able}, #{start}, #{end})")
 	void addProject(Project newproject);
 
-	@Select("Select * from project where name=#{name}")
+	@Select("Select * from project where name=#{name} order by start")
 	List<Project> getProjects(Map<String, Object> param);
 
 	@Update("Update project set able=true where name=#{name} and prono=#{prono}")

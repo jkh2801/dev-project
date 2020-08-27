@@ -27,6 +27,7 @@ import logic.Project;
 import logic.Reply;
 import logic.Report;
 import logic.Subscribe;
+import logic.TIL;
 import logic.Tag;
 import logic.User;
 import logic.UserFile;
@@ -69,16 +70,18 @@ public class AjaxController {
 		hash.setNo(no);
 		if(no == 6) hash.setWno(service.getmaxcono() + 1);
 		else hash.setWno(service.getmaxbno(no) + 1);
+		if(arr != null) {
 		for (int i = 0; i < arr.length; i++) {
 			hash.setHno(i+1);
 			hash.setHashname(arr[i]);
 			service.insertHashtag(hash);
 		}
+		}
 		return null;
 	}
 
 	@RequestMapping(value = "searchworking", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
-	public String searchworking(HttpServletRequest request) {
+	public String searchworking(HttpServletRequest request) throws ParseException {
 		String searchinput = request.getParameter("searchinput");
 		String searchtype = request.getParameter("searchtype");
 		String searchsort = request.getParameter("searchsort");
@@ -92,7 +95,7 @@ public class AjaxController {
 			searchtype = null;
 		}
 		List<Coworking> list = service.getWorkinglist(searchtype, searchinput, searchsort, category, num, limit);
-		List<Hashtag> hash = service.getHashtaglist();
+		List<Hashtag> hash = service.getHashtaglist(3);
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < list.size(); i++) {
 			map.put(list.get(i).getGno(), i);
@@ -107,13 +110,15 @@ public class AjaxController {
 		int i = 0;
 		Date now = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sf.format(now);
+		Date date = sf.parse(today);
 		for (Coworking co : list) {
-			long diff = (co.getDeadline().getTime() - now.getTime()) / (1000*60*60*24);
+			long diff = (co.getDeadline().getTime() - date.getTime()) / (1000*60*60*24);
 			sb.append("{\"gno\":\"" + co.getGno() + "\",");
 			sb.append("\"name\":\"" + co.getName() + "\",");
 			sb.append("\"title\":\"" + co.getTitle() + "\",");
 			sb.append("\"category\":\"" + co.getCategory() + "\",");
-			sb.append("\"content\":\"" + co.getContent() + "\",");
+			sb.append("\"content\":\"" + co.getContent().replace('\n', ' ').replace('\r', ' ') + "\",");
 			sb.append("\"maxnum\":\"" + co.getMaxnum() + "\",");
 			sb.append("\"grade\":\"" + co.getGrade() + "\",");
 			sb.append("\"startdate\":\"" + sf.format(co.getStartdate()) + "\",");
@@ -160,6 +165,19 @@ public class AjaxController {
 		sb.append("]");
 		System.out.println(sb);
 		return sb.toString();
+	}
+	
+	@RequestMapping(value = "commentdelete", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String commentdelete(HttpServletRequest request) {
+		System.out.println("ajax");
+		Reply reply = new Reply();
+		reply.setNo(Integer.parseInt(request.getParameter("no")));
+		reply.setBno(Integer.parseInt(request.getParameter("bno")));
+		reply.setRno(Integer.parseInt(request.getParameter("rno")));
+		System.out.println(reply);
+		service.replyDelete(reply);
+
+		return null;
 	}
 
 	@PostMapping(value = "findid", produces = "text/plain; charset=UTF-8")
@@ -409,10 +427,18 @@ public class AjaxController {
 		newproject.setProno(prono);
 		service.addProject(newproject);
 		String result = 
-				"{\"subject\":\"" + subject + "\",\"term\":\"" + startStr + "-" + endStr + 
+				"{\"subject\":\"" + subject + "\",\"term\":\"" + startStr + "~" + endStr + 
 				"\",\"numbers\":\"" + numbers + "\",\"prono\":\""+prono+"\"}";
 		
 		return result;
+	}
+	
+	@PostMapping(value="warning", produces="text/plain; charset=UTF-8")
+	public String warning (HttpServletRequest request, HttpSession session) {
+		String name = request.getParameter("targetname");
+		int addedAlertnum = service.getAlertNum(name) + 1;
+		service.warnUser(addedAlertnum, name);
+		return null;
 	}
 	
 	@RequestMapping(value="deleteProject", produces = "text/plain; charset=UTF-8")
@@ -484,6 +510,89 @@ public class AjaxController {
 		String name = request.getParameter("name");
 		service.likedelete(no, wno, name);
 
+		return null;
+	}
+	
+	@RequestMapping(value = "searchtil", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String searchtil(HttpServletRequest request) {
+		String searchinput = request.getParameter("searchinput");
+		String searchtype = request.getParameter("searchtype");
+		int searchsort = Integer.parseInt(request.getParameter("searchsort"));
+		int num = Integer.parseInt(request.getParameter("num"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		if (searchinput.trim().equals("")) {
+			searchinput = null;
+			searchtype = null;
+		}
+		List<TIL> list = service.getTillist(searchinput, searchtype, searchsort, num, limit);
+		List<Hashtag> hash = service.getHashtaglist(3);
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			map.put(list.get(i).getBno(), i);
+		}
+		for(Hashtag h : hash) {
+			if(map.containsKey(h.getWno())) {
+				list.get(map.get(h.getWno())).addHashlist(h.getHashname());
+			}
+			
+		}
+		StringBuilder sb = new StringBuilder("[");
+		int i = 0;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		for (TIL til : list) {
+			sb.append("{\"no\":\"" + til.getNo() + "\",");
+			sb.append("\"bno\":\"" + til.getBno() + "\",");
+			sb.append("\"title\":\"" + til.getTitle() + "\",");
+			sb.append("\"name\":\"" + til.getName() + "\",");
+			sb.append("\"regdate\":\"" + sf.format(til.getRegdate()) + "\",");
+			sb.append("\"open\":\"" + (til.isOpen() ? 1 : 0) + "\",");
+			sb.append("\"point\":\"" + til.getPoint() + "\",");
+			sb.append("\"hashlist\":[");
+			for (int j = 0; j < til.getHashlist().size(); j++) {
+				sb.append("\"" + til.getHashlist().get(j) + "\"");
+				if (j < til.getHashlist().size() - 1)
+					sb.append(",");
+			}
+			sb.append("]}");
+			i++;
+			if (i < list.size())
+				sb.append(",");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
+	@PostMapping(value = "likeEvent", produces="text/plain; charset=UTF-8")
+	public String likeEvent(HttpServletRequest request, HttpSession session) {
+		int likechk = Integer.parseInt(request.getParameter("likechk"));
+		int no = Integer.parseInt(request.getParameter("no"));
+		int wno = Integer.parseInt(request.getParameter("wno"));
+		String name = ((User)session.getAttribute("loginUser")).getName();
+		if (likechk == 1) { // insert
+			Goodorbad g = new Goodorbad();
+			g.setNo(no);
+			g.setWno(wno);
+			g.setGno(service.getmaxlike(no, wno) + 1);
+			g.setName(name);
+			g.setPoint(1);
+			service.insert_like(g);
+		}else { // delete
+			service.delete_like(no, wno, name);
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "commentupdate", produces = "text/plain; charset=UTF-8", method = RequestMethod.POST)
+	public String commentupdate(HttpServletRequest request) {
+		System.out.println("ajax");
+		Reply reply = new Reply();
+		reply.setNo(Integer.parseInt(request.getParameter("no")));
+		reply.setBno(Integer.parseInt(request.getParameter("bno")));
+		reply.setRno(Integer.parseInt(request.getParameter("rno")));
+		reply.setContent(request.getParameter("content"));
+		service.replyUpdate(reply);
+		
+		
 		return null;
 	}
 }

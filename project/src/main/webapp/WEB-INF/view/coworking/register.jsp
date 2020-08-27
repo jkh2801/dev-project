@@ -9,11 +9,11 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Register</title>
 <style type="text/css">
-.container {
+.containers {
 	
 }
 
-.container .content {
+.containers .content {
 	
 }
 
@@ -135,7 +135,7 @@
 	cursor: pointer;
 }
 
-.hashtag-container {
+.hashtag-containers {
 	margin: 0;
 	width: 80%;
 }
@@ -394,7 +394,7 @@
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="containers">
 		<div class="content">
 			<div class="pagewrap">
 				<div class="pagewrap-overlay"></div>
@@ -432,7 +432,7 @@
 								</div>
 								<div class="form-input hash-form">
 									<span>관련기술</span>
-									<div class="hashtag-container">
+									<div class="hashtag-containers">
 										<div class="hashtag">
 											<input />
 										</div>
@@ -473,7 +473,6 @@
 										</div>
 										<form:input path="startdate" />
 									</div>
-									<span>~</span>
 									<div class="form-input datepick">
 										<span>마지막일</span>
 										<div class="date-picker">
@@ -506,7 +505,8 @@
 						</form:form>
 					</section>
 					<div class="btn-area">
-						<button type="button" id="submit">Register</button>
+						<button type="button" onclick="javascript:document.f.submit()"
+							id="submit">Register</button>
 					</div>
 				</div>
 			</div>
@@ -534,7 +534,7 @@ $(function() {
 	<script type="text/javascript">
 $(function() {
 	
-const tagContainer = document.querySelector('.hashtag');
+const tagcontainers = document.querySelector('.hashtag');
 const input = document.querySelector('.hashtag input');
 
 let tags = [];
@@ -562,7 +562,7 @@ function clearTags() {
 function addTags() {
   clearTags();
   tags.slice().reverse().forEach(tag => {
-    tagContainer.prepend(createTag(tag));
+    tagcontainers.prepend(createTag(tag));
   });
 }
 
@@ -592,17 +592,19 @@ document.addEventListener('click', (e) => {
 })
 
 
-$("#submit").on("click", function (event) {
-	event.preventDefault();
-	var hash = {hash : tags,
-			no: 6};
+$("#submit").on("click", function () {
+	var hash = {
+			hash : tags,
+			no : 6
+			};
+	console.log(hash);
+	
 	$.ajax({
 		url: '${path}/ajax/hashtag.dev',
 		type: "post",
 		data: hash,
 		traditional: true,
 		success: function(response){
-			javascript:document.f.submit();
 		}
 	})
 	return true;

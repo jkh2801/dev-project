@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Repository;
 
-
+import dao.mapper.CoworkingMapper;
 import dao.mapper.TilMapper;
 import logic.TIL;
 
@@ -23,12 +23,6 @@ public class TilDao {
 		System.out.println("========til.insert");
 		System.out.println(til);
 		template.getMapper(TilMapper.class).insert(til);
-	}
-
-	public List<TIL> list() {
-		param.clear();
-		return template.getMapper(TilMapper.class).list(param);
-
 	}
 
 	public TIL selectOne(int no, int bno) {
@@ -66,5 +60,19 @@ public class TilDao {
 		param.clear();
 		param.put("no",no);
 		return template.getMapper(TilMapper.class).getmaxbno(param);
+	}
+
+	public List<TIL> getTillist(String input, String type, int sort, int num, int limit) {
+		param.clear();
+		param.put("searchinput",input);
+		param.put("searchtype",type);
+		param.put("no",3);
+		if(sort == 0) param.put("searchsort","regdate");
+		else if(sort == 1) param.put("searchsort","point");
+		param.put("num",num);
+		param.put("limit",limit);
+		System.out.println(param);
+		if(type != null && type.equals("hashname")) return template.getMapper(TilMapper.class).getHashTillist(param);
+		return template.getMapper(TilMapper.class).getTillist(param);
 	}
 }

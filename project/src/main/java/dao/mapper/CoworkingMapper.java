@@ -25,7 +25,7 @@ public interface CoworkingMapper {
 		         + "<where>"
 		         + "<if test='searchtype != null and searchinput != null '> ${searchtype} like '%${searchinput}%' </if>"
 		         + "<if test='category != null'> and category = #{category} </if>"
-		         + "and (TO_DAYS(deadline) - TO_DAYS(NOW())) > 0"
+		         + "and (TO_DAYS(deadline) - TO_DAYS(NOW())) >= 0"
 		         + "</where>"
 		         + "<if test='searchsort != null '> order by regdate desc </if> "
 		         + "<if test='searchsort == null '> order by deadline </if> "
@@ -36,10 +36,10 @@ public interface CoworkingMapper {
 	@Insert("insert into hash (no, wno, hno, hashname) values(#{no}, #{wno}, #{hno}, #{hashname})")
 	void insertHashtag(Hashtag hash);
 
-	@Select("select * from hash where no = 6")
-	List<Hashtag> getHashtaglist();
+	@Select("select * from hash where no = #{no}")
+	List<Hashtag> getHashtaglist(Map<String, Object> param);
 	
-	@Select({"<script>SELECT * from hash LEFT JOIN working ON hash.wno = working.gno where ${searchtype} like '%${searchinput}%' and NO = 6"
+	@Select({"<script>SELECT *, (TO_DAYS(deadline) - TO_DAYS(NOW())) as date from hash LEFT JOIN working ON hash.wno = working.gno where ${searchtype} like '%${searchinput}%' and NO = 6 and (TO_DAYS(deadline) - TO_DAYS(NOW())) >= 0 "
 			+ "<if test='category != null and searchtype != null'> and category = #{category} </if>"
 			+ " group by wno "
 			+ "<if test='searchsort != null '> order by regdate desc </if> "
@@ -53,4 +53,7 @@ public interface CoworkingMapper {
 
 	@Select("SELECT title FROM working WHERE gno = ${gno}")
 	String grouptitle(Map<String, Object> param);
+
+	@Select("select * from hash where no = #{no} and wno = #{wno}")
+	List<Hashtag> getHashtaglist2(Map<String, Object> param);
 }

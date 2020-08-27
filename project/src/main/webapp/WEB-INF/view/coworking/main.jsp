@@ -14,7 +14,9 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap')
 	;
-
+body {
+	overflow-x: hidden;
+}
 .card {
 	position: relative;
 	width: 250px;
@@ -122,7 +124,7 @@
 	cursor: pointer;
 }
 
-.container {
+.containers {
 	margin: 0;
 	padding: 0;
 	max-width: 100%;
@@ -132,7 +134,7 @@
 	flex-direction: column;
 }
 
-.container .content {
+.containers .content {
 	display: flex;
 	justify-content: flex-start;
 	padding: 0 10vw;
@@ -140,18 +142,18 @@
 	width: 100%;
 }
 
-.container .content .optionbox{
+.containers .content .optionbox{
 	width: 20%;
 	padding: 20px 10px;
 }
 
-.container .content .optionbox .hashbox #hashinput {
+.containers .content .optionbox .hashbox #hashinput {
 	width: 100%;
 	margin-top: 20px;
 	padding-left: 5px;
 }
 
-.container .content .optionbox .hashbox #searchhash {
+.containers .content .optionbox .hashbox #searchhash {
 	margin-top: 10px;
 	background: #00b8f4;
 	display: flex;
@@ -162,13 +164,13 @@
 	cursor: pointer;
 	transition: 0.5s;
 }
-.container .content .optionbox .hashbox #searchhash:hover {
+.containers .content .optionbox .hashbox #searchhash:hover {
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);
 }
-.container .content .optionbox .hashbox #searchhash i {
+.containers .content .optionbox .hashbox #searchhash i {
 	color: #fff;
 }
-.container .content .contentbox{
+.containers .content .contentbox{
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
@@ -176,13 +178,13 @@
 	justify-content: center;
 }
 
-.container .content .container-fluid {
+.containers .content .containers-fluid {
 	padding: 15px;
 	margin: 0;
 	width: auto;
 } 
 
-.container .searchArea {
+.containers .searchArea {
 	width: 100vw;
 	margin-top: 4vh;
 	display: flex;
@@ -191,32 +193,32 @@
 	padding: 0 10vw;
 }
 
-.container .searchArea .filter {
+.containers .searchArea .filter {
 	float: left;
 	padding: 0;
 	font-size: 18px;
 	font-weight: bold;
 }
 
-.container .searchArea .filter a {
+.containers .searchArea .filter a {
 	text-decoration: none;
 	color: #000;
 	padding: 3px 5px;
 	transition: 0.5s;
 }
-.container .searchArea .filter span a {
+.containers .searchArea .filter span a {
 	border-bottom: 2px solid #fff;
 }
-.container .searchArea .filter span a:hover {
+.containers .searchArea .filter span a:hover {
 	border-bottom: 2px solid #f00;
 	transition: 0.5s;
 }
-.container .searchArea .plus {
+.containers .searchArea .plus {
 	float: right;
 	padding: 0;
 }
 
-.container .searchArea .plus .box {
+.containers .searchArea .plus .box {
 	border: 2px solid lightblue;
 	background: #CCE1FF;
 	border-radius: 5px;
@@ -228,22 +230,22 @@
 	cursor: pointer;
 	transition: 0.5s;
 }
-.container .searchArea .plus .box:hover {
+.containers .searchArea .plus .box:hover {
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
 }
 
-.container .searchbox {
+.containers .searchbox {
 	padding: 0;
 }
 
-.container .searchbox input {
+.containers .searchbox input {
 	position: relative;
 	display: inline-block;
 	font-size: 20px;
 	box-sizing: border-box;
 }
 
-.container .searchbox input[type="text"] {
+.containers .searchbox input[type="text"] {
 	background: #fff;
 	width: 220px;
 	height: 31px;
@@ -254,7 +256,7 @@
 	font-family: Poppins;
 }
 
-.container .searchbox select {
+.containers .searchbox select {
 	position: relative;
 	left: -7px;
 	border: 1px solid #000;
@@ -266,7 +268,7 @@
 	height: 31px;
 }
 
-.container .searchbox button {
+.containers .searchbox button {
 	position: relative;
 	left: -5px;
 	width: 90px;
@@ -281,11 +283,11 @@
 	line-height: 30px;
 }
 
-.container .searchbox button:hover {
+.containers .searchbox button:hover {
 	background: #ef296c;
 }
 
-.container .buttonbox {
+.containers .buttonbox {
 	position: relative;
 	margin: 0;
 	padding: 0;
@@ -363,37 +365,37 @@
 	font-weight: bold;
 	color: #fff;
 }
-.container .header_Area {
+.containers .header_Area {
 	width: 100vw;
 	height: 30vh;
 	background: linear-gradient(45deg, #54a0ee, #8572EE);
 }
-.container .header_Area .search_Area {
+.containers .header_Area .search_Area {
 	text-align: center;
 	padding: 70px;
 }
-.container .header_Area .search_Area h2 {
+.containers .header_Area .search_Area h2 {
 	color: #fff;
 	font-style: italic;
 	font-weight: bold;
 	font-size: 2rem;
 }
-.container .header_Area .search_Area .search {
+.containers .header_Area .search_Area .search {
 	padding: 30px;
 	display: flex;
 	justify-content: center;
 }
-.container .header_Area .search_Area .search input {
+.containers .header_Area .search_Area .search input {
 	width: 15vw;
 	border-radius: 5px;
 	border: none;
 	height: 40px;
 	padding-left: 20px;
 }
-.container .header_Area .search_Area .search input:focus {
+.containers .header_Area .search_Area .search input:focus {
 	outline: none;
 }
-.container .header_Area .search_Area .search .search_button {
+.containers .header_Area .search_Area .search .search_button {
 	width: 40px;
 	height: 40px;
 	background: #fff;
@@ -406,16 +408,16 @@
 	transition: 0.5s;
 }
 
-.container .header_Area .search_Area .search .search_button:hover {
+.containers .header_Area .search_Area .search .search_button:hover {
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);
 }
-.container .header_Area .search_Area .search .search_button i {
+.containers .header_Area .search_Area .search .search_button i {
 	color: #54a0ee;
 }
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="containers">
 		<div class="header_Area">
 			<div class="search_Area">
 				<h2>Don't do it alone, Do it together</h2>
@@ -473,9 +475,8 @@
 				<fmt:parseNumber value="${now2}" var="today" integerOnly="true"/>
 				<fmt:formatDate value="${data.deadline}" var="dl" pattern="yyyyMMdd"/>
 				<fmt:parseNumber value="${dl}" var="deadline" integerOnly="true"/>
-				<c:if test="${(deadline - today) > 0}">	
-				<div class="container-fluid">
-					<div class="container">
+				<div class="containers-fluid">
+					<div class="containers">
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="card">
@@ -484,7 +485,7 @@
 										<div class="post-meta">
 											<span class="author"><a href="#"> <i class="fa fa-user"></i> ${data.name }</a></span> 
 											<span class="time"> <i class="fa fa-clock-o"></i> <fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd" /></span>
-											<span class="grade"> <i class="fas fa-user-graduate"></i> ${data.grade}</span>
+											<span class="grade"> <i class="fa fa-graduation-cap"></i> ${data.grade}</span>
 											<div class="clearfix"></div>
 										</div>
 										<h2 class="post-header">
@@ -498,7 +499,12 @@
 										</div>
 										<div class="post-meta">
 											<span class="date">
-											마감 ${deadline - today}일 전
+											<c:if test="${(deadline - today) == 0}">
+													당일 마감
+											</c:if>	
+											<c:if test="${(deadline - today) != 0}">
+													마감 ${deadline - today}일 전
+											</c:if>	
 											</span>
 										</div>
 									</div>
@@ -507,7 +513,6 @@
 						</div>
 					</div>
 				</div>
-				</c:if>
 			</c:forEach>
 			</div>
 		</div>
@@ -518,7 +523,7 @@
 			var category = 0;
 			var num = 12;
 			
-			$(".container .searchArea .plus .box").click(function() {
+			$(".containers .searchArea .plus .box").click(function() {
 				location.href = "register.dev";
 			})
 			
@@ -532,12 +537,12 @@
 				}
 			})
 			var sidx = 1;
-			$(".container .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #f00");
-			$(".container .searchArea .filter span a").on("click", function () {
+			$(".containers .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #f00");
+			$(".containers .searchArea .filter span a").on("click", function () {
 				category = $(this).parent().index();
-				$(".container .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #fff");
+				$(".containers .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #fff");
 				sidx = $(this).parent().index()+1;
-				$(".container .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #f00");
+				$(".containers .searchArea .filter span:nth-child("+sidx+") a").css("border-bottom", "2px solid #f00");
 				console.log($(this).parent().index());
 				num = 12;
 				datasearch(input, type, sort, category, 0, 12);
@@ -601,8 +606,7 @@
 				if(num == 12) contentbox.html("");
 				var data_card = "";
 				$.each(data,function(i, v) {
-									console.log(v);
-									data_card += '<div class="container-fluid"><div class="container"><div class="row"><div class="col-sm-4"><div class="card">'
+									data_card += '<div class="containers-fluid"><div class="containers"><div class="row"><div class="col-sm-4"><div class="card">'
 										data_card += '<span class="category" style="background: '
 										data_card += v.category == "스터디" ? "#00B8F4" : v.category == "프로젝트" ? "#00FA9A" : "#EE82EE" 
 										data_card += '">'
@@ -618,7 +622,12 @@
 											data_card += '<a><span>#' + v.hashlist[i] + '</span></a>&nbsp;'
 										}
 										data_card += '</div><div class="post-meta"><span class="date">'
-										data_card += '마감 '+ v.diff +'일 전</span></div></div></div></div></div></div></div>'
+										if(v.diff == 0){
+											data_card += '당일 마감'
+										}else{
+											data_card += '마감 '+ v.diff +'일 전'
+										}	
+										data_card += '</span></div></div></div></div></div></div></div>'
 										contentbox.append(data_card);
 										data_card = ""
 								})

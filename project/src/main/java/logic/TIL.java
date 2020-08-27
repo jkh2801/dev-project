@@ -1,6 +1,8 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TIL {
 	private int no;
@@ -10,6 +12,23 @@ public class TIL {
 	private String content;
 	private Date regdate;
 	private boolean open;
+	private List<String> hashlist = new ArrayList<String>();
+	private int point;
+	
+	
+	
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public List<String> getHashlist() {
+		return hashlist;
+	}
+	public void addHashlist(String hashname) {
+		this.hashlist.add(hashname);
+	}
 	public int getNo() {
 		return no;
 	}
@@ -55,11 +74,6 @@ public class TIL {
 	@Override
 	public String toString() {
 		return "TIL [no=" + no + ", bno=" + bno + ", name=" + name + ", title=" + title + ", content=" + content
-				+ ", regdate=" + regdate + ", open=" + open + "]";
+				+ ", regdate=" + regdate + ", open=" + open + ", hashlist=" + hashlist + ", point=" + point + "]";
 	}
-	
-	
-	
-	
-	
 }

@@ -33,4 +33,63 @@ public class AdminAspect {
 		Object ret = joinPoint.proceed();
 		return ret;
 	}
+	
+	@Around("execution(* controller.Coworking*.loginCheck*(..)) && args(..,session)")
+	public Object userCoworkingLoginCheck(ProceedingJoinPoint joinPoint,
+			HttpSession session) throws Throwable{
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			throw new LoginException
+				("로그인 후 이용하세요", "../user/login.dev");
+		}		
+		return joinPoint.proceed();		
+	}
+	
+	@Around("execution(* controller.TIL*.loginCheck*(..)) && args(..,session)")
+	public Object userTILLoginCheck(ProceedingJoinPoint joinPoint,
+			HttpSession session) throws Throwable{
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			throw new LoginException
+				("로그인 후 이용하세요", "../user/login.dev");
+		}		
+		return joinPoint.proceed();		
+	}
+	
+	@Around("execution(* controller.Group*.loginCheck*(..)) && args(..,session)")
+	public Object userGroupLoginCheck(ProceedingJoinPoint joinPoint,
+			HttpSession session) throws Throwable{
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			throw new LoginException
+				("로그인 후 이용하세요", "../user/login.dev");
+		}		
+		return joinPoint.proceed();		
+	}
+	
+	@Around("execution(* controller.User*.loginCheck*(..)) && args(..,session)")
+	public Object userLoginCheck(ProceedingJoinPoint joinPoint,
+			HttpSession session) throws Throwable{
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			throw new LoginException
+				("로그인 후 이용하세요", "login.dev");
+		}		
+		return joinPoint.proceed();		
+	}	
+	@Around("execution(* controller.User*.check*(..)) && args(id,session)")
+	public Object LoginCheck(ProceedingJoinPoint joinPoint, String id, 
+			HttpSession session) throws Throwable{
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			throw new LoginException
+				("로그인 후 이용하세요", "login.dev");
+		}		
+//		if(!loginUser.getId().equals("admin") && !id.equals(loginUser.getId())) {
+//			throw new LoginException
+//				("본인정보만 조회가능", "main.dev?id="+loginUser.getId());
+//		}
+		return joinPoint.proceed();		
+	}
+	
 }

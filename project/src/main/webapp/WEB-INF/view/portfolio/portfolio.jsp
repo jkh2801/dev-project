@@ -146,6 +146,7 @@
 		-moz-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 		box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 		margin : 0 0 30px 0;
+		
 	}
 	/*timeline css*/
 	@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
@@ -188,7 +189,7 @@
 	}
 	.project:nth-child(even) {
 	    border-right: 3px solid;
-	    padding-left: 0;
+	    padding-left: 50px;
 	}
 	
 	.project:nth-child(even):before {
@@ -198,13 +199,18 @@
 	}
 	.project:nth-child(even) .project-container {
 		padding : 20px;
-		margin-top : 10px;
-		border :1px solid black;
+		margin-top : 30px;
+		border :1px solid #c572ee;
 		border-radius : 10px;
+		-webkit-box-shadow: 0px 0px 27px -1px rgba(130,127,130,1);
+		-moz-box-shadow: 0px 0px 27px -1px rgba(130,127,130,1);
+		box-shadow: 0px 0px 27px -1px rgba(130,127,130,1);
 	}
 	.project:nth-child(even) .project-subject {
 		text-align : right;
 		font-size : 30px;
+		margin-top : 10px;
+		margin-bottom : 20px;
 	}
 	.project:nth-child(even) .arr-container {
 		text-align : right;
@@ -212,8 +218,19 @@
 	.project:nth-child(even) .project-date {
 		text-align : center;
 		padding : 5px 8px 5px 8px;
-		font-size : 15px;
-		border : 1px solid black;
+		font-size : 20px;
+		border : 1px solid #edda9f;
+		background : #edda9f;
+	}
+	.project:nth-child(even) .project-date:after {
+		 border-top:10px solid transparent;
+		 border-left: 10px solid #edda9f;
+		 border-right: 0px solid transparent;
+		 border-bottom: 10px solid transparent;
+		 content:"";
+		 position:absolute;
+		 top:43px;
+		 right:30px;
 	}
 	.project:nth-child(even) .project-numbers {
 		text-align : right;
@@ -223,7 +240,7 @@
 	
 	.project:nth-child(odd) {
 	    border-left: 3px solid;
-	    padding-right: 0;
+	    padding-right: 50px;
 	}
 	
 	.project:nth-child(odd):before {
@@ -233,19 +250,35 @@
 	}
 	.project:nth-child(odd) .project-container {
 		padding : 20px;
-		margin-top : 10px;
-		border :1px solid black;
+		margin-top : 30px;
+		border :1px solid #c572ee;
 		border-radius : 10px;
+		-webkit-box-shadow: 0px 0px 27px -1px rgba(130,127,130,1);
+		-moz-box-shadow: 0px 0px 27px -1px rgba(130,127,130,1);
+		box-shadow: 0px 0px 27px -1px rgba(130,127,130,1);
 	}
 	.project:nth-child(odd) .project-subject {
 		text-align : left;
 		font-size : 30px;
+		margin-top : 10px;
+		margin-bottom : 20px;
 	}
 	.project:nth-child(odd) .project-date {
 		text-align : center;
 		padding : 5px 8px 5px 8px;
-		font-size : 15px;
-		border : 1px solid black;
+		font-size : 20px;
+		border : 1px solid #edda9f;
+		background : #edda9f;
+	}
+	.project:nth-child(odd) .project-date:after {
+		 border-top:10px solid transparent;
+		 border-right: 10px solid #edda9f;
+		 border-left: 0px solid transparent;
+		 border-bottom: 10px solid transparent;
+		 content:"";
+		 position:absolute;
+		 top:43px;
+		 left:50px;
 	}
 	.project:nth-child(odd) .project-numbers {
 		border-bottom : 1px solid gray;
@@ -274,13 +307,35 @@
 		font-size: 13px;
 		font-weight: bold;
 	}
+	
+	
+	.banner{
+		width: 100vw;
+		height: 20vh;
+		text-align : center;
+		padding : 70px;
+		background: rgba(203,96,179,1);
+		background: -moz-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(203,96,179,1)), color-stop(17%, rgba(193,70,161,1)), color-stop(100%, rgba(133,114,238,1)));
+		background: -webkit-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: -o-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: -ms-linear-gradient(left, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		background: linear-gradient(to right, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 17%, rgba(133,114,238,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb60b3', endColorstr='#8572ee', GradientType=1 );
+	}
+	.banner h2 {
+		color: #fff;
+		font-style: italic;
+		font-weight: bold;
+		font-size: 2rem;
+	}
  </style>
 </head>
 <body>
+	<div class="banner">
+		<h2>Portfolio</h2>
+	</div>
 	<div class="container">
-					<c:if test='${pfUser.name.equals(sessionScope.loginUser.name)}'>
-						<a href="editPortfolio.dev">작성 및 수정</a>	<%-- url <get>parameter name과 session의 name이 같은 경우에만  나옴.--%>
-					</c:if>
 		<div class="content">
 			<span id="content-profile-tab">
 				Profile
@@ -292,7 +347,12 @@
 				  </div>
 				  <div class="col-sm-8 profiletext-container">
 				  	<div id="username">
-				  		${pfUser.name}
+				  		${pfUser.name}&nbsp;&nbsp;&nbsp;
+				  		<c:if test='${pfUser.name.equals(sessionScope.loginUser.name)}'>
+							<a href="editPortfolio.dev">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+							</a>	
+						</c:if>
 				  	</div>
 				  	<div id="email">
 				  		E-Mail : ${pfUser.email}
@@ -305,11 +365,6 @@
 						  		</span>
 						  	</span>
 					  	</a>
-					  	<span id="tilurl">
-					  		<span style="color: #8572EE">
-					  			<i class="fa fa-code fa-2x" aria-hidden="true"></i>
-					  		</span>
-					  	</span>
 					  	<span id="giturl">
 						  	<c:if test='${pfUser.giturlable==true}'>
 						  		<a href="${pfUser.giturl}" style="color:black;">
@@ -347,51 +402,58 @@
 				  </div>
 				</div>
 			</div>
-			<span id="content-project-tab">
-				Project Timeline
-			</span>
-			<div class="content-body">
-				<main>
-					<c:forEach var="pj" items="${projects}">
-						<c:if test='${pj.able==true}'>
-							<div class="project">
-								<div class="arr-container">
-									<span class="project-date">
-										<fmt:formatDate value="${pj.start}" pattern="yy-MM-dd"/> 
-											- 
-										<fmt:formatDate value="${pj.end}" pattern="yy-MM-dd"/>
-									</span>
-								</div>
-								<div class="tmp"></div>
-								<div class="project-container">
-									<div class="project-subject">
-										${pj.subject}
-									</div>
-									<div class="project-numbers">
-										<i class="fa fa-users" aria-hidden="true"></i>
-										${pj.num}명
-									</div>
-									<div class="project-description">
-										${pj.description}
-									</div>
-									<c:if test='${pj.repository != null}'>
-										<div class="project-giturl">
-											<a href="${pj.repository}" style="color:black;">
-												<i class="fa fa-github fa-2x" aria-hidden="true"></i>
-											</a>
-										</div>
-									</c:if>
-									<c:forEach var="usedTag" items="${tags}">
-										<c:if test='${usedTag.no==2 && usedTag.prono == pj.prono}'>
-											<span class="usedtag">
-												${usedTag.tag}
-											</span>
-										</c:if>
-									</c:forEach>
-								</div>
-							</div>
+				<span id="content-project-tab">
+					Project Timeline
+				</span>
+				<div class="content-body">
+					<main>
+						<c:if test='${empty projects}'>
+							<h1 style="text-align : center; padding-top : 100px; padding-bottom: 100px;"><span style="color:red;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>  아직 등록된 프로젝트가 없습니다</h1>
 						</c:if>
-					</c:forEach>
+						<c:if test='${!empty projects}'>
+						<c:forEach var="pj" items="${projects}">
+							<c:if test='${pj.able==true}'>
+								<div class="project">
+									<div class="arr-container">
+										<span class="project-date">
+											<fmt:formatDate value="${pj.start}" pattern="yy.MM.dd"/> 
+												- 
+											<fmt:formatDate value="${pj.end}" pattern="yy.MM.dd"/>
+										</span>
+									</div>
+									<div class="tmp"></div>
+									<div class="project-container">
+										<div class="project-container-header">
+											<div class="project-subject">
+												${pj.subject}
+											</div>
+											<div class="project-numbers">
+												<i class="fa fa-users" aria-hidden="true"></i>
+												${pj.num}명
+											</div>
+										</div>
+										<div class="project-description">
+											${pj.description}
+										</div>
+										<c:if test='${pj.repository != null}'>
+											<div class="project-giturl">
+												<a href="${pj.repository}" style="color:black;">
+													<i class="fa fa-github fa-2x" aria-hidden="true"></i>
+												</a>
+											</div>
+										</c:if>
+										<c:forEach var="usedTag" items="${tags}">
+											<c:if test='${usedTag.no==2 && usedTag.prono == pj.prono}'>
+												<span class="usedtag">
+													${usedTag.tag}
+												</span>
+											</c:if>
+										</c:forEach>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
+					</c:if>
 				</main>
 			</div>
 		</div>

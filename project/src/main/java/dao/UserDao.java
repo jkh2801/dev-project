@@ -76,4 +76,17 @@ public class UserDao {
 		param.put("name",name);	
 		return template.getMapper(UserMapper.class).getPortfolio(param).get(0);
 	}
+	
+	public int getAlertNum(String name) {
+		param.clear();
+		param.put("name", name);
+		return template.getMapper(UserMapper.class).getAlertNum(param);
+	}
+
+	public void warnUser(int addedAlertnum, String name) {
+		param.clear();
+		param.put("name", name);
+		param.put("addedAlertnum", addedAlertnum);
+		template.getMapper(UserMapper.class).warnUser(param);
+	}
 }
