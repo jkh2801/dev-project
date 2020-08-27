@@ -12,16 +12,21 @@
 	background: #fff;
 	border-top: 1.5px solid #ddd;
 }
+
 .containers .infobox {
 	margin: 85px 25vw 50px;
 	padding: 20px;
 }
+
 .containers .header {
+	
 }
+
 .containers .infobox .simpleinfo {
 	display: flex;
 	justify-content: space-between;
 }
+
 .containers .infobox .simpleinfo .button a {
 	text-decoration: none;
 	padding: 3px 5px;
@@ -30,20 +35,24 @@
 	color: #ddd;
 	transition: 0.5s;
 }
+
 .containers .infobox .simpleinfo .button a:first-child:hover {
 	background: #01ff09;
 	color: #fff;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
+
 .containers .infobox .simpleinfo .button a:last-child:hover {
 	background: #ff0101;
 	color: #fff;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
+
 .containers .infobox .hash_containers {
 	margin: 10px 0;
 	border-top: 2px solid #000;
 }
+
 .containers .infobox .hashbox {
 	display: flex;
 	flex-wrap: wrap;
@@ -52,6 +61,7 @@
 	height: 32px;
 	justify-content: flex-start;
 }
+
 .containers .infobox .hashbox .hash {
 	height: 30px;
 	margin: 0;
@@ -67,26 +77,32 @@
 	font-weight: bold;
 	margin-right: 5px;
 }
+
 .containers .infobox .contentbox {
 	margin-top: 10px;
 }
+
 .containers .infobox .contentbox .content {
 	border-bottom: 2px solid #000;
 	border-top: 2px solid #000;
 	min-height: 50vh;
 	padding: 10px 0;
 }
+
 .containers .infobox .comment {
 	margin-top: 20px;
 }
+
 .containers .infobox .comment textarea {
 	width: 100%;
 	box-sizing: border-box;
 	resize: none;
 }
-.containers .infobox .commentbutton  {
+
+.containers .infobox .commentbutton {
 	float: right;
 }
+
 .containers .like {
 	position: fixed;
 	left: calc(100% - 400px);
@@ -97,13 +113,15 @@
 	border: 2px solid #ddd;
 	border-radius: 50px;
 }
-.containers .like .fa-heart:before{
+
+.containers .like .fa-heart:before {
 	font-size: 50px;
 	color: #ddd;
 	cursor: pointer;
 	transition: 0.5s;
 }
-.containers .like.chk .fa-heart:before{
+
+.containers .like.chk .fa-heart:before {
 	font-size: 50px;
 	color: #ff0101;
 	cursor: pointer;
@@ -112,41 +130,71 @@
 </style>
 </head>
 <body>
-<div class="containers">
-	<div class="like">
-		<h6>GOOD</h6> 
-		<i class="fa fa-heart"></i>
-		<div class="likecnt">${likecnt}</div>
-	</div>
-	<div class="infobox">
-		<div class="header">
-			<div class="title"><h1>${til.title}</h1></div>
-			<div class="simpleinfo">
-			<div class="data">${til.name} &nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" /></div>
-			<div class="button"><a href="#">수정</a>&nbsp;<a href="#">삭제</a></div>
-			</div>
+	<div class="containers">
+		<div class="like">
+			<h6>GOOD</h6>
+			<i class="fa fa-heart"></i>
+			<div class="likecnt">${likecnt}</div>
 		</div>
-		<c:if test="${!empty hashlist}">
-		<div class="hash_containers">
-		<div class="hashbox">
-			<c:forEach items="${hashlist}" var="hash">
-				<div class="hash">${hash.hashname}</div> 
-			</c:forEach>
-		</div>
-		</div>
-		</c:if>
-		<div class="contentbox">
-			<div class="content">${til.content}</div>
-		</div>
-		<div class="comment">
-			<textarea rows="5"></textarea>
-		</div>
-		<div class="commentbutton"><button type="button">등록</button></div>
-		<div class="commentbox"></div>
-	</div>
-</div>
+		<div class="infobox">
+			<div class="header">
+				<div class="title">
+					<h1>${til.title}</h1>
+				</div>
+				<div class="simpleinfo">
+					<div class="data">${til.name}
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" />
+					</div>
 
-<script type="text/javascript">
+					<div>
+						<c:choose>
+							<c:when test="${!empty sessionScope.loginUser}">
+								<c:if test="${til.name != sessionScope.loginUser.name}">
+									<td><input type="button" value="구독  하기 " id=subinsert>
+										<input type="button" value="구독 취소 " id=subdelete></td>
+								</c:if>
+							</c:when>
+						</c:choose>
+
+					</div>
+
+					<div class="button">
+						<a href="#">수정</a>&nbsp;<a href="#">삭제</a>
+					</div>
+				</div>
+			</div>
+			<c:if test="${!empty hashlist}">
+				<div class="hash_containers">
+					<div class="hashbox">
+						<c:forEach items="${hashlist}" var="hash">
+							<div class="hash">${hash.hashname}</div>
+						</c:forEach>
+					</div>
+				</div>
+			</c:if>
+			<div class="contentbox">
+				<div class="content">${til.content}</div>
+			</div>
+			<div class="comment">
+				<textarea rows="5"></textarea>
+			</div>
+			<div class="commentbutton">
+				<button type="button">등록</button>
+			</div>
+			<div class="commentbox"></div>
+		</div>
+	</div>
+
+
+	<input type="hidden" id="per" value="${sub.scrapper}">
+	<input type="hidden" id="ped" value="${sub.scrapped}">
+	<input type="hidden" name="scrapper" id="scrapper"
+		value="${sessionScope.loginUser.name}">
+	<input type="hidden" name="scrapped" id="scrapped" value="${til.name}">
+
+
+	<script type="text/javascript">
 
 	$(function() {
 		$("body").css("background", "#fff");
@@ -190,9 +238,9 @@
 		
 		
 		
-		/* subview()
-		likeview()
-		
+	
+		//likeview()
+		subview()
 		function subview() {
 			
 			var chk = false;
@@ -250,7 +298,7 @@
 		})
 	})  
 	
-	
+	/*
 	//좋아요
 	
 	function likeview() {

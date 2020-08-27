@@ -26,7 +26,7 @@
 		/* background-color : #a473fa; */
 		padding : 8px 30px 4px 30px;
 		margin-left : 100px;
-		font-size : 25px;
+		font-size : 20px;
 		background: rgba(211,120,190,1);
 		background: -moz-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
 		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(211,120,190,1)), color-stop(0%, rgba(184,0,125,1)), color-stop(0%, rgba(200,91,169,1)), color-stop(100%, rgba(162,145,242,1)));
@@ -37,7 +37,7 @@
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d378be', endColorstr='#a291f2', GradientType=1 );
 	}
 	.container .content .content-body {
-		margin : 0 20px 30px 20px;
+		margin : 5px 20px 30px 20px;
 		padding : 30px 50px 30px 50px;
 		border : 1px solid #b5b3bd;
 		border-radius: 25px;
@@ -50,7 +50,7 @@
 		width : 200px;
 		margin-right : 0;
 		font-weight : bold;
-		font-size : 30px;
+		font-size : 20px;
 	}
 	.content-body-position {
 		margin-bottom : 40px;
@@ -446,8 +446,8 @@
 						프로젝트 관리
 					</span>
 					<div class="project-buttons">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">프로젝트 추가</button>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">프로젝트 삭제</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">추가</button>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProjectModal">삭제</button>
 					</div>
 					<c:if test='${empty projects}'>
 						<h3><span style="color:red;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>  프로젝트를 등록해주세요</h3>

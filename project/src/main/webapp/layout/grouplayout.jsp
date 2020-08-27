@@ -50,6 +50,7 @@ body {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	width: 100%;
 }
 .container .nav_content .navbar .nav ul li {
 	display: none;

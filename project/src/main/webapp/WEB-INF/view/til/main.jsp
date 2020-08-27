@@ -11,6 +11,9 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+body {
+	overflow-x: hidden;
+}
 .containers {
 	margin: 0;
 	padding: 0;
@@ -329,6 +332,15 @@
 			var sidx = 1;
 			var num = 12;
 			var contentbox = $(".contentbox");
+			
+			$(window).scroll(function () {
+				var scrollHeight = $(window).scrollTop() + $(window).height(); 
+				var documentHeight = $(document).height();
+				if(scrollHeight == documentHeight) {
+					datasearch(input, type, sort, num, 8);
+					num += 8;
+				}
+			})
 			
 			function viewContent(data) {
 				if(num == 12) contentbox.html("");

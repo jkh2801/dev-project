@@ -20,16 +20,16 @@
     	box-sizing :border-box;
 	}
 	.content {
-		padding-top : 20px;
-		pdding-bottop : 30px;
+		padding : 20px 50px 30px 50px;
 	}
 	#content-profile-tab {
 		border : 1px solid #a473fa;
 		border-radius: 15px 15px 0 0;
 		/* background-color : #a473fa; */
 		padding : 8px 30px 4px 30px;
+		margin-top : 15px;
 		margin-left : 100px;
-		font-size : 25px;
+		font-size : 20px;
 		background: rgba(211,120,190,1);
 		background: -moz-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
 		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(211,120,190,1)), color-stop(0%, rgba(184,0,125,1)), color-stop(0%, rgba(200,91,169,1)), color-stop(100%, rgba(162,145,242,1)));
@@ -46,28 +46,30 @@
 		-webkit-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 		-moz-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 		box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
-		margin : 0 0 30px 0;
+		margin : 5px 0 30px 0;
+		height : 350px;
 	}
 	.profileimg-container {
 		padding :60px 60px 60px 60px;
+		text-align : center;
 	}
 	#profileimg {
-		width : 100%;
+		width : 70%;
 		height : auto;
 	}
 	.profiletext-container {
 		padding : 45px 0 0 50px;
 	}
 	#username {
-		font-size : 35px;
+		font-size : 30px;
 		font-weight : bold;
-		padding : 0 0 15px 20px;
+		padding : 0 0 5px 20px;
 	}
 	#email {
 		border-bottom : 1px solid gray;
 		padding : 0 0 10px 20px;
 		width : 75%;
-		font-size : 20px;
+		font-size : 15px;
 	}
 	.profile-icons {
 		padding : 15px 0 20px 0;
@@ -85,7 +87,9 @@
 		padding : 0 0 10px 20px;
 	}
 	.tag-name {
-		font-size : 25px;
+		font-size : 20px;
+		font-weight : bold;
+		margin-right : 30px;
 	}
 	#position-tags {
 		margin : 0 0 20px 0;
@@ -97,7 +101,7 @@
 		background-color : #e5e1f7;
 		border-radius : 5px;
 		color : #8572EE;
-		font-size : 20px;
+		font-size : 15px;
 	}
 	.stag {
 		padding : 4px 8px;
@@ -106,7 +110,7 @@
 		background-color : #4171f2;
 		border-radius : 5px;
 		color : white;
-		font-size : 20px;
+		font-size : 15px;
 	}
 	.usedtag {
 		padding : 4px 8px;
@@ -128,7 +132,7 @@
 		/* background-color : #a473fa; */
 		padding : 8px 30px 4px 30px;
 		margin-left : 100px;
-		font-size : 25px;
+		font-size : 20px;
 		background: rgba(211,120,190,1);
 		background: -moz-linear-gradient(left, rgba(211,120,190,1) 0%, rgba(184,0,125,1) 0%, rgba(200,91,169,1) 0%, rgba(162,145,242,1) 100%);
 		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(211,120,190,1)), color-stop(0%, rgba(184,0,125,1)), color-stop(0%, rgba(200,91,169,1)), color-stop(100%, rgba(162,145,242,1)));
@@ -145,7 +149,7 @@
 		-webkit-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 		-moz-box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
 		box-shadow: 0px 0px 5px 1px rgba(120,41,173,1);
-		margin : 0 0 30px 0;
+		margin : 5px 0 30px 0;
 		
 	}
 	/*timeline css*/
@@ -408,7 +412,7 @@
 				<div class="content-body">
 					<main>
 						<c:if test='${empty projects}'>
-							<h1 style="text-align : center; padding-top : 100px; padding-bottom: 100px;"><span style="color:red;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>  아직 등록된 프로젝트가 없습니다</h1>
+							<h1 style="text-align : center; padding-top : 100px; padding-bottom: 100px;font-size: 1.5rem;"><span style="color:red;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>  아직 등록된 프로젝트가 없습니다</h1>
 						</c:if>
 						<c:if test='${!empty projects}'>
 						<c:forEach var="pj" items="${projects}">

@@ -14,8 +14,8 @@
 	scroll-behavior: smooth;
 }
 section {
-	padding: 100px;
-	min-height: 100vh;
+	padding: 70px;
+	min-height: 91vh;
 }
 section:nth-child(even) {
 	background: #fff;
@@ -105,7 +105,7 @@ section .coworkingBx {
 	justify-content: space-between;
 	align-items: center;
 	max-width: 70%;
-	margin: 30px auto 0;
+	margin: 30px auto;
 }
 section .btn {
 	left: 45%;
@@ -115,7 +115,7 @@ section .btn {
 	flex-wrap: wrap;
 	flex-direction: row;
 	justify-content: center;
-	margin: 30px auto 0;
+	margin: 30px auto;
 	max-width: 70%;
 }
 #til .tilBx .containers-fluid {
@@ -219,7 +219,7 @@ section .btn {
 
 #coworking .card .news-content {
 	position: absolute;
-	top: +30px;
+	top: 30px;
 	padding: 10px 20px 60px;
 	background: #fff;
 	transition: .5s;
@@ -373,10 +373,59 @@ section .btn {
 #community .community_container .communityBx {
 	width: 40vw;
 }
+.scrollTop {
+	position: fixed;
+	bottom: 800px;
+	right: 40px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-size: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	z-index: 100000;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.5s;
+	border: 2px solid #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+	background: #fff;
+}
+.scrollTop:hover {
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5)
+}
+.scrollTop.active {
+	visibility: visible;
+	opacity: 1;
+	bottom: 40px;
+}
+.scrollTop .fa {
+	font-size: 30px;
+}
+#last {
+	background: #111;
+	padding: 0;
+	min-height: 80px;
+}
+#last .develop {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 20vw;
+	height: 80px;
+}
+#last .develop .developer{
+	color: #fff;
+	font-family: Poppins sans-serif;
+}
 </style>
 </head>
 <body>
-<div class="scrollTop" onclick="scrollToTop()"></div>
+<div class="scrollTop" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></div>
 		<section id="first">
 			<div class="textBx">
 				<h3>개발자를 위한 자기계발 사이트</h3>
@@ -421,8 +470,14 @@ section .btn {
 			<div class="coworkingBx"></div>
 			<a href="${path}/coworking/main.dev" class="btn">View More</a>
 		</section>
-		<section>
-		
+		<section id="last">
+			<div class="develop">
+				<div class="developer"> KeunHo Jung</div>
+				<div class="developer"> KyuHyun Han</div>
+				<div class="developer"> TaeHun Kim</div>
+				<div class="developer"> JoonSung Lee</div>
+				<div class="developer"> JeongHyun Cho</div>
+			</div>
 		</section>
 		<script type="text/javascript">
 			$(function() {
@@ -573,5 +628,18 @@ section .btn {
 				}
 			})
 		</script>
+		<script type="text/javascript">
+	window.addEventListener("scroll", function() {
+		var scroll = document.querySelector(".scrollTop");
+		scroll.classList.toggle("active", window.scrollY > 300);
+	})
+	
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
+	}
+</script>
 </body>
 </html>
