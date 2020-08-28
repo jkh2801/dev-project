@@ -17,9 +17,15 @@
 </head>
 <body>
 	<c:if test="${!empty member }">
-			<h2>${grouptitle}</h2>
+			<h1>${grouptitle}</h1><hr>
 			<div class="board">
-			<a href="../board/list.dev?no=${param.gno+100 }">공지사항</a>
+			<c:if test="${loginUser.name == membermaster}">
+				<a href="../board/list.dev?no=${param.gno+100 }">공지사항</a>
+			</c:if>
+			<c:if test="${loginUser.name != membermaster}">
+				<a>공지사항</a>
+			</c:if>
+			
 			<table>
 				<tr>
 					<th style="text-align: center;">제목</th>

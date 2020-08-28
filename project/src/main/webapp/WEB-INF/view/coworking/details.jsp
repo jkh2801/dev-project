@@ -106,6 +106,8 @@ html, body {
 	align-items: center;
 	justify-content: center;
 }
+
+
 </style>
 </head>
 <body>
@@ -162,23 +164,38 @@ html, body {
    <div class="w3-containers w3-border-top w3-padding-16 w3-light-grey w3-center w3-round-large">
     	<h2>프로젝트 지원</h2>
 	</div>
-    <div class="w3-containers w3-border-top w3-padding-16 w3-white w3-center">
+    <div class="w3-container">
     	<form action="details.dev" method="post" >
     	<input type="hidden" value="${loginUser.name}" name="name">
-    	<input type="hidden" value="${param.gno}" name="gno">
-	<table>
-		<caption>${cwk.title}</caption>
-		<tr><td>회원정보</td><td colspan="3" class="w3-left">${loginUser.name}</td></tr>
-		<tr><td>이메일</td><td><input type="text" value="${loginUser.email}"></td>
-			<td>전화번호</td><td><input type="text" value="${loginUser.phone}"></td></tr>
-		<tr><td>주언어</td><td><input type="text" name="lang"></td></tr>
-		<tr><td>남기는 말</td><td><textarea name="comment" style="width:300px; height:200px;"></textarea></td></tr>
-	</table>
-	<div class="w3-containers w3-border-top w3-padding-16 w3-white w3-center">
-		<input type="submit" value="신청" class="w3-btn w3-black w3-round-xxlarge">
-		<span onclick="document.getElementById('join').style.display='none'" class="w3-button">취소</span>
-	</div>
-	</form>
+	    <input type="hidden" value="${param.gno}" name="gno">
+	    
+	    <p>
+			<label>Name</label>
+			<input class="w3-input" type="text" value="${loginUser.name}"></p>
+		<p>
+	    <p>
+			<label>Email</label>
+			<input class="w3-input" type="text" value="${loginUser.email}"></p>
+		<p>
+	    <p>
+			<label>Languege</label>
+			<input class="w3-input" type="text" name="lang"></p>
+		<p>
+		<p>
+			<label>Phone Number</label>
+			<input class="w3-input" type="text" value="${loginUser.phone}"></p>
+		<p>
+		<p>
+			<label>Comment</label>
+		<p>
+		<textarea name="comment" style="width:100%; height:200px;"></textarea>
+	    
+		<div class="w3-containers w3-border-top w3-padding-16 w3-white w3-center">
+			<input type="submit" value="신청" class="w3-btn w3-black w3-round-xxlarge">
+			<span onclick="document.getElementById('join').style.display='none'" class="w3-button">취소</span>
+		</div>
+		
+		</form>
 	</div>
   </div>
 </div>

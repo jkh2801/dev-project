@@ -82,9 +82,21 @@ public class TILController {
 	@RequestMapping("mytil")
 	public ModelAndView mytillist(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String name = ((User)session.getAttribute("loginUser")).getName();
-		List<TIL> tillist = service.mytillist(name);
-		mav.addObject("tillist", tillist);
+		User user = (User)session.getAttribute("loginUser");
+		List <TIL> list = service.getTillistByName(null, "title", 0, 0, 12, user.getName());
+		List <Hashtag> hash = service.getHashtaglist(3);
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			map.put(list.get(i).getBno(), i);
+		}
+		for(Hashtag h : hash) {
+			if(map.containsKey(h.getWno())) {
+				list.get(map.get(h.getWno())).addHashlist(h.getHashname());
+			}
+		}
+//		List<TIL> tillist = service.mytillist(name);
+		System.out.println(list);
+		mav.addObject("tillist", list);
 
 		return mav;
 
@@ -118,7 +130,6 @@ public class TILController {
 		
 		til.setNo(no);
 		til.setBno(bno);
-		System.out.println(til);
 		try {
 			service.tilUpdate(til, request);
 			
@@ -177,6 +188,19 @@ public class TILController {
 		mav.addObject("subuser", subuser);
 		return mav;
 	}
+	
+	@RequestMapping("youtil")
+	public ModelAndView youtillist(String name) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<TIL> tillist = service.youtillist(name);
+		mav.addObject("tillist", tillist);
+
+		return mav;
+
+	}
+
+	
 	
 
 }

@@ -56,4 +56,20 @@ public interface TilMapper {
 			+ "</script>"})
 	List<TIL> getHashTillist(Map<String, Object> param);
 
+	@Select({"<script> select b.no, b.bno, b.name, b.title, b.regdate, b.open, IFNULL(SUM(g.POINT),0) point FROM board b LEFT JOIN goodorbad g ON b.no = g.no AND b.bno = g.wno "
+	         + "<where>"
+	         + "<if test='searchtype != null and searchinput != null '> ${searchtype} like '%${searchinput}%' </if>"
+	         + "<if test='no != null '> and b.no = #{no}</if>"
+	         + "<if test='name != null '> and b.name = #{name} </if>"
+	         + "</where>"
+	         + " GROUP BY b.bno  "
+	         + "<if test='searchsort != null '> order by ${searchsort} desc </if> "
+	         + " limit #{num} , #{limit}  "
+	         + "</script>"})
+	List<TIL> getTillistByName(Map<String, Object> param);
+
+
+	@Select("select * from board where no = 3 and name=#{name} and open=0 ORDER BY regdate desc")
+	List<TIL> youtillist(Map<String, Object> param);
+
 }

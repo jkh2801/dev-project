@@ -313,8 +313,8 @@ body {
 		</div>
 		<div class="searchArea">
 			<div class="filter">
-				<span><a href="#">최신순</a>&nbsp;/</span> <span><a href="#">트렌딩</a>&nbsp;/</span>
-				<span><a href="#">구독 TIL</a></span>
+				<span><a href="#">최신순</a>&nbsp;/</span> <span><a href="#">트렌딩</a></span>
+				<!-- <span><a href="#">구독 TIL</a></span> -->
 			</div>
 			<div class="plus">
 				<div class="box">

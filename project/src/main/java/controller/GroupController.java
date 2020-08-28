@@ -30,7 +30,7 @@ public class GroupController {
 	}
 	
 	@GetMapping("memberlist")
-	public ModelAndView adminList(Integer gno, HttpSession session) {
+	public ModelAndView loginCheckadminList(Integer gno, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("loginUser");
 		String name = loginUser.getName();
@@ -43,6 +43,8 @@ public class GroupController {
 			else if (g.getCategory().equals("공모전")) contest.add(g);
 			else project.add(g);
 		}
+		String grouptitle = service.grouptitle(gno);
+		mav.addObject("grouptitle",grouptitle);
 		mav.addObject("study",study);
 		mav.addObject("contest",contest);
 		mav.addObject("project",project);

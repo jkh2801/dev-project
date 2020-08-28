@@ -346,7 +346,7 @@
 	right: 0;
 	background-color: #FFF;
 	z-index: 10000;
-	width: 250px;
+	width: 220px;
 }
 
 .date-picker .dates.active {

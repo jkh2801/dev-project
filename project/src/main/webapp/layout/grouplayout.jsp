@@ -82,7 +82,7 @@ body {
 	border-radius: 0 10px 10px 0;
 	min-height: 70vh;
 }
-.content h2 {
+.content h1 {
 	text-align: center;
 }
 .content .board a {
@@ -134,6 +134,11 @@ body {
 	float: left;
 	padding: 10px 50px;
 }
+
+.main .container .nav_content .navbar .nav{
+	width: 100%;
+}
+
 </style>
 </head>
 <body>

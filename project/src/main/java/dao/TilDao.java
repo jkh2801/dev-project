@@ -75,4 +75,24 @@ public class TilDao {
 		if(type != null && type.equals("hashname")) return template.getMapper(TilMapper.class).getHashTillist(param);
 		return template.getMapper(TilMapper.class).getTillist(param);
 	}
+
+	public List<TIL> getTillistByName(String input, String type, int sort, int num, int limit, String name) {
+		param.clear();
+		param.put("searchinput",input);
+		param.put("searchtype",type);
+		param.put("no",3);
+		if(sort == 0) param.put("searchsort","regdate");
+		param.put("num",num);
+		param.put("limit",limit);
+		param.put("name", name);
+		System.out.println(param);
+		return template.getMapper(TilMapper.class).getTillistByName(param);
+	}
+
+	public List<TIL> youtillist(String name) {
+		param.clear();
+		param.put("name", name);
+		return template.getMapper(TilMapper.class).youtillist(param);
+		
+	}
 }

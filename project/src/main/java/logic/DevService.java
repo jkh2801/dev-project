@@ -498,4 +498,12 @@ public class DevService {
 		
 	}
 
+	public List<TIL> getTillistByName(String input, String type, int sort, int num, int limit, String name) {
+		return tilDao.getTillistByName(input, type, sort, num, limit, name);
+	}
+
+	public List<TIL> youtillist(String name) {
+		return tilDao.youtillist(name);
+	}
+
 }

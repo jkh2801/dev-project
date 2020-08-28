@@ -52,12 +52,11 @@
 </style>
 </head>
 <body>
-<h2>강남 스터디</h2>
+<h1>${grouptitle}</h1><hr>
 <div class="boardinfo">
 	<div class="header">신청관리</div>
 	<table>
 		<tr>
-			<th>No</th>
 			<th>Name</th>
 			<th>Language</th>
 			<th>Phone number</th>
@@ -67,7 +66,6 @@
 		</tr>
 		<c:forEach items="${apply}" var="apply">
 			<tr>
-				<td>${apply.gno }</td>
 				<td>${apply.name }</td>
 				<td>${apply.lang }</td>
 				<td>${apply.phone }</td>
@@ -83,7 +81,6 @@
 	<div class="header">팀원관리</div>
 	<table>
 	<tr>
-			<th>No</th>
 			<th>Name</th>
 			<th>Language</th>
 			<th>Phone number</th>
@@ -93,7 +90,6 @@
 		</tr>
 		<c:forEach items="${member}" var="member">
 			<tr>
-				<td>${member.gno }</td>
 				<td>${member.name }</td>
 				<td>${member.lang }</td>
 				<td>${member.phone }</td>

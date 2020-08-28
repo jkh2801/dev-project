@@ -45,8 +45,10 @@
 									<c:if test="${subuser.scrapper == sessionScope.loginUser.name}">
 										<c:if test="${subuser.scrapped == list.name}">
 											<tr>
-												<td>${list.id}</td>
-												<td>${list.name}</td>
+												<td><a href="${path}/til/youtil.dev?name=${list.name}">${list.id}</a></td>
+												<td><a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="${list.name}">
+											 ${list.name}
+											</a></td>
 												<td>${list.email}</td>
 												<td><input type="button" value="구독 취소 " id=subdelete data-target="${list.name}" class="btn btn-danger"></td>
 											</tr>
