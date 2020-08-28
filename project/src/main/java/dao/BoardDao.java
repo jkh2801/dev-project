@@ -144,7 +144,15 @@ public class BoardDao {
 		return template.getMapper(BoardMapper.class).getCommunitylist(param);
 	}
 
+	public void goodorbadDelete(Board board) {
+		template.getMapper(BoardMapper.class).goodorbadDelete(board);
+		
+	}
 
+	public void replyListDelete(Board board) {
+		template.getMapper(BoardMapper.class).replyListDelete(board);
+		
+	}
 
 
 }

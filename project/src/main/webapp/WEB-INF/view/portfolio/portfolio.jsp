@@ -347,6 +347,7 @@
 			<div class="content-header">
 				<div class="row">
 				  <div class="col-sm-4 profileimg-container">
+				  <div></div>
 					<img src="${path}/profile/${loginUser.name}.jpg" alt="프로필 이미지를 등록해주세요" width="150" height="160" id="profileimg">
 				  </div>
 				  <div class="col-sm-8 profiletext-container">

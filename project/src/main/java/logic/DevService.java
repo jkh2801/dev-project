@@ -479,5 +479,23 @@ public class DevService {
 		replyDao.replyUpdate(reply);
 		
 	}
+	
+	public void goodorbadDelete(Board Board) {
+		boardDao.goodorbadDelete(Board);
+		
+	} 
+
+	public void deleteMessage(int meno) {
+		messageDao.deleteMessage(meno);
+	}
+
+	public void banUser(String name) {
+		userDao.banUser(name);
+	}
+	
+	public void replyListDelete(Board Board) {
+		boardDao.replyListDelete(Board);
+		
+	}
 
 }

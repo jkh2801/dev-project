@@ -27,7 +27,7 @@ CREATE TABLE Board
 (
 	no int(11) NOT NULL,
 	bno int(11) NOT NULL,
-	name varchar(20),
+	name varchar(20) NOT NULL,
 	title varchar(100),
 	content varchar(4000),
 	regdate datetime,
@@ -44,7 +44,7 @@ CREATE TABLE calendar
 	content varchar(4000),
 	start datetime,
 	end datetime,
-	color varchar(20),
+	color varchar(20) NOT NULL,
 	address varchar(50),
 	PRIMARY KEY (gno, cno)
 );
@@ -54,7 +54,8 @@ CREATE TABLE File
 (
 	-- 
 	-- 
-	no int(11) NOT NULL,
+	no int(11) NOT NULL COMMENT '
+',
 	wno int(11) NOT NULL,
 	fno int NOT NULL,
 	name varchar(20),
@@ -108,6 +109,8 @@ CREATE TABLE Project
 	description varchar(4000),
 	repository varchar(100),
 	able boolean,
+	start datetime,
+	end datetime,
 	PRIMARY KEY (name, prono)
 );
 
@@ -116,14 +119,14 @@ CREATE TABLE Reply
 (
 	no int(11) NOT NULL,
 	rno int(11) NOT NULL,
-	bno int(11),
+	bno int(11) NOT NULL,
 	name varchar(20),
 	content varchar(4000),
 	regdate datetime,
 	grp int(11),
 	grplevel int(11),
 	grpstep int(11),
-	PRIMARY KEY (no, rno)
+	PRIMARY KEY (no, rno, bno)
 );
 
 
@@ -161,7 +164,7 @@ CREATE TABLE Tag
 	no int(11) NOT NULL,
 	wno int(11) NOT NULL,
 	tno int(11) NOT NULL,
-	tag varchar(20),
+	tag varchar(50),
 	PRIMARY KEY (no, wno, tno)
 );
 
@@ -169,7 +172,7 @@ CREATE TABLE Tag
 CREATE TABLE User
 (
 	name varchar(20) NOT NULL,
-	uno int(11),
+	uno int(11) NOT NULL,
 	id varchar(10),
 	pw varchar(15),
 	email varchar(50),
@@ -202,7 +205,7 @@ CREATE TABLE User_group
 CREATE TABLE Working
 (
 	gno int(11) NOT NULL,
-	name varchar(20),
+	name varchar(20) NOT NULL,
 	title varchar(100),
 	category varchar(20),
 	content varchar(4000),
@@ -213,6 +216,7 @@ CREATE TABLE Working
 	process varchar(20),
 	grade varchar(100),
 	loc varchar(200),
+	regdate datetime,
 	PRIMARY KEY (gno)
 );
 
@@ -237,7 +241,7 @@ ALTER TABLE Board
 
 
 ALTER TABLE Message
-	ADD FOREIGN KEY (me_from)
+	ADD FOREIGN KEY (me_to)
 	REFERENCES User (name)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -245,7 +249,7 @@ ALTER TABLE Message
 
 
 ALTER TABLE Message
-	ADD FOREIGN KEY (me_to)
+	ADD FOREIGN KEY (me_from)
 	REFERENCES User (name)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT

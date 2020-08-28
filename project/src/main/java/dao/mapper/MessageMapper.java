@@ -3,6 +3,7 @@ package dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -19,4 +20,6 @@ public interface MessageMapper {
 	@Select("select * from message where me_from=#{name} or me_to=#{name}")
 	List<Message> getMessageList(Map<String, Object> param);
 
+	@Delete("delete from message where meno=#{meno}")
+	void deleteMessage(Map<String, Object> param);
 }

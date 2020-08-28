@@ -106,4 +106,11 @@ public interface BoardMapper {
 
 	@Select("SELECT * from board where no= #{no} order by bno desc limit 0 , #{limit} ")
 	List<Board> list2(Map<String, Object> param);
+	
+	@Delete("delete from goodorbad where wno= #{bno} and no=#{no}")
+	void goodorbadDelete(Board board);
+
+
+	@Delete("delete from reply where bno= #{bno} and no=#{no}")
+	void replyListDelete(Board board);
 }

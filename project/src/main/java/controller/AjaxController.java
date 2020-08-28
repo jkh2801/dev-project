@@ -95,7 +95,7 @@ public class AjaxController {
 			searchtype = null;
 		}
 		List<Coworking> list = service.getWorkinglist(searchtype, searchinput, searchsort, category, num, limit);
-		List<Hashtag> hash = service.getHashtaglist(3);
+		List<Hashtag> hash = service.getHashtaglist(6);
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < list.size(); i++) {
 			map.put(list.get(i).getGno(), i);
@@ -593,6 +593,22 @@ public class AjaxController {
 		service.replyUpdate(reply);
 		
 		
+		return null;
+	}
+	
+	@PostMapping(value="deleteMessage", produces="text/plain; charset=UTF-8")
+	public String deleteMessage(HttpServletRequest request, HttpSession session) {
+		String[] menolist = request.getParameterValues("menolist");
+		for(String m : menolist) {
+			int meno = Integer.parseInt(m);
+			service.deleteMessage(meno);
+		}
+		return null;
+	}
+	@PostMapping(value="banUser", produces="text/plain; charset=UTF-8")
+	public String banUser(HttpServletRequest request, HttpSession session) {
+		String name = request.getParameter("targetuser");
+		service.banUser(name);
 		return null;
 	}
 }

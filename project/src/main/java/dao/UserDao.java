@@ -89,4 +89,10 @@ public class UserDao {
 		param.put("addedAlertnum", addedAlertnum);
 		template.getMapper(UserMapper.class).warnUser(param);
 	}
+	
+	public void banUser(String name) {
+		param.clear();
+		param.put("name", name);
+		template.getMapper(UserMapper.class).banUser(param);
+	}
 }

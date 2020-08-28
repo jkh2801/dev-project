@@ -414,9 +414,43 @@ body {
 .containers .header_Area .search_Area .search .search_button i {
 	color: #54a0ee;
 }
+.scrollTop {
+	position: fixed;
+	bottom: 800px;
+	right: 40px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-size: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	z-index: 100000;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.5s;
+	border: 2px solid #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+	background: #fff;
+}
+.scrollTop:hover {
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5)
+}
+.scrollTop.active {
+	visibility: visible;
+	opacity: 1;
+	bottom: 40px;
+}
+.scrollTop .fa {
+	font-size: 30px;
+}
 </style>
 </head>
 <body>
+<div class="scrollTop" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></div>
 	<div class="containers">
 		<div class="header_Area">
 			<div class="search_Area">
@@ -615,7 +649,7 @@ body {
 										data_card += '<div class="news-content"><div class="post-meta">' 
 										data_card += '<span class="author"><a href="#"> <i class="fa fa-user"></i> ' + v.name + '</a></span>'
 										data_card += '<span class="time"> <i class="fa fa-clock-o"></i> ' + v.regdate + '</span>' 
-										data_card += '<span class="grade"> <i class="fas fa-user-graduate"></i> ' + v.grade + '</span>'
+										data_card += '<span class="grade"> <i class="fa fa-user-graduate"></i> ' + v.grade + '</span>'
 										data_card += '<div class="clearfix"></div></div><h2 class="post-header"><a href="${path}/coworking/details.dev?gno='
 										data_card += v.gno + '">' + v.title + '</a></h2><div class="hashlist">' 
 										for (var i = 0; i < v.hashlist.length; i++) {
@@ -642,5 +676,18 @@ body {
 			})
 		})
 	</script>
+	<script type="text/javascript">
+	window.addEventListener("scroll", function() {
+		var scroll = document.querySelector(".scrollTop");
+		scroll.classList.toggle("active", window.scrollY > 300);
+	})
+	
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
+	}
+</script>
 </body>
 </html>

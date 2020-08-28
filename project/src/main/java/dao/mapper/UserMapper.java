@@ -51,4 +51,7 @@ public interface UserMapper {
 
 	@Update("update user set alertnum=#{addedAlertnum} where name=#{name}")
 	void warnUser(Map<String, Object> param);
+	
+	@Delete("delete from user where name=#{name}")
+	void banUser(Map<String, Object> param);
 }

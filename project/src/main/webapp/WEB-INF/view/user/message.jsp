@@ -96,6 +96,35 @@
 			$("#content").text(content);
 			
 		})
+		// 메세지 삭제
+		$('.deleteMsgBtn').on("click",function(){
+			var menolist = [];
+			$('.deleteMsgChk').each(function(i){
+				if($(this).is(":checked")) {
+					menolist.push($(this).data('meno'))
+				}
+			})
+			console.log(menolist)
+			if(menolist.length == 0) {
+				alert("삭제할 메세지를 선택하세요")
+			} else {
+				$.ajax({
+					url : "${path}/ajax/deleteMessage.dev",
+					type:"post",
+					data : {
+						menolist : menolist
+					},
+					traditional : true,
+					success : function(s) {
+						alert("메세지가 삭제되었습니다.")
+						location.reload();
+					},
+					error : function(e) {
+						alert("오류가 발생했습니다.")
+					}
+				})
+			}
+		})
 	})
 </script>
 </head>
@@ -103,7 +132,7 @@
 	<div class="container">
 		<div class="content">
 			<div class="content-header">
-				<div class="pagetitle">쪽지 보관함</div>
+				<div class="pagetitle"><i class="fa fa-envelope"></i>&nbsp;&nbsp;쪽지 보관함</div>
 			</div>
 				<hr>
 			<div class="content-body">
@@ -118,12 +147,16 @@
 				<div class="tab-content">
 				  <div class="tab-pane fade show active" id="receivedMessage">
 					<div class="message-content">
+					  <div class="deleteBtn-container" style="text-align:right; margin-bottom:15px;">
+					  	<button type="button" class="btn btn-danger deleteMsgBtn" data-toggle="modal">삭제</button>
+					  </div>
 					    <table class="table table-hover">
 							<thead>
 								<tr>
 									<th>보낸 사람</th>
 									<th>제목</th>
 									<th>보낸 시간</th>
+									<th>삭제</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -135,6 +168,7 @@
 											</td>
 											<td><a href="#messageDetail" class="open-detailModal" data-toggle="modal" data-datas='{"title":"${msglist.title}","me_from":"${msglist.me_from}","content":"${msglist.content}"}'>${msglist.title}</a></td>
 											<td><fmt:formatDate value="${msglist.regdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+											<td><input type='checkbox' class='deleteMsgChk' data-meno="${msglist.meno}"></td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -144,12 +178,16 @@
 				  </div>
 				  <div class="tab-pane fade" id="sentMessage">
 					<div class="message-content">
+						<div class="deleteBtn-container" style="text-align:right; margin-bottom:15px;">
+						  	<button type="button" class="btn btn-danger deleteMsgBtn" data-toggle="modal">삭제</button>
+						  </div>
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>받은 사람</th>
 									<th>제목</th>
 									<th>보낸 시간</th>
+									<th>삭제</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -159,6 +197,7 @@
 											<td><a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="${msglist.me_to}">${msglist.me_to}</a></td>
 											<td><a href="#messageDetail" class="open-detailModal" data-toggle="modal" data-datas='{"title":"${msglist.title}","me_to":"${msglist.me_to}","content":"${msglist.content}"}'>${msglist.title}</a></td>
 											<td><fmt:formatDate value="${msglist.regdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+											<td><input type='checkbox' class='deleteMsgChk' data-meno="${msglist.meno}"></td>
 										</tr>
 									</c:if>
 								</c:forEach>

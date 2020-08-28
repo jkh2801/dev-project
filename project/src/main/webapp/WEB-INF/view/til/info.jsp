@@ -26,6 +26,14 @@
 	display: flex;
 	justify-content: space-between;
 }
+.containers .infobox .simpleinfo .data a{
+	text-decoration: none;
+	transition: 0.5s;
+	color: #000;
+}
+.containers .infobox .simpleinfo .data a:hover{
+	color: #DF084A;
+}	
 
 .containers .infobox .simpleinfo .button a {
 	text-decoration: none;
@@ -142,7 +150,11 @@
 					<h1>${til.title}</h1>
 				</div>
 				<div class="simpleinfo">
-					<div class="data">${til.name}
+					<div class="data">
+					<c:if test="${loginUser.name != til.name}"><a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="${til.name}">
+					${til.name}
+					</a></c:if>
+					<c:if test="${loginUser.name == til.name}">${til.name}</c:if>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<fmt:formatDate value="${til.regdate}" pattern="yyyy년 MM월 dd일" />
 					</div>
@@ -158,10 +170,11 @@
 						</c:choose>
 
 					</div>
-
+					<c:if test="${loginUser.name == til.name }">
 					<div class="button">
 						<a href="#">수정</a>&nbsp;<a href="#">삭제</a>
 					</div>
+					</c:if>
 				</div>
 			</div>
 			<c:if test="${!empty hashlist}">

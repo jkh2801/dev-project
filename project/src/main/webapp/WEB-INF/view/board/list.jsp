@@ -110,9 +110,9 @@
 				<c:if test="${ !(no >=100) }">
 				<c:if test="${  no !=10  }">
 					<th width="5%">추천</th>
-					<c:if test="${no!=5 }">
+					<%-- <c:if test="${no!=5 }">
 					<th width="12%">기술</th>
-					</c:if>
+					</c:if> --%>
 				</c:if>
 				</c:if>
 				<th width="8%">날짜</th>
@@ -146,9 +146,9 @@
 						<c:if test="${ !(no >=100) }">	
 						<c:if test="${no != 10}">
 							<td>${board.point }</td>
-					<c:if test="${no!=5 }">
+					<%-- <c:if test="${no!=5 }">
 							<td>궁금한 기술</td>
-							</c:if>
+							</c:if> --%>
 							</c:if>
 						</c:if>
 						<td><c:if test="${today == regdate}">

@@ -150,6 +150,8 @@ public class BoardController {
 			if (dbBoard.getName().equals(user.getName())) {
 
 				service.boardDelete(dbBoard);
+				service.goodorbadDelete(dbBoard);   //추가
+				service.replyListDelete(dbBoard); //추가	
 				mav.setViewName("redirect:list.dev?no=" + no);
 				return mav;
 			}
@@ -197,5 +199,7 @@ public class BoardController {
 		}
 		return mav;
 	}
+	
+	
 
 }

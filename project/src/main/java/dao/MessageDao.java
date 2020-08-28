@@ -29,4 +29,10 @@ public class MessageDao {
 		param.put("name", name);
 		return template.getMapper(MessageMapper.class).getMessageList(param);
 	}
+	
+	public void deleteMessage(int meno) {
+		param.clear();
+		param.put("meno", meno);
+		template.getMapper(MessageMapper.class).deleteMessage(param);
+	}
 }

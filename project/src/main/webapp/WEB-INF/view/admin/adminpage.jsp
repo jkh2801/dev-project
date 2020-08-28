@@ -22,6 +22,7 @@
 </style>
 <script>
 	$(function(){
+		//경고
 		$(".warning").on("click",function(){
 			var warningTarget = $(this).data('target');
 			console.log(warningTarget)
@@ -40,6 +41,26 @@
 				}
 			})
 		})	
+		
+		//강제탈퇴
+		$(".banUser").on("click",function() {
+			var targetuser = $(this).data('username');
+			console.log(targetuser)
+			$.ajax({
+				url : "${path}/ajax/banUser.dev",
+				type : "post",
+				data : {
+					targetuser : targetuser
+				},
+				success : function(s) {
+					alert(targetuser + "를 탈퇴시켰습니다.")
+					location.reload();
+				},
+				error : function(e) {
+					alert("오류발생")
+				}
+			})
+		})
 	})
 </script>
 </head>
@@ -109,7 +130,7 @@
 									<td>${list.alertnum}</td>
 									<td>
 										<c:if test="${list.id != 'admin'}">
-											<a href=#><button type="button" class="btn btn-danger btn-sm">강제탈퇴</button></a>
+											<a href=#><button type="button" class="btn btn-danger btn-sm banUser" data-username="${list.name}">강제탈퇴</button></a>
 										</c:if>
 									</td>
 								</tr>

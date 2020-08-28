@@ -77,6 +77,12 @@ section .service-content .serviceBx p {
 	margin-top: 20px;
 	font-weight: bold;
 }
+section .service-content .serviceBx h3 {
+	font-size: 1.17em;
+	font-weight: bold;
+	margin: 0;
+	line-height: 1.5;
+}
 section .slider-box {
 	height: 300px;
 	border: 3px solid #000;
@@ -362,7 +368,8 @@ section .btn {
 	color: white;
 }
 #community {
-	background: aliceblue;
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #000;
 }
 #community .community_container {
 	display: flex;
@@ -614,7 +621,7 @@ section .btn {
 											data_card += '<div class="news-content"><div class="post-meta">' 
 											data_card += '<span class="author"><a href="#"> <i class="fa fa-user"></i> ' + v.name + '</a></span>'
 											data_card += '<span class="time"> <i class="fa fa-clock-o"></i> ' + v.regdate + '</span>' 
-											data_card += '<span class="grade"> <i class="fas fa-user-graduate"></i> ' + v.grade + '</span>'
+											data_card += '<span class="grade"> <i class="fa fa-user-graduate"></i> ' + v.grade + '</span>'
 											data_card += '<div class="clearfix"></div></div><h2 class="post-header"><a href="${path}/coworking/details.dev?gno='
 											data_card += v.gno + '">' + v.title + '</a></h2><div class="hashlist">' 
 											for (var i = 0; i < v.hashlist.length; i++) {

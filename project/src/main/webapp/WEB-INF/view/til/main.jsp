@@ -213,6 +213,13 @@ body {
 	transition: .5s;
 }
 
+.card .news-content .post-meta .author{
+	padding-right: 10px;
+	color: black;
+	font-weight: bold;
+	transition: .5s;
+}
+
 .card .news-content .post-meta .time {
 	padding-right: 10px;
 	color: black;
@@ -226,9 +233,9 @@ body {
 
 .card .news-content .post-header {
 	margin: 0;
-	padding: 10px 0;
+	padding: 10px 0 0;
 	color: #007DA6;
-	height: 40px;
+	height: 33px;
 	font-size: 18px;
 	overflow: hidden;
 	font-weight: bold;
@@ -257,9 +264,43 @@ body {
 .card .news-content .post-footer .like .fa-heart:before {
 	color: #f00;
 }
+.scrollTop {
+	position: fixed;
+	bottom: 800px;
+	right: 40px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-size: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	z-index: 100000;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.5s;
+	border: 2px solid #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+	background: #fff;
+}
+.scrollTop:hover {
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5)
+}
+.scrollTop.active {
+	visibility: visible;
+	opacity: 1;
+	bottom: 40px;
+}
+.scrollTop .fa {
+	font-size: 30px;
+}
 </style>
 </head>
 <body>
+<div class="scrollTop" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></div>
 	<div class="containers">
 		<div class="header_Area">
 			<div class="search_Area">
@@ -296,7 +337,12 @@ body {
 										</h2>
 										<hr class="hr">
 										<div class="post-meta">
-											<span class="author"><a href="#"> <i class="fa fa-user"></i> ${data.name }</a></span> 
+											<span class="author">
+											<c:if test="${loginUser.name != data.name}"><a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="${data.name}">
+											<i class="fa fa-user"></i> ${data.name}
+											</a></c:if>
+											<c:if test="${loginUser.name == data.name}"><i class="fa fa-user"></i> ${data.name}</c:if>
+											</span> 
 											<span class="time"> <i class="fa fa-clock-o"></i> <fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd" /></span>
 										</div>
 										<div class="hashlist">
@@ -332,6 +378,7 @@ body {
 			var sidx = 1;
 			var num = 12;
 			var contentbox = $(".contentbox");
+			var name = "${loginUser.name}";
 			
 			$(window).scroll(function () {
 				var scrollHeight = $(window).scrollTop() + $(window).height(); 
@@ -353,9 +400,15 @@ body {
 						data_card += v.no
 						data_card += '">'
 						data_card += v.title
-						data_card += '</a></h2><hr class="hr"><div class="post-meta"><span class="author"><a href="#"> <i class="fa fa-user"></i>&nbsp;'
-						data_card += v.name
-						data_card += '</a></span> <span class="time"> <i class="fa fa-clock-o"></i>&nbsp;'
+						data_card += '</a></h2><hr class="hr"><div class="post-meta"><span class="author">'
+						if (name == v.name) {
+							data_card += '<i class="fa fa-user"></i> '+v.name
+						}else{
+							data_card += '<a href="#profileInfo" class="open-profileInfoModal" data-toggle="modal" data-name="'+v.name
+							data_card += '">'
+							data_card += '<i class="fa fa-user"></i> '+v.name + ' </a>'
+						}
+						data_card += '</span> <span class="time"> <i class="fa fa-clock-o"></i>&nbsp;'
 						data_card += v.regdate
 						data_card += '</span></div><div class="hashlist">'
 						for (var i = 0; i < v.hashlist.length; i++) {
@@ -426,5 +479,18 @@ body {
 			})
 		})
 	</script>
+	<script type="text/javascript">
+	window.addEventListener("scroll", function() {
+		var scroll = document.querySelector(".scrollTop");
+		scroll.classList.toggle("active", window.scrollY > 300);
+	})
+	
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
+	}
+</script>
 </body>
 </html>
